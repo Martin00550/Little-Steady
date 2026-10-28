@@ -221,7 +221,6 @@ a.button:hover {
   line-height: 1.7;
   color: #454545;
 }
-/* Plain front-facing cover concepts, without decorative staging. */
 .book {
   position: relative;
   aspect-ratio: 0.72;
@@ -230,65 +229,6 @@ a.button:hover {
   overflow: hidden;
   box-shadow: 3px 4px 0 #e4e4e4;
   container-type: inline-size;
-}
-.book--tantrums {
-  background: #f6f3ea;
-  color: #173c2c;
-}
-.book--mealtimes {
-  background: #244e3b;
-  color: #fff;
-}
-.book-spine {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 7px;
-  border-right: 1px solid #0002;
-}
-.book-content {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10% 7% 7% 10%;
-}
-.book-brand {
-  font-size: 5.5cqw;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.book-brand svg {
-  display: none;
-}
-.book-title {
-  font-size: 13cqw;
-  font-weight: 700;
-  line-height: 1.17;
-  text-align: center;
-  margin-top: 16%;
-  letter-spacing: -0.035em;
-}
-.book-title-dot {
-  display: none;
-}
-.book-rule {
-  width: 25%;
-  border-top: 1px solid currentColor;
-  margin-top: 11%;
-}
-.book-art {
-  width: 75%;
-  flex: 1;
-  min-height: 0;
-  margin-top: 8%;
-}
-.book-footer {
-  font-size: 4cqw;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  margin-top: 8%;
 }
 .sales-prose {
   width: min(720px, calc(100% - 48px));
@@ -869,35 +809,15 @@ a.button:hover {
     animation: none !important;
   }
 }
-
-/* Explain the optional combined offer without a multi-plan pricing grid. */
 .sales-offer .offer-title {
   text-align: center;
   font-size: 1.5rem;
   margin-block: 6px 22px;
 }
-.sales-chatbot-offer {
-  margin-top: 28px;
-  border: 1px solid #777;
-  background: #fff;
-}
-.sales-offer .sales-payment-breakdown {
-  font-size: 0.9rem;
-  text-align: center;
-  margin-top: 14px;
-  color: #333;
-}
-.sales-price-pending {
-  text-align: center;
-  font-weight: 700;
-}
 .sales-guarantee h4 {
   font-size: 1rem;
   line-height: 1.5;
   margin: 0;
-}
-.offer-separation {
-  margin-top: 20px;
 }
 .sales-examples {
   margin-block: 27px;
@@ -933,8 +853,117 @@ a.button:hover {
   .sales-offer .offer-title {
     font-size: 1.3rem;
   }
-  .sales-offer .sales-payment-breakdown {
-    font-size: 0.85rem;
-    line-height: 1.8;
+}
+
+.brand img {
+  display: block;
+  max-width: 185px;
+  max-height: 58px;
+  object-fit: contain;
+}
+.checkout-status {
+  font-size: 0.85rem !important;
+  text-align: center;
+  color: #454545;
+  margin-top: 12px !important;
+}
+.inclusion-ownership {
+  font-size: 0.85rem !important;
+  font-weight: 700;
+  color: #174d35;
+  margin-top: 12px !important;
+}
+.sales-cancellation {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid #d4d4d4;
+}
+.sales-cancellation > strong {
+  display: block;
+  font-size: 1rem;
+}
+.sales-cancellation > p {
+  font-size: 0.9rem;
+  margin-top: 10px;
+  color: #333;
+}
+.thankyou-membership {
+  border: 1px solid #c9c9c9;
+  background: #fafafa;
+  padding: 28px;
+  margin-top: 32px;
+}
+.thankyou-membership h2 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+}
+.thankyou-membership > p {
+  margin-top: 22px;
+  font-size: 0.85rem;
+}
+.thankyou-help p + p {
+  margin-top: 16px;
+}
+.starter-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 24px;
+}
+.starter-question {
+  background: #f7f7f7;
+  border: 1px solid #d6d6d6;
+  padding: 18px;
+  border-radius: 3px;
+}
+.starter-question p {
+  font-size: 1rem;
+}
+.copy-button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #888;
+  background: #fff;
+  padding: 10px 13px;
+  border-radius: 3px;
+  min-height: 44px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-top: 14px;
+}
+.copy-button:hover {
+  background: #eee;
+}
+.copy-fallback {
+  font-size: 0.8rem !important;
+  margin-top: 12px;
+}
+@media (max-width: 600px) {
+  .brand img {
+    max-width: 155px;
+    max-height: 45px;
+  }
+  .thankyou-membership {
+    padding: 23px;
+  }
+}
+
+.book {
+  display: block;
+  aspect-ratio: 2 / 3;
+  background: #fffdf7;
+}
+.book img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.sales-books .book {
+  width: 230px;
+}
+@media (max-width: 600px) {
+  .sales-books .book {
+    width: min(43%, 190px);
   }
 }

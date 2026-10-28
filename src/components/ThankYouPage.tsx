@@ -1,19 +1,62 @@
+import { useEffect, useRef, useState } from 'react'
+import { ArrowLeft, ArrowUpRight, Check, Copy } from 'lucide-react'
 import {
-  ArrowLeft,
-  ArrowUpRight,
-  BookOpen,
-  MessageCircle,
-  Sprout,
-} from 'lucide-react'
-import { offer, safeUrl, supportHref } from '../config'
+  offer,
+  priceLabel,
+  renewalLabel,
+  safeUrl,
+  supportHref,
+} from '../config'
 import { Brand, Eyebrow } from './Shared'
 
-/** A simple post-checkout destination. Whop handles payment and paid access. */
-export function ThankYouPage() {
-  const library = safeUrl(offer.links.library)
-  const messenger = safeUrl(offer.links.messenger)
-  const support = supportHref()
+function StarterQuestion({ question }: { question: string }) {
+  const [status, setStatus] = useState<'idle' | 'copied' | 'failed'>('idle')
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  useEffect(
+    () => () => {
+      if (timer.current) clearTimeout(timer.current)
+    },
+    [],
+  )
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(question)
+      setStatus('copied')
+    } catch {
+      setStatus('failed')
+    }
+    if (timer.current) clearTimeout(timer.current)
+    timer.current = setTimeout(() => setStatus('idle'), 4000)
+  }
+  return (
+    <div className="starter-question">
+      <p>“{question}”</p>
+      <button
+        className="copy-button"
+        aria-label={`Copy: ${question}`}
+        onClick={copy}
+      >
+        {status === 'copied' ? <Check size={16} /> : <Copy size={16} />}
+        {status === 'copied' ? 'Copied' : 'Copy question'}
+      </button>
+      <span className="sr-only" role="status">
+        {status === 'copied' ? 'Question copied to clipboard.' : ''}
+      </span>
+      {status === 'failed' && (
+        <p className="copy-fallback" role="status">
+          Select the question text to copy it manually.
+        </p>
+      )}
+    </div>
+  )
+}
 
+/** Static post-purchase redirect. No payment verification, paid files or purchase events. */
+export function ThankYouPage() {
+  const library = safeUrl(offer.links.library),
+    messenger = safeUrl(offer.links.messenger)
+  const manage = safeUrl(offer.links.manage),
+    support = supportHref()
   return (
     <>
       <header className="header container thankyou-header">
@@ -24,119 +67,146 @@ export function ThankYouPage() {
       </header>
       <main id="main-content" className="thankyou-main container">
         <section className="thankyou-welcome" aria-labelledby="welcome-heading">
-          <Eyebrow>Your next small step</Eyebrow>
-          <h1 id="welcome-heading">
-            Thank you for choosing
-            <br />
-            <em>a little more steady.</em>
-          </h1>
+          <Eyebrow>Welcome to Little Steady</Eyebrow>
+          <h1 id="welcome-heading">Let’s make your first step simple.</h1>
           <p>
-            Welcome to Little Steady. You don’t have to read everything or
-            figure everything out today. Let’s start with one small thing.
+            You don’t have to read everything or change every routine today.
+            Start with one guide or one question.
           </p>
         </section>
         <div className="thankyou-steps">
           <section className="thankyou-step" aria-labelledby="guides-title">
             <span className="thankyou-number">01</span>
             <div>
-              <BookOpen
-                className="thankyou-step-icon"
-                size={25}
-                strokeWidth={1.5}
-              />
-              <h2 id="guides-title">Find your guides</h2>
+              <h2 id="guides-title">Open your two guides</h2>
               <p>
-                Open your Whop account using the details you used at checkout.
-                You’ll find your purchased ebooks there.
+                Sign in to Whop with the account you used at checkout, then open
+                your Little Steady purchase.
               </p>
               <div className="thankyou-titles">
                 <span>Calmer Tantrums</span>
                 <span>Calmer Mealtimes</span>
               </div>
+              <p>
+                Choose whichever topic feels most useful right now. Both ebooks
+                are included with your membership and yours to keep after
+                cancellation.
+              </p>
               <a
                 className="button button--primary"
                 href={library || 'https://whop.com/'}
               >
-                {library ? 'Open your guide library' : 'Open Whop'}
+                {library ? 'Open your guides in Whop' : 'Open Whop'}
                 <ArrowUpRight size={17} />
               </a>
-              <p className="thankyou-small">
-                Your receipt and purchase access are managed through Whop.
-              </p>
             </div>
           </section>
           <section className="thankyou-step" aria-labelledby="messenger-title">
             <span className="thankyou-number">02</span>
             <div>
-              <MessageCircle
-                className="thankyou-step-icon"
-                size={25}
-                strokeWidth={1.5}
-              />
-              <h2 id="messenger-title">If you added the AI helper</h2>
+              <h2 id="messenger-title">Get started in Messenger</h2>
               <p>
-                If you chose the books + chatbot option, check your Whop
-                purchase for the Messenger access instructions. If you bought
-                just the books, no chatbot subscription is started.
+                Open the Messenger access instructions inside your Whop purchase
+                and follow any activation steps shown there.
               </p>
               <p>
-                This is a one-to-one conversation with Little Steady’s AI
-                parenting helper, not a group or a human coach.
+                You’ll be messaging Little Steady’s AI parenting helper in a
+                one-to-one conversation—not joining a group or talking with a
+                human coach.
               </p>
-              {messenger && (
-                <a className="text-link" href={messenger}>
-                  Open Messenger
-                  <ArrowUpRight size={16} />
-                </a>
-              )}
+              <a
+                className="button button--primary"
+                href={messenger || library || 'https://whop.com/'}
+              >
+                {messenger
+                  ? 'Open the helper in Messenger'
+                  : 'Find Messenger access in Whop'}
+                <ArrowUpRight size={17} />
+              </a>
               <p className="thankyou-small">
-                AI can make mistakes. It isn’t medical advice or emergency
-                support. Avoid sharing your child’s identifying or sensitive
-                information.
+                If an approval or activation step is still pending, follow the
+                status and help instructions in Whop. Opening this page does not
+                activate Messenger access.
               </p>
             </div>
           </section>
           <section className="thankyou-step" aria-labelledby="start-title">
             <span className="thankyou-number">03</span>
             <div>
-              <Sprout
-                className="thankyou-step-icon"
-                size={25}
-                strokeWidth={1.5}
-              />
-              <h2 id="start-title">Choose just one moment</h2>
+              <h2 id="start-title">Ask one question</h2>
               <p>
-                A difficult transition? Another refused dinner? Start with
-                whichever topic feels most useful right now.
+                Think of something that would help today: a meal idea, words for
+                a difficult moment, or a different suggestion to consider. You
+                can copy one of these to get started.
               </p>
-              <blockquote>
-                You don’t need to do it all.
-                <br />
-                <em>One small beginning is enough.</em>
-              </blockquote>
+              <div className="starter-questions">
+                <StarterQuestion question="What can I say when my child refuses to leave the playground?" />
+                <StarterQuestion question="Can you suggest a simple meal using ingredients I already have?" />
+              </div>
+              <p className="thankyou-small">
+                No names, birth dates or medical history needed. AI can make
+                mistakes; use your judgement and seek qualified help for health
+                or safety concerns.
+              </p>
             </div>
           </section>
         </div>
+        <aside
+          className="thankyou-membership"
+          aria-labelledby="membership-summary"
+        >
+          <h2 id="membership-summary">Your membership at a glance</h2>
+          <ul className="check-list">
+            <li>
+              <Check size={18} />
+              <span>{priceLabel()} for both ebooks and the AI helper</span>
+            </li>
+            <li>
+              <Check size={18} />
+              <span>{renewalLabel()} No joining fee.</span>
+            </li>
+            <li>
+              <Check size={18} />
+              <span>Keep both ebooks after cancellation</span>
+            </li>
+          </ul>
+          <p>
+            Your Whop receipt and account show your actual payment details and
+            next renewal date.
+          </p>
+          <a className="text-link" href={manage || 'https://whop.com/'}>
+            {manage ? 'Manage your membership' : 'Open your Whop account'}
+            <ArrowUpRight size={16} />
+          </a>
+        </aside>
         <aside className="thankyou-help" aria-labelledby="help-title">
-          <div>
-            <h2 id="help-title">Need a little help getting in?</h2>
-            <p>
-              Can’t find your purchase? Check your Whop receipt and make sure
-              you’re signed in with the same account you used at checkout. For
-              access, billing or refund questions, use the help options in your
-              Whop purchase.
-            </p>
-          </div>
-          <a className="text-link" href={support || 'https://whop.com/'}>
-            {support ? 'Contact support' : 'Go to Whop'}
+          <h2 id="help-title">Need help getting in?</h2>
+          <p>
+            <strong>Missing your guides?</strong> Check that you’re signed in
+            with the same account used at checkout.
+          </p>
+          <p>
+            <strong>Messenger won’t open or access is pending?</strong> Return
+            to the instructions and help options in your Whop purchase.
+          </p>
+          <p>
+            <strong>Billing, cancellation or refund question?</strong> Use your
+            Whop purchase or receipt. Cancelling future renewal and requesting a
+            refund are separate actions.
+          </p>
+          <a
+            className="text-link"
+            href={support || library || 'https://whop.com/'}
+          >
+            {support ? 'Get help' : 'Get purchase help in Whop'}
             <ArrowUpRight size={16} />
           </a>
         </aside>
         <div className="thankyou-signoff">
           <p>
-            Small steps.
+            One question. One small step.
             <br />
-            <em>Steadier days.</em>
+            You can start there.
           </p>
         </div>
       </main>

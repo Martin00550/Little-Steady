@@ -8,7 +8,7 @@ export function App() {
   useEffect(() => {
     document.title =
       path === '/'
-        ? 'Little Steady — Parenting guides for tantrums and mealtimes'
+        ? 'Little Steady — Help for everyday parenting questions'
         : path === '/thank-you'
           ? 'Thank you — Little Steady'
           : 'Page not found — Little Steady'

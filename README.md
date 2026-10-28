@@ -1,6 +1,8 @@
-# Little Steady sales page
+# Little Steady
 
-A mobile-first sales page at `/` and a simple post-purchase thank-you page at `/thank-you`, built with React, TypeScript and Vite. Whop handles checkout and paid access. There is no payment verification, account system or AI backend.
+A finished sales-page frontend at `/` and a simple static thank-you redirect at `/thank-you`. React, TypeScript and Vite. The offer is one €37 EUR/month membership: Calmer Tantrums and Calmer Mealtimes to keep, plus the AI parenting helper in Messenger during the paid period. No upfront joining fee, separate book purchase or chatbot upgrade.
+
+Whop handles checkout and paid access. This repository does not build billing, accounts, purchase verification or the chatbot itself.
 
 ## Run
 
@@ -10,23 +12,44 @@ npm ci
 npm run dev -- --port 5173
 ```
 
-Requires Node 22.12+; tested with Node 24.19. Use the existing checkout; do not create a Git worktree unless explicitly requested.
+Use Node 22.12+ (tested with Node 24.19). Use the existing checkout; cloud tasks are already isolated. Do not create a Git worktree unless explicitly requested.
 
-`npm run build` produces `dist/`. `npm run preview` serves that build locally.
+`npm run build` produces `dist/`. `npm run preview` serves the production build locally.
 
-## Add the Whop checkout links
+## Connect the checkout and access links
 
-Edit `src/config.ts`:
+All public settings are in `src/config.ts`:
 
-- `offer.guides`: the €47 EUR one-time price, the books-only Whop checkout URL and confirmed terms.
-- `offer.chatbot`: proposed €12.99 EUR/month, a separate **combined books + chatbot** Whop checkout URL, confirmed terms and actual availability.
-- Shared library, Messenger, support and policy links remain optional until supplied.
+- `offer.price`: €37 EUR/month, used across both pages and buttons.
+- `offer.links.checkout`: the single Whop checkout URL. Adding a valid URL enables the final checkout button; until then it says “Checkout opens soon” and cannot take payment. Set it only when the advertised service is ready to fulfil.
+- `offer.links.library`: your actual Whop purchase-library destination.
+- `offer.links.messenger`: the actual Messenger member-access route. Until supplied, the thank-you page directs customers to the access instructions in their Whop purchase.
+- `offer.links.manage`, `refund`, `privacy`, `terms`: final service and policy destinations, when supplied.
+- `offer.support` and `offer.seller`: actual contact and legal seller details. No placeholders are published.
+- `offer.logo`: the existing logo asset path once the owner attaches it. The current header and covers use plain “Little Steady” text; this is not claimed to reproduce the existing logo.
 
-The combined first charge is calculated as €47 + €12.99 = €59.99, with only €12.99 renewing from month two. Do not set the combined URL until the real Whop checkout implements exactly that schedule. Whop’s support for that payment configuration remains unverified. There is no local billing code.
+The frontend does not validate fulfilment. Configure the Whop membership to include both ebooks on first purchase, keep them accessible under the promised cancellation terms, and manage Messenger entitlement for the paid period. Include actual activation instructions in Whop. Test those external flows before enabling the checkout link. Do not put secrets in browser code.
 
-Both checkouts are closed in this preview. Books-only purchasing is independent of chatbot readiness. The monthly price and first-chatbot-payment guarantee are proposals. No book refund guarantee is invented. No real ebook files or logo were provided; readable excerpts and actual product details still need review.
+A 14-day first-payment refund guarantee from the earlier brief is available as an optional copy block, but is disabled because that policy has not been adopted. Enable `offer.refund.enabled` only if it will be honoured. No guarantee is invented or applied to future renewals.
 
-See [pricing and offer notes](docs/pricing-and-offer.md) for the recommendation, its assumptions and the live-research limitation.
+## Ebook covers
+
+New original illustrated covers are in `public/covers/`:
+
+- `calmer-tantrums.png` and `calmer-mealtimes.png`: full-resolution 1024×1536 front covers.
+- `*-320.webp` and `*-640.webp`: optimised responsive versions for the sales page.
+
+The illustrations are generated artwork, not customer/founder photos or representations of existing ebook pages. Existing logo integration is pending the original image, which was unavailable through this session’s files or tools. The files contain only plain brand text for now. See [content notes](docs/claims-and-readiness.md).
+
+## Thank-you redirect
+
+After deployment, set the Whop after-purchase redirect to your domain’s `/thank-you` route. It is a static welcome page with three starting steps, copyable question suggestions, membership terms and help directions. It does not verify a purchase, show an invented renewal date, unlock paid files or fire a purchase analytics event.
+
+Whop remains the source of actual receipt and membership details. No live app activation is implied just by visiting the redirect page.
+
+## Deploy on Vercel
+
+Import `Martin00550/Little-Steady`, keep root directory `./`, use Node.js 24.x and deploy. `vercel.json` configures Vite, `npm ci`, `npm run build`, the `dist` directory and SPA rewrites so `/thank-you` loads directly. No environment variables are required for these frontend pages.
 
 ## Checks
 
@@ -37,21 +60,6 @@ npm run test:e2e
 npm run format:check
 ```
 
-Browser tests use `/usr/bin/chromium`, or `CHROMIUM_PATH` if supplied. They cover mobile/tablet/desktop layouts, accessibility, keyboard controls and CTAs. Analytics is disabled; optional click hooks send no chat text or child information.
+Browser tests use `/usr/bin/chromium` or `CHROMIUM_PATH`. They cover mobile/tablet/desktop layouts, image loading, accessibility, keyboard controls, price consistency and copy buttons. Analytics is disabled. Optional hooks record CTA, preview and checkout handoff events only after their configured consent gate; no chat or children’s information is included.
 
-See [design and headline notes](docs/design-and-copy.md) and [content notes](docs/claims-and-readiness.md).
-
-## After-purchase redirect
-
-Set your Whop after-purchase redirect to `https://YOUR-DOMAIN/thank-you` once the site is deployed. Configure the host to serve `index.html` for `/thank-you` (SPA fallback). The page is public, static and has no payment checks, purchase events, activation codes or paid files. Whop continues to control actual purchase access.
-
-Optionally supply the exact library and Messenger URLs through `offer.links.library` and `offer.links.messenger`. Until then, it links to Whop and directs buyers to the instructions inside their purchase.
-
-## Deploy on Vercel
-
-1. Import `Martin00550/Little-Steady` into Vercel from GitHub.
-2. Keep the root directory as `./` and select the Vite preset. The checked-in `vercel.json` sets installation to `npm ci`, the build to `npm run build`, and output to `dist`.
-3. Use Node.js 24.x. No environment variables are needed for the current pages.
-4. Deploy. Your sales page is at `/`; the after-purchase redirect is `/thank-you` on the same domain.
-
-The rewrite in `vercel.json` lets direct visits and refreshes on `/thank-you` load the React page. Actual static assets are served by Vercel normally. After deployment, use the resulting full `/thank-you` URL in Whop. Deployments from future pushes can run through Vercel's GitHub integration.
+See [design and copy notes](docs/design-and-copy.md) and [the current offer](docs/pricing-and-offer.md).

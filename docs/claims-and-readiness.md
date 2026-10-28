@@ -1,16 +1,28 @@
-# Sales page content notes
+# Internal content and launch notes
 
-Source: the uploaded brief and owner’s current clarification. The linked research conversation was unavailable through the provided tools. No existing logo, ebook files, seller details, policies or checkout links were supplied.
+The public pages use finished customer-facing copy for the agreed €37/month membership. This does not mean checkout or the external chatbot has been built. The final checkout button is disabled until the owner supplies a real Whop link.
 
-- The owner specified €47 for both ebooks as a one-time purchase. The books are not gated behind a recurring subscription.
-- The revised working recommendation has an optional combined offer: €59.99 initially (€47 books + €12.99 first chatbot month), then €12.99/month. The monthly price is a proposal, not a researched optimum or approved live term.
-- The chatbot’s intended scope, as specified by the owner, is everyday parenting: meal ideas, recipes, words for specific situations and follow-up questions. It is broader than applying the two ebooks. Its availability and actual responses have not been verified; examples are clearly labelled previews.
-- The product titles are Calmer Tantrums and Calmer Mealtimes. Their contents and exact age coverage have not been inspected. No chapters, exercises or reading times are invented.
-- Covers are labelled design concepts. Replace them with approved assets when supplied.
-- Add actual ebook excerpts, creator/seller details, support and policy links before sales open. No placeholder contact details or invented credentials are used.
-- The earlier proposed 14-day first-chatbot-payment guarantee is not an adopted policy. It applies only to the chatbot portion in the proposal; no book refund guarantee is added without approval.
-- No clinical claims, testimonials, fake scarcity, unsupported memory features, unlimited-use promise or guaranteed results are used.
+## Facts and design assets
 
-Whop handles actual checkout and paid access. Separate book-only and combined checkout configurations must match the displayed payment schedules. No billing or payment-verification backend is included. The thank-you page is static and must not imply that a books-only purchase includes chatbot access.
+- The product names and intended purpose come from the uploaded brief and owner’s current clarification.
+- The owner confirmed one €37 EUR/month subscription for both books and the AI helper, no joining fee, and books kept after cancellation.
+- The helper covers everyday parenting: recipes, meals, words for specific situations and follow-up questions beyond the book topics.
+- New illustrated ebook covers were generated and are included as high-resolution PNGs and responsive WebPs. These are artwork, not customer photos or paid-file previews.
+- The existing logo could not be accessed through the linked conversation, ChatGPT image Library or workspace files. The owner was asked to attach it. Current covers use plain brand text; they do not claim to contain the unavailable original logo.
+- No ebook files were available for inspection. No specific chapters, exercises, reading times, research references or expert reviews are invented.
 
-See [pricing and offer notes](pricing-and-offer.md) for comparison, assumptions and blocked research sources.
+## Remaining external setup
+
+- Supply the original logo to finish the exact requested branding on both covers and the header.
+- Supply the real ebooks in Whop. Verify actual product coverage and any future excerpts before making more specific content claims.
+- Create the exact €37/month Whop checkout and configure both books and membership access. Enable the URL only when fulfilment is ready.
+- Build and test the Messenger helper, membership restrictions, activation instructions, cancellation/refund entitlement effects and any approval process. None of this backend work is implemented here.
+- Supply actual library, Messenger and membership-management destinations. The static thank-you page uses honest Whop account/instruction routes until exact links exist.
+- Provide real seller/support information and final service/privacy/refund policies. No fake contacts are published. Storage, processing, administrator access and deletion procedures cannot be inferred from this frontend.
+- Adopt and operationalise any voluntary guarantee before enabling its copy block. No voluntary guarantee is currently promised.
+
+## Claims intentionally excluded
+
+No testimonials, invented endorsements, fake discounts or scarcity, clinical efficacy, guaranteed behavioural outcomes, instant activation, remembered family history or highest-conversion claims. Example questions are not a live demo or tested AI replies. No payment success or Messenger activation is inferred from visiting `/thank-you`.
+
+The sales/thank-you frontend and external business readiness are separate. Actual conversions and retention must be measured after the service works.

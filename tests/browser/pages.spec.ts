@@ -37,28 +37,28 @@ test('CTA scrolls to the real offer and never sends a customer to a fake checkou
 }) => {
   await page.goto('/')
   await page
-    .getByRole('link', { name: 'See the guide bundle', exact: true })
+    .getByRole('link', { name: 'Get Little Steady — €37/month', exact: true })
     .first()
     .click()
-  await expect(page).toHaveURL(/#offers$/)
+  await expect(page).toHaveURL(/#membership$/)
   await expect(
-    page.getByRole('button', { name: 'Guide bundle coming soon' }),
+    page.getByRole('button', { name: 'Checkout opens soon' }),
   ).toBeDisabled()
-  await expect(page.getByRole('link', { name: /Get both ebooks/ })).toHaveCount(
-    0,
-  )
+  await expect(
+    page.getByRole('link', { name: /Join Little Steady/ }),
+  ).toHaveCount(0)
 })
 test('FAQ and policy dialogs work with a keyboard, including focus return', async ({
   page,
 }) => {
   await page.goto('/')
-  const question = page.getByText('Is the parenting helper a person?', {
+  const question = page.getByText('Is it a real person?', {
     exact: true,
   })
   await question.focus()
   await page.keyboard.press('Enter')
-  await expect(page.locator('details[open]')).toContainText('It is AI')
-  const privacy = page.getByRole('button', { name: 'Privacy & AI' })
+  await expect(page.locator('details[open]')).toContainText('AI chatbot')
+  const privacy = page.getByRole('button', { name: 'AI & privacy' })
   await privacy.focus()
   await page.keyboard.press('Enter')
   await expect(page.getByRole('dialog')).toBeVisible()
@@ -72,31 +72,72 @@ test('mobile sticky offer appears after the hero and hides at the pricing sectio
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/')
   await expect(
-    page.getByRole('complementary', { name: 'Guide bundle' }),
+    page.getByRole('complementary', { name: 'Little Steady membership' }),
   ).toHaveCount(0)
   await page.locator('#included').scrollIntoViewIfNeeded()
   await expect(
-    page.getByRole('complementary', { name: 'Guide bundle' }),
+    page.getByRole('complementary', { name: 'Little Steady membership' }),
   ).toBeVisible()
-  await page.locator('#offers').scrollIntoViewIfNeeded()
+  await page.locator('#membership').scrollIntoViewIfNeeded()
   await expect(
-    page.getByRole('complementary', { name: 'Guide bundle' }),
+    page.getByRole('complementary', { name: 'Little Steady membership' }),
   ).toHaveCount(0)
 })
 
-test('separates books-only payment from the combined first charge and renewals', async ({
+test('presents one monthly price without the previous upfront or add-on fees', async ({
   page,
 }) => {
   await page.goto('/')
-  const books = page.locator('#guide-offer')
-  await expect(books).toContainText('€47.00')
-  await expect(books).toContainText('No recurring book payments')
-  await expect(books).not.toContainText('/ month')
-  const combined = page.locator('#chatbot-offer')
-  await expect(combined).toContainText('€59.99')
-  await expect(combined).toContainText('EUR today')
-  await expect(combined).toContainText('Then €12.99 EUR/month from month two')
+  const membership = page.locator('#membership')
+  await expect(membership).toContainText('€37')
+  await expect(membership).toContainText('EUR / month')
+  await expect(membership).toContainText('Renews monthly until cancelled.')
+  await expect(membership).toContainText('No joining fee')
+  await expect(page.locator('main')).not.toContainText('€47')
+  await expect(page.locator('main')).not.toContainText('€12')
+  await expect(page.locator('main')).not.toContainText('planned')
+  await expect(page.locator('main')).not.toContainText('proposed')
+})
+
+test('cover images load and are accessible', async ({ page }) => {
+  await page.goto('/')
+  for (const name of ['Calmer Tantrums', 'Calmer Mealtimes']) {
+    const cover = page.getByRole('img', {
+      name: `${name} — Little Steady ebook cover`,
+    })
+    await expect(cover).toBeVisible()
+    expect(
+      await cover.evaluate(
+        (img: HTMLImageElement) => img.complete && img.naturalWidth > 0,
+      ),
+    ).toBe(true)
+  }
+})
+
+test('the thank-you page stays a simple redirect and copies a real starter question', async ({
+  page,
+  context,
+}) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write'])
+  const apiRequests: string[] = []
+  page.on('request', (r) => {
+    if (r.url().includes('/api/')) apiRequests.push(r.url())
+  })
+  await page.goto('/thank-you?success=true&payment_id=fake')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Let’s make your first step simple.',
+  )
   await expect(
-    page.getByRole('button', { name: 'Guides + helper coming soon' }),
-  ).toBeDisabled()
+    page.getByText('€37/month for both ebooks and the AI helper'),
+  ).toBeVisible()
+  const first = page.locator('.starter-question').first()
+  await first.getByRole('button').click()
+  await expect(first.getByRole('button')).toHaveText('Copied')
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+    'What can I say when my child refuses to leave the playground?',
+  )
+  expect(apiRequests).toEqual([])
+  await expect(page.getByText('Payment verified', { exact: true })).toHaveCount(
+    0,
+  )
 })

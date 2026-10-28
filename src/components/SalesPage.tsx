@@ -1,90 +1,76 @@
-import {
-  bundleFirstPayment,
-  canPurchase,
-  formatPrice,
-  offer,
-  priceLabel,
-} from '../config'
+import { formatPrice, offer, priceLabel, renewalLabel } from '../config'
 import { track } from '../lib/analytics'
 import { Book } from './Artwork'
 import { Accordion, CheckItem, CheckoutCTA, Header, PrimaryCTA } from './Shared'
 
 const examples = [
   {
-    topic: 'When dinner feels like another decision',
-    question: '“What can I make with eggs, rice and frozen peas?”',
+    topic: 'Something to make for dinner',
+    question: '“I have eggs, rice and frozen peas. What could I make?”',
     detail: 'Ask for meal ideas and recipes using what you have.',
   },
   {
-    topic: 'When you can’t find the words',
-    question: '“My child won’t leave the playground. What can I say?”',
-    detail: 'Ask for wording for a specific parenting moment.',
+    topic: 'Words for a difficult moment',
+    question:
+      '“We need to leave the playground. My child is saying no. What can I say?”',
+    detail: 'Ask for a few words to try when you can’t find your own.',
   },
   {
-    topic: 'When the usual idea doesn’t fit',
-    question: '“That won’t work for us. Can you suggest another way?”',
-    detail: 'Follow up rather than starting your search again.',
+    topic: 'A different idea when you need one',
+    question: '“That won’t work for our family. What else could I try?”',
+    detail:
+      'Ask a follow-up, explain what doesn’t fit, or ask for a simpler suggestion.',
   },
   {
-    topic: 'When you need a place to start',
-    question: '“Bedtime keeps turning into an argument. What could I try?”',
-    detail: 'Bring an everyday parenting question, beyond tantrums and meals.',
+    topic: 'Help with the next everyday question',
+    question: '“Bedtime keeps turning into an argument. Where could I start?”',
+    detail: 'Bring questions beyond tantrums and mealtimes, too.',
   },
 ]
 const faqs = [
   {
-    q: 'What am I paying for?',
-    a: 'There are two separate offers. The ebook bundle is a one-time purchase of Calmer Tantrums and Calmer Mealtimes. The combined offer adds the optional AI parenting helper. Its first payment includes the books and your first chatbot month; only chatbot access renews monthly. Buying just the books does not start that subscription.',
+    q: `What do I get for ${priceLabel()}?`,
+    a: 'Both Little Steady ebooks—Calmer Tantrums and Calmer Mealtimes—plus access to the AI parenting helper in a one-to-one Messenger conversation. One membership, one monthly payment. No separate joining fee or paid add-on is required for these items.',
   },
   {
-    q: 'Do I have to subscribe to get the books?',
-    a: 'No. Pay once for the two-guide bundle and keep the ebooks. You do not need a chatbot subscription to buy or keep them.',
+    q: 'Are the books included, or do I pay extra?',
+    a: 'Both ebooks are included with your first membership purchase. You keep them if you cancel. There is no separate book payment or additional chatbot subscription to buy.',
   },
   {
-    q: 'What can I ask the chatbot?',
-    a: 'It is being prepared for everyday parenting questions: meal ideas, recipes, words to use in a difficult moment, transitions, bedtime and follow-up questions. It is not limited to explaining the ebooks. The examples on this page show intended uses, not tested responses or a live demonstration.',
+    q: 'What can I ask the parenting helper?',
+    a: 'Everyday parenting questions: meal ideas, recipes, words for a difficult conversation, transitions, bedtime, and what else to consider when a suggestion doesn’t fit your family. It is not limited to explaining the two ebooks.',
   },
   {
-    q: 'Why pay monthly when I can search for ideas?',
-    a: 'The subscription is for a place to bring an everyday question and keep asking follow-ups in Messenger. It is not a payment to keep your books or a promise of new ebooks every month. The value should come from help you actually use. We will share real examples before subscriptions open so you can decide if it suits you.',
+    q: 'Is it a real person?',
+    a: 'It is an AI chatbot, not a human coach, clinician or emergency service. It can misunderstand a question or give incorrect information. Use your judgement and seek qualified help for medical, feeding, developmental or safety concerns. Check recipe ingredients for your family’s dietary needs and allergies.',
   },
   {
-    q: 'Is the parenting helper a person?',
-    a: 'It is AI, not a human coach or a clinician. It can misunderstand your question and give incorrect information. Use your judgement, check recipe ingredients for your family’s needs, and seek qualified help for medical, feeding, developmental or safety concerns. It is not an emergency service.',
+    q: 'Do I have to read the books before I can ask a question?',
+    a: 'No. Start with whichever guide or question feels most useful today. You do not need to finish either ebook before messaging the helper.',
   },
   {
-    q: 'What ages are the guides for?',
-    a: offer.readiness.ageRange
-      ? `The guides cover ${offer.readiness.ageRange}. Every family is different.`
-      : 'The focus is early-childhood tantrums and mealtimes. Exact age coverage and readable samples will be available before the books go on sale.',
+    q: 'Do I need Messenger? Is this a group?',
+    a: 'You need Messenger to use the AI helper. It is a one-to-one conversation with the business’s chatbot, not a group. Your ebooks are accessed through Whop. Follow the access instructions inside your Whop purchase to get started.',
   },
   {
-    q: 'Do I need to read both guides before using the chatbot?',
-    a: 'No. You do not need to finish either guide before asking an everyday parenting question. The combined offer includes both books, but the helper is for broader parenting questions too.',
+    q: 'Why does it renew each month?',
+    a: 'The ongoing part is access to the parenting helper for the new questions that come up. It is not a monthly charge to keep your ebooks, and it is not a promise of new guides every month. If you no longer want the chatbot, cancel future renewal through Whop.',
   },
   {
-    q: 'Do I need Messenger?',
-    a: 'Only for the optional chatbot. The ebooks are accessed through your Whop purchase library. The helper is a one-to-one AI chat in Messenger, not a group. Access instructions and any activation steps will be provided with that subscription.',
+    q: 'What happens if I cancel?',
+    a: 'Cancel future renewal through your Whop membership. You keep both ebooks. Chatbot access continues for the remaining paid membership period, then ends. Cancelling renewal does not automatically request a refund.',
   },
   {
-    q: 'What happens when I cancel the chatbot?',
-    a: 'The proposed subscription terms let you cancel future renewal through Whop and use the chatbot for the remaining paid period. Cancelling it does not remove the ebooks included in your purchase. It does not automatically refund a payment.',
+    q: 'Will this stop tantrums or change what my child eats?',
+    a: 'No particular result is guaranteed. This is parenting education and a place to explore ideas, not a promise of perfect behaviour or a replacement for professional advice. Children and families have different needs.',
   },
   {
-    q: 'Can I get a refund?',
-    a: `Refunds are separate from cancellation. A voluntary ${offer.refund.days}-day guarantee on the first chatbot payment is being considered; it is not yet an adopted sales policy. That proposal would not require completing lessons or proving an approach failed, and a successful refund would stop future chatbot renewals. It would not cover later payments. That proposal covers only the chatbot portion of a combined payment. Book refund terms and the final policies will be stated before checkout opens. Statutory rights are unaffected.`,
-  },
-  {
-    q: 'What about privacy and sharing with another caregiver?',
-    a: 'Privacy and account-sharing terms will be available before the chatbot opens. Messenger involves Meta and the AI may involve other providers. Data storage, processing, administrator access and deletion arrangements are not yet confirmed. Avoid sharing children’s names, birth dates or medical records. Do not assume one subscription provides a second Messenger account.',
+    q: 'What should I share in the chat?',
+    a: 'Describe the situation in general terms. Avoid children’s names, birth dates, medical records or other identifying details. Messenger is provided by Meta and the chatbot uses AI services. Do not assume the conversation is a private clinical consultation or that nothing is stored. Review the applicable privacy terms before use.',
   },
 ]
 
 export function SalesPage() {
-  const guidesLive = canPurchase('guides')
-  const chatbotLive = canPurchase('bundle')
-  const guidesPrice = formatPrice('guides')
-  const chatbotPrice = formatPrice('chatbot')
   return (
     <>
       <Header />
@@ -95,27 +81,26 @@ export function SalesPage() {
           aria-labelledby="hero-heading"
         >
           <p className="sales-kicker">
-            For the “what do I do now?” moments of parenting
+            For the everyday “what do I do now?” moments
           </p>
           <h1 id="hero-heading">
-            Dinner’s refused. Your child’s upset. What do you try next?
+            What can I say?
+            <br />
+            What can I cook?
+            <br />
+            What do I try next?
           </h1>
           <p className="sales-subhead">
-            Start with <strong>Calmer Tantrums</strong> and{' '}
-            <strong>Calmer Mealtimes</strong>—two ebooks you buy once and keep.
-            Want help with the next question? Choose an optional AI parenting
-            helper in Messenger.
+            Get <strong>Calmer Tantrums</strong> and{' '}
+            <strong>Calmer Mealtimes</strong> to keep, plus an{' '}
+            <strong>AI parenting helper in Messenger</strong> for meal ideas,
+            words for tricky moments, and the questions that come next.
           </p>
           <PrimaryCTA />
           <p className="sales-price-note">
-            {guidesPrice ? `${priceLabel('guides')}. ` : ''}
-            <strong>Buy the books once. No subscription required.</strong>
-            {!guidesLive && (
-              <>
-                <br />
-                Coming soon. Checkout is not open yet.
-              </>
-            )}
+            <strong>{priceLabel()} · No joining fee.</strong>
+            <br />
+            {renewalLabel()} Keep both ebooks if you cancel.
           </p>
           <figure className="sales-products">
             <div className="sales-books">
@@ -123,9 +108,9 @@ export function SalesPage() {
               <Book kind="mealtimes" />
             </div>
             <figcaption>
-              Two ebooks. Yours to keep.
+              Two ebooks to keep. One AI helper to return to.
               <br />
-              Cover concepts shown; guide samples will be added before launch.
+              All included in your {priceLabel()} membership.
             </figcaption>
           </figure>
         </section>
@@ -135,27 +120,25 @@ export function SalesPage() {
           aria-labelledby="recognition-heading"
         >
           <h2 id="recognition-heading">
-            Sometimes you just need to know what to do next.
+            Some days, you just need an idea you can use.
           </h2>
           <p>
-            You’ve made dinner, and now nobody wants it. You need to leave, and
-            your child is still on the playground. You’re tired, and the words
-            you wanted to use have disappeared.
+            Dinner is ready. Your child won’t touch it. You need to leave, and
+            they’re still on the playground. You’re tired, and the words you
+            wanted to use have disappeared.
           </p>
           <p>
-            In that moment, another hour of scrolling probably isn’t what you’re
-            looking for.
+            You don’t want ten more tabs telling you ten different things. You
+            want a starting point for the situation in front of you.
           </p>
           <p>
-            You want a meal idea. A way to explain the boundary. Something to
-            say that sounds like you. A place to start when you’re not sure.
+            A meal idea. A way to explain the boundary. A few words to try.
+            Another suggestion when the first one doesn’t fit.
           </p>
           <p>
-            That’s the idea behind Little Steady:{' '}
-            <strong>
-              guides for the topics you want to focus on, and optional help for
-              the questions that come up along the way.
-            </strong>
+            <strong>That’s what Little Steady is for:</strong> two guides you
+            can return to, and an AI helper you can ask about everyday
+            parenting.
           </p>
         </section>
 
@@ -165,10 +148,12 @@ export function SalesPage() {
           aria-labelledby="included-heading"
         >
           <p className="sales-kicker">
-            The two-guide bundle · one-time purchase
+            One membership. Everything below is included.
           </p>
           <h2 id="included-heading">
-            Start with the part of your day that feels hardest.
+            Read when you want to.
+            <br />
+            Ask when you need an idea.
           </h2>
           <ol className="sales-inclusions">
             <li>
@@ -176,8 +161,12 @@ export function SalesPage() {
               <div>
                 <h3>Calmer Tantrums</h3>
                 <p>
-                  For the days when big feelings take over. Choose this ebook
-                  when tantrums are the topic you want to focus on first.
+                  For the days when big feelings take over. Start with this
+                  parenting ebook when tantrums are the part of your day you
+                  want to focus on.
+                </p>
+                <p className="inclusion-ownership">
+                  Included with your first purchase. Yours to keep.
                 </p>
               </div>
             </li>
@@ -186,21 +175,34 @@ export function SalesPage() {
               <div>
                 <h3>Calmer Mealtimes</h3>
                 <p>
-                  For the “I’m not eating that” days. Choose this ebook when
-                  your questions keep coming back to mealtimes.
+                  For the “I’m not eating that” days. Start with this parenting
+                  ebook when your questions keep coming back to mealtimes.
+                </p>
+                <p className="inclusion-ownership">
+                  Included with your first purchase. Yours to keep.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span className="inclusion-number">3</span>
+              <div>
+                <h3>Your AI parenting helper in Messenger</h3>
+                <p>
+                  Bring an everyday parenting question. Ask for meal ideas,
+                  recipes, wording for a specific situation, or another approach
+                  to consider. Ask a follow-up or ask for a different idea.
+                </p>
+                <p className="inclusion-ownership">
+                  Available during your paid membership.
+                </p>
+                <p className="sales-disclosure">
+                  The helper is AI, not a person. It can make mistakes. It is
+                  for general education, not medical advice, therapy or
+                  emergency support.
                 </p>
               </div>
             </li>
           </ol>
-          <p>
-            <strong>You get both books with one purchase.</strong> There’s no
-            monthly book payment, no requirement to buy the chatbot and no
-            subscription to maintain to keep them.
-          </p>
-          <p className="sales-disclosure">
-            Readable samples, exact age coverage and creator information will be
-            available before the bundle goes on sale.
-          </p>
         </section>
 
         <section
@@ -208,27 +210,16 @@ export function SalesPage() {
           id="chatbot-preview"
           aria-labelledby="chatbot-heading"
         >
-          <p className="sales-kicker">Optional upgrade · monthly AI helper</p>
-          <h2 id="chatbot-heading">
-            “What could I make?”
-            <br />
-            “What could I say?”
-            <br />
-            Ask your parenting helper.
-          </h2>
+          <h2 id="chatbot-heading">Ask the question you actually have.</h2>
           <p>
-            The Little Steady chatbot is an AI helper you can message in
-            Messenger about everyday parenting. Meal ideas, recipes, tricky
-            conversations, transitions, bedtime—and the follow-up question you
-            didn’t think of until a minute later.
-          </p>
-          <p>
-            <strong>It’s for more than the two book topics.</strong> Bring the
-            situation you’re dealing with and ask for an idea, some wording, or
-            another approach to consider.
+            You don’t need to know the right parenting term, finish a book
+            first, or turn your question into a perfect prompt. Start with the
+            situation you’re dealing with.
           </p>
           <div className="sales-examples">
-            <p className="sales-example-label">Examples of questions to ask</p>
+            <p className="sales-example-label">
+              Examples of questions to bring to the helper
+            </p>
             {examples.map((example) => (
               <div className="sales-example" key={example.question}>
                 <h3>{example.topic}</h3>
@@ -238,142 +229,99 @@ export function SalesPage() {
             ))}
           </div>
           <p>
-            You can ask a follow-up, explain what doesn’t fit your family, or
-            ask for a simpler suggestion. You don’t have to read both books
-            first.
+            <strong>It’s for more than the two book topics.</strong> Everyday
+            questions keep changing. Your membership gives you a place to bring
+            the next one.
           </p>
           <p className="sales-disclosure">
-            Chatbot preview: these are intended uses, not tested responses.
-            Access is not open yet. This is AI, not a human coach; it can be
-            wrong. It isn’t medical advice, therapy or emergency support.
+            These are example questions, not a live chat or promises of a
+            particular answer. Use your judgement, check recipe ingredients for
+            your family’s needs, and seek qualified help when a concern needs
+            more than general parenting ideas.
           </p>
+          <PrimaryCTA placement="examples">See everything included</PrimaryCTA>
         </section>
 
         <section
           className="sales-section sales-prose"
           aria-labelledby="how-heading"
         >
-          <h2 id="how-heading">Choose what would help you today.</h2>
+          <h2 id="how-heading">You don’t have to do it all today.</h2>
           <ol className="sales-how">
             <li>
-              <strong>Want the guides?</strong> Buy the two-book bundle once
-              through Whop. Open your ebooks in your purchase library.
+              <strong>Join through Whop.</strong> One membership includes both
+              ebooks and the Messenger helper.
             </li>
             <li>
-              <strong>Want extra help too?</strong> Choose the books + AI helper
-              option and follow the Messenger access instructions. Only the
-              chatbot renews monthly.
+              <strong>
+                Open your guides and follow the Messenger instructions.
+              </strong>{' '}
+              You’ll find your purchased resources and access details in Whop.
             </li>
             <li>
-              <strong>Start with one thing.</strong> Pick a guide topic or an
-              everyday question. You don’t need to change everything at once.
+              <strong>Choose one starting point.</strong> Pick a guide topic or
+              ask about one situation that keeps coming up.
             </li>
           </ol>
-          <PrimaryCTA placement="mid-page">See the guide bundle</PrimaryCTA>
+          <p>
+            No requirement to finish both books before getting started. No need
+            to change every routine at once.
+          </p>
         </section>
 
         <section
           className="sales-section sales-prose"
-          id="offers"
-          aria-labelledby="offers-heading"
+          id="membership"
+          aria-labelledby="membership-heading"
         >
-          <h2 id="offers-heading">
-            One purchase for the books.
-            <br />
-            Add the chatbot only if you want it.
-          </h2>
-          <div className="sales-offer" id="guide-offer">
-            <p className="sales-kicker">Calmer Tantrums + Calmer Mealtimes</p>
-            <h3 className="offer-title">The two-guide bundle</h3>
-            {guidesPrice ? (
-              <p className="sales-offer-price">
-                <strong>{guidesPrice}</strong> {offer.guides.currency} once
-              </p>
-            ) : (
-              <p className="sales-price-pending">
-                One-time price announced before sales open
-              </p>
-            )}
+          <div className="sales-offer">
+            <p className="sales-kicker">The Little Steady membership</p>
+            <h2 id="membership-heading">
+              Both ebooks + everyday parenting help in Messenger.
+            </h2>
+            <p className="sales-offer-price">
+              <strong>{formatPrice()}</strong> {offer.price.currency} / month
+            </p>
             <p className="sales-offer-renewal">
-              <strong>One payment. Both ebooks to keep.</strong>
+              {renewalLabel()} No joining fee.
             </p>
             <ul className="check-list">
-              <CheckItem>Calmer Tantrums ebook</CheckItem>
-              <CheckItem>Calmer Mealtimes ebook</CheckItem>
-              <CheckItem>No recurring book payments</CheckItem>
-              <CheckItem>No chatbot subscription needed</CheckItem>
+              <CheckItem>Calmer Tantrums ebook to keep</CheckItem>
+              <CheckItem>Calmer Mealtimes ebook to keep</CheckItem>
+              <CheckItem>One-to-one AI parenting chat in Messenger</CheckItem>
+              <CheckItem>
+                Meal ideas, recipes and words for difficult moments
+              </CheckItem>
+              <CheckItem>Everyday questions and follow-up ideas</CheckItem>
+              <CheckItem>Cancel future renewal through Whop</CheckItem>
             </ul>
-            <CheckoutCTA product="guides" />
+            <CheckoutCTA />
             <p className="sales-disclosure">
-              {guidesLive
-                ? 'Secure checkout through Whop. This purchase does not start a subscription.'
-                : 'Coming soon. This purchase will not start a subscription.'}
+              One recurring payment. No separate book purchase or chatbot
+              upgrade.
             </p>
-          </div>
-          <div className="sales-offer sales-chatbot-offer" id="chatbot-offer">
-            <p className="sales-kicker">
-              Optional upgrade · books + monthly chatbot
-            </p>
-            <h3 className="offer-title">
-              Both guides + your AI parenting helper
-            </h3>
-            {bundleFirstPayment() ? (
-              <>
-                <p className="sales-offer-price">
-                  <strong>{bundleFirstPayment()}</strong>{' '}
-                  {offer.guides.currency} today
-                </p>
-                <p className="sales-payment-breakdown">
-                  {priceLabel('guides')} for both books + {chatbotPrice} for the
-                  first chatbot month.
-                </p>
-              </>
-            ) : (
-              <p className="sales-price-pending">
-                Combined price announced before sales open
-              </p>
-            )}
-            <p className="sales-offer-renewal">
-              Then {priceLabel('chatbot')} from month two, until cancelled.
-              {!offer.chatbot.termsConfirmed &&
-                ' Chatbot pricing is a proposal.'}
-            </p>
-            <ul className="check-list">
-              <CheckItem>Both ebooks, yours to keep</CheckItem>
-              <CheckItem>Meal ideas and recipes to consider</CheckItem>
-              <CheckItem>Words for specific parenting situations</CheckItem>
-              <CheckItem>Everyday questions beyond the book topics</CheckItem>
-              <CheckItem>One-to-one AI chat and follow-up questions</CheckItem>
-              <CheckItem>Access during your paid subscription</CheckItem>
-            </ul>
-            <CheckoutCTA product="bundle" />
-            <p className="sales-disclosure">
-              {chatbotLive
-                ? 'Combined checkout through Whop.'
-                : 'This offer is not open yet.'}{' '}
-              Only choose this option if you want the monthly chatbot. Keep the
-              books if you cancel chatbot renewal.
-            </p>
-            <div className="sales-guarantee">
-              <h4>
-                {offer.refund.adopted
-                  ? `${offer.refund.days}-day first-payment money-back guarantee`
-                  : `Proposed: ${offer.refund.days}-day first-payment guarantee`}
-              </h4>
+            <div className="sales-cancellation">
+              <strong>Keep the books, even if you cancel.</strong>
               <p>
-                For the chatbot portion of the first payment only, not the ebook
-                price. No lessons to finish or approach to prove failed. A
-                successful refund would stop future chatbot renewals. Later
-                payments are not covered.
-                {!offer.refund.adopted &&
-                  ' Final terms will be available before subscriptions open.'}
+                Both ebooks are included with your first purchase. Chatbot
+                access lasts for your paid membership period. If you cancel
+                future renewal, the ebooks remain yours.
               </p>
             </div>
+            {offer.refund.enabled && (
+              <div className="sales-guarantee">
+                <h3>
+                  {offer.refund.days}-day money-back guarantee on your first
+                  payment
+                </h3>
+                <p>
+                  No lessons to complete or approach to prove failed. A
+                  successful refund also stops future renewals. Later renewal
+                  payments are not covered by this introductory guarantee.
+                </p>
+              </div>
+            )}
           </div>
-          <p className="sales-disclosure offer-separation">
-            Choose one checkout: books only, or books + chatbot. Do not buy both
-            options—the combined offer already includes the books.
-          </p>
         </section>
 
         <section
@@ -397,15 +345,15 @@ export function SalesPage() {
           aria-labelledby="closing-heading"
         >
           <h2 id="closing-heading">
-            Start with the part of the day you want help with.
+            Start with the question that’s on your mind today.
           </h2>
           <p>
-            You don’t need to become a different parent overnight. Choose a
-            starting point that feels useful today.
+            Something to make for dinner. Something to say. An idea for what to
+            try next.
           </p>
-          <PrimaryCTA placement="closing">See the guide bundle</PrimaryCTA>
+          <PrimaryCTA placement="closing" />
           <p className="sales-price-note">
-            Buy the books once. The chatbot is optional.
+            {priceLabel()}. Both ebooks included. {renewalLabel()}
           </p>
         </section>
       </main>

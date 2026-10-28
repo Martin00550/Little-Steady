@@ -1,28 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import {
-  ArrowDown,
-  ArrowRight,
-  ArrowUpRight,
-  Check,
-  Plus,
-  X,
-} from 'lucide-react'
-import {
-  canPurchase,
-  checkoutUrl,
-  offer,
-  priceLabel,
-  safeUrl,
-  supportHref,
-} from '../config'
-import type { Product } from '../config'
+import { ArrowRight, ArrowUpRight, Check, Plus, X } from 'lucide-react'
+import { canPurchase, offer, priceLabel, safeUrl, supportHref } from '../config'
 import { track } from '../lib/analytics'
 
 export function Brand() {
   return (
     <a className="brand" href="/" aria-label="Little Steady home">
-      <span>Little Steady</span>
+      {offer.logo ? (
+        <img src={offer.logo} alt="Little Steady" />
+      ) : (
+        <span>Little Steady</span>
+      )}
     </a>
   )
 }
@@ -33,70 +22,55 @@ export function Header() {
     </header>
   )
 }
-export function Eyebrow({
-  children,
-  light = false,
-}: {
-  children: ReactNode
-  light?: boolean
-}) {
-  return (
-    <p className={`eyebrow${light ? ' eyebrow--light' : ''}`}>
-      <span />
-      {children}
-    </p>
-  )
+export function Eyebrow({ children }: { children: ReactNode }) {
+  return <p className="eyebrow">{children}</p>
 }
 export function CheckItem({ children }: { children: ReactNode }) {
   return (
     <li>
-      <Check size={17} strokeWidth={1.8} aria-hidden="true" />
+      <Check size={18} strokeWidth={2} aria-hidden="true" />
       <span>{children}</span>
     </li>
   )
 }
 export function PrimaryCTA({
-  children = 'See the guide bundle',
+  children,
   placement = 'hero',
-  className = '',
 }: {
   children?: ReactNode
   placement?: string
-  className?: string
 }) {
   return (
     <a
-      className={`button button--primary ${className}`}
-      href="#offers"
+      className="button button--primary"
+      href="#membership"
       onClick={() => track('primary_cta_click', { placement })}
     >
-      {children}
+      {children || `Get Little Steady — ${priceLabel()}`}
       <ArrowRight size={19} />
     </a>
   )
 }
-export function CheckoutCTA({ product }: { product: Product }) {
-  const ready = canPurchase(product)
-  return ready ? (
+export function CheckoutCTA() {
+  return canPurchase() ? (
     <a
-      className="button button--cream"
-      href={safeUrl(checkoutUrl(product))!}
+      className="button button--primary"
+      href={safeUrl(offer.links.checkout)!}
       onClick={() => {
-        track('primary_cta_click', { placement: product })
-        track('checkout_handoff', { target: product })
+        track('primary_cta_click', { placement: 'checkout' })
+        track('checkout_handoff')
       }}
     >
-      {product === 'guides'
-        ? 'Get both ebooks — one-time purchase'
-        : 'Get the guides + parenting helper'}
-      <ArrowUpRight size={18} />
+      Join Little Steady — {priceLabel()}
+      <ArrowUpRight size={19} />
     </a>
   ) : (
-    <button className="button button--cream button--unavailable" disabled>
-      {product === 'guides'
-        ? 'Guide bundle coming soon'
-        : 'Guides + helper coming soon'}
-    </button>
+    <>
+      <button className="button button--unavailable" disabled>
+        Checkout opens soon
+      </button>
+      <p className="checkout-status">Membership checkout is not open yet.</p>
+    </>
   )
 }
 export function Accordion({
@@ -127,79 +101,89 @@ export function Accordion({
 type Policy = 'privacy' | 'terms' | 'refund'
 const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
   privacy: {
-    title: 'Privacy & the AI companion',
+    title: 'AI and your privacy',
     content: (
       <>
         <p>
-          The Messenger companion is not available in this preview. This site
-          does not collect chat messages or child information, and analytics is
-          disabled.
+          The helper is an AI chatbot in Messenger. Meta provides Messenger, and
+          AI services are involved in processing questions and generating
+          replies. It is not a private clinical consultation.
         </p>
         <p>
-          A final privacy policy covering Little Steady, Meta and any AI
-          providers must be available before sales and companion access open.
-          Storage periods, administrator access and deletion procedures have not
-          yet been confirmed.
+          Describe situations without children’s names, dates of birth, medical
+          records or other identifying details. No promise of end-to-end
+          encryption or zero storage is made here.
         </p>
         <p>
-          Please don’t share a child’s name, date of birth, medical records or
-          other identifying details in a chat. No end-to-end encryption or
-          zero-storage promise is made.
+          Review the applicable data-processing and privacy terms supplied with
+          the service before using the helper. Storage, administrator access and
+          deletion rights depend on those terms.
+        </p>
+        <p>
+          This website does not collect chat messages or children’s details.
+          Optional analytics is disabled.
         </p>
       </>
     ),
   },
   terms: {
-    title: 'Books and optional chatbot access',
+    title: 'Your Little Steady membership',
     content: (
       <>
         <p>
-          The two-ebook bundle is a one-time purchase: {priceLabel('guides')}.
-          It does not start a subscription.
+          {priceLabel()} in {offer.price.currency}, renewing monthly until
+          cancelled. No joining fee or separate book payment. The membership
+          includes Calmer Tantrums, Calmer Mealtimes and access to the AI
+          parenting helper in Messenger.
         </p>
         <p>
-          An optional combined offer adds the AI parenting helper in Messenger
-          at a suggested {priceLabel('chatbot')}. The initial payment includes
-          the books and the first chatbot month. Only chatbot access renews
-          monthly until cancelled. Cancelling it does not remove books included
-          in your purchase.
+          The ebooks are included with your first purchase and remain yours
+          after cancellation. AI helper access lasts for the paid membership
+          period. Cancelling future renewal through Whop does not automatically
+          request a refund.
         </p>
         <p>
-          Checkout is not open yet. Final terms, seller details and access
-          instructions will be available before sales open. No payment is taken
-          on this site.
+          Whop handles checkout and membership management. Your Whop receipt and
+          account contain your payment details, next renewal and purchase
+          instructions.
         </p>
         <p>
-          General parenting education is not medical advice or therapy. AI can
-          be wrong; no behavioural results are guaranteed.
+          The service provides general parenting education. AI can make
+          mistakes. No behavioural or health outcome is guaranteed, and the
+          helper is not a clinician or emergency service.
         </p>
       </>
     ),
   },
   refund: {
-    title: 'Refunds and subscription cancellation',
+    title: 'Refunds and cancellation',
     content: (
       <>
         <p>
-          Book refund terms have not been finalised. Any final policy will be
-          available before checkout opens. Statutory rights are unaffected.
+          To stop future payments, manage your membership through Whop. Chatbot
+          access continues for the paid period, and you keep both ebooks after
+          cancellation.
         </p>
         <p>
-          A voluntary {offer.refund.days}-day first-payment guarantee for the
-          chatbot is proposed. It is not an adopted sales policy and does not
-          cover the ebook portion of a combined payment.
+          Cancelling renewal and asking for a refund are separate actions. For
+          payment enquiries, use the help options in your Whop purchase or the
+          seller contact shown on your receipt.
         </p>
-        <p>
-          Under that proposal, there would be no lessons to finish or proof that
-          an approach failed. A successful chatbot refund would also stop future
-          renewals. Later chatbot payments would not be covered by the
-          introductory guarantee.
-        </p>
-        <p>
-          Cancelling future renewal and asking for a refund are separate
-          actions, handled through Whop. Cancelling chatbot renewal does not
-          remove the books.
-        </p>
+        {offer.refund.enabled ? (
+          <p>
+            The voluntary {offer.refund.days}-day money-back guarantee covers
+            the first membership payment only. No completed lessons or proof of
+            failure are required. A successful refund also stops future
+            renewals. Later renewal payments are not covered by this
+            introductory guarantee.
+          </p>
+        ) : (
+          <p>
+            Refund eligibility is governed by the policy provided at checkout
+            and your applicable statutory rights. No additional voluntary
+            money-back guarantee is promised on this page.
+          </p>
+        )}
       </>
     ),
   },
@@ -244,7 +228,6 @@ export function PolicyDialog({
       >
         <X size={22} />
       </button>
-      <Eyebrow>Before we open</Eyebrow>
       <h2 id="policy-title">{content.title}</h2>
       <div>{content.content}</div>
       <button className="text-link" onClick={onClose}>
@@ -257,10 +240,9 @@ export function PolicyDialog({
 export function Footer() {
   const [policy, setPolicy] = useState<Policy | null>(null)
   const support = supportHref()
+  const manage = safeUrl(offer.links.manage)
   function policyLink(key: Policy, label: string) {
-    const url = safeUrl(
-      key === 'refund' ? offer.links.refund : offer.policies[key],
-    )
+    const url = safeUrl(offer.links[key])
     return url ? (
       <a href={url}>{label}</a>
     ) : (
@@ -272,28 +254,22 @@ export function Footer() {
       <footer className="footer">
         <div className="container">
           <div className="footer-top">
-            <div>
-              <Brand />
-              <p>Small steps. Steadier days.</p>
-            </div>
+            <Brand />
           </div>
           <div className="footer-bottom">
             <span>© {new Date().getFullYear()} Little Steady</span>
             <nav aria-label="Footer navigation">
-              {policyLink('privacy', 'Privacy & AI')}
-              {policyLink('terms', 'Purchase terms')}
-              {policyLink('refund', 'Refunds')}
+              {policyLink('privacy', 'AI & privacy')}
+              {policyLink('terms', 'Membership terms')}
+              {policyLink('refund', 'Refunds & cancellation')}
               {support && <a href={support}>Support</a>}
-              {safeUrl(offer.links.manage) && (
-                <a href={safeUrl(offer.links.manage)!}>
-                  Manage chatbot subscription
-                </a>
-              )}
+              {manage && <a href={manage}>Manage membership</a>}
             </nav>
           </div>
           {offer.seller.legalName && (
             <p className="seller-details">
-              {offer.seller.legalName} · {offer.seller.address}
+              {offer.seller.legalName}
+              {offer.seller.address && ` · ${offer.seller.address}`}
             </p>
           )}
         </div>
@@ -305,10 +281,10 @@ export function Footer() {
 export function MobileCTA() {
   const [visible, setVisible] = useState(false)
   useEffect(() => {
-    const hero = document.getElementById('hero')
-    const offerElement = document.getElementById('offers')
-    const footer = document.querySelector('footer')
-    if (!hero || !offerElement || !footer) return
+    const hero = document.getElementById('hero'),
+      membership = document.getElementById('membership'),
+      footer = document.querySelector('footer')
+    if (!hero || !membership || !footer) return
     let heroPassed = false,
       offerVisible = false,
       footerVisible = false
@@ -317,26 +293,23 @@ export function MobileCTA() {
         if (entry.target === hero)
           heroPassed =
             !entry.isIntersecting && entry.boundingClientRect.bottom < 0
-        if (entry.target === offerElement) offerVisible = entry.isIntersecting
+        if (entry.target === membership) offerVisible = entry.isIntersecting
         if (entry.target === footer) footerVisible = entry.isIntersecting
       }
       setVisible(heroPassed && !offerVisible && !footerVisible)
     })
     observer.observe(hero)
-    observer.observe(offerElement)
+    observer.observe(membership)
     observer.observe(footer)
     return () => observer.disconnect()
   }, [])
   return visible ? (
-    <aside className="mobile-cta" aria-label="Guide bundle">
+    <aside className="mobile-cta" aria-label="Little Steady membership">
       <div>
-        <strong>{priceLabel('guides')}</strong>
-        <span>One-time purchase</span>
+        <strong>{priceLabel()}</strong>
+        <span>Both books + AI helper</span>
       </div>
-      <PrimaryCTA placement="mobile">
-        View bundle
-        <ArrowDown className="sr-only" />
-      </PrimaryCTA>
+      <PrimaryCTA placement="mobile">See membership</PrimaryCTA>
     </aside>
   ) : null
 }
