@@ -1,15 +1,15 @@
 # Design and copy notes
 
-The sales page uses Arial, 18px body copy, dark text on white and a single-column reading path. A direct headline identifies the problem, followed by the two products, a short recognition section, the inclusions, the buying path, one offer and concise FAQs. Yellow buttons with dark text make the next action easy to find.
+The page uses Arial, 18px body copy, dark text on white and a single-column sales flow. The copy leads with recognisable moments, not feature terminology: refused dinner, leaving the playground, words to say when tired, and everyday meal decisions.
 
-The design removes the editorial serif font, pale secondary text, decorative slogans, botanical staging, simulated Messenger interface and website navigation. Product cover concepts remain plainly labelled until actual assets are supplied. The simple thank-you redirect shares the same readable typography.
+The default headline is **“Dinner’s refused. Your child’s upset. What do you try next?”** The offer underneath identifies the two ebooks as a one-time purchase and makes the optional chatbot upgrade explicit. Question examples show the breadth of the AI helper without fabricating working responses. There is no fake chat widget or software dashboard.
 
-The implemented headline is **“Know what to try when parenting gets hard.”** It describes an intended starting point, without guaranteeing behavioural results. Missing product details and companion availability are still disclosed; a design change does not verify commercial facts.
+The two payment choices are stacked rather than turned into a multi-plan pricing grid. The combined option shows the total initial payment and later renewal, and explains that its books are already included. The chatbot is not automatically added to a books-only order. Plain-language checkout buttons replace “membership” labels.
 
-Three headline alternatives for later testing:
+Three headline alternatives to test later:
 
-1. **Know what to try in the moments that feel hardest.**
-2. **Practical help for tantrums and difficult mealtimes.**
+1. **What can I say? What can I cook? Where do I start?**
+2. **Help for the parenting questions that come up before you’ve finished your coffee.**
 3. **For the moments you wish came with a guide.**
 
-Actual conversion and retention need measurement. A thank-you page view is not a verified purchase.
+The aim is relevance and clarity, not pressure or promises of perfect children. Real results, pricing and retention require measurement; a thank-you page view is not a verified purchase.

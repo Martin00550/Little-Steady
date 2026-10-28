@@ -14,11 +14,19 @@ Requires Node 22.12+; tested with Node 24.19. Use the existing checkout; do not 
 
 `npm run build` produces `dist/`. `npm run preview` serves that build locally.
 
-## Add the Whop link
+## Add the Whop checkout links
 
-Edit `offer.links.checkout` in `src/config.ts`. Price, billing terms, refund wording, policy links and contact details also live there. Confirm the terms and advertised companion availability in that configuration when the offer is ready to sell. No payment keys or backend are needed for a checkout handoff.
+Edit `src/config.ts`:
 
-The current page is a preview with checkout closed. The $12.99/month offer and first-payment guarantee are proposed terms from the brief. No real logo or ebook files were provided, so the page uses a plain-text brand name and clearly labelled cover concepts. No ebook excerpts or testimonials have been invented.
+- `offer.guides`: the €47 EUR one-time price, the books-only Whop checkout URL and confirmed terms.
+- `offer.chatbot`: proposed €12.99 EUR/month, a separate **combined books + chatbot** Whop checkout URL, confirmed terms and actual availability.
+- Shared library, Messenger, support and policy links remain optional until supplied.
+
+The combined first charge is calculated as €47 + €12.99 = €59.99, with only €12.99 renewing from month two. Do not set the combined URL until the real Whop checkout implements exactly that schedule. Whop’s support for that payment configuration remains unverified. There is no local billing code.
+
+Both checkouts are closed in this preview. Books-only purchasing is independent of chatbot readiness. The monthly price and first-chatbot-payment guarantee are proposals. No book refund guarantee is invented. No real ebook files or logo were provided; readable excerpts and actual product details still need review.
+
+See [pricing and offer notes](docs/pricing-and-offer.md) for the recommendation, its assumptions and the live-research limitation.
 
 ## Checks
 

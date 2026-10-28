@@ -869,3 +869,72 @@ a.button:hover {
     animation: none !important;
   }
 }
+
+/* Explain the optional combined offer without a multi-plan pricing grid. */
+.sales-offer .offer-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-block: 6px 22px;
+}
+.sales-chatbot-offer {
+  margin-top: 28px;
+  border: 1px solid #777;
+  background: #fff;
+}
+.sales-offer .sales-payment-breakdown {
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 14px;
+  color: #333;
+}
+.sales-price-pending {
+  text-align: center;
+  font-weight: 700;
+}
+.sales-guarantee h4 {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+.offer-separation {
+  margin-top: 20px;
+}
+.sales-examples {
+  margin-block: 27px;
+  border-block: 1px solid #d6d6d6;
+}
+.sales-examples .sales-example-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding-top: 18px;
+}
+.sales-example {
+  padding-block: 21px;
+}
+.sales-example + .sales-example {
+  border-top: 1px solid #e1e1e1;
+}
+.sales-example h3 {
+  font-size: 0.9rem;
+  color: #454545;
+  line-height: 1.5;
+}
+.sales-example .sales-example-question {
+  font-size: 1.13rem;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+.sales-example p + p {
+  font-size: 0.95rem;
+  margin-top: 9px;
+}
+@media (max-width: 600px) {
+  .sales-offer .offer-title {
+    font-size: 1.3rem;
+  }
+  .sales-offer .sales-payment-breakdown {
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+}

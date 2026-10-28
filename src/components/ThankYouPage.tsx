@@ -73,14 +73,15 @@ export function ThankYouPage() {
                 size={25}
                 strokeWidth={1.5}
               />
-              <h2 id="messenger-title">Find your follow-up support</h2>
+              <h2 id="messenger-title">If you added the AI helper</h2>
               <p>
-                Check the instructions in your Whop purchase for Messenger
-                companion access and any activation steps.
+                If you chose the books + chatbot option, check your Whop
+                purchase for the Messenger access instructions. If you bought
+                just the books, no chatbot subscription is started.
               </p>
               <p>
                 This is a one-to-one conversation with Little Steady’s AI
-                companion, not a group or a human coach.
+                parenting helper, not a group or a human coach.
               </p>
               {messenger && (
                 <a className="text-link" href={messenger}>

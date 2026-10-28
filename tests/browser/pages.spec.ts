@@ -37,14 +37,14 @@ test('CTA scrolls to the real offer and never sends a customer to a fake checkou
 }) => {
   await page.goto('/')
   await page
-    .getByRole('link', { name: 'See the membership', exact: true })
+    .getByRole('link', { name: 'See the guide bundle', exact: true })
     .first()
     .click()
-  await expect(page).toHaveURL(/#membership$/)
+  await expect(page).toHaveURL(/#offers$/)
   await expect(
-    page.getByRole('button', { name: 'Membership opening soon' }),
+    page.getByRole('button', { name: 'Guide bundle coming soon' }),
   ).toBeDisabled()
-  await expect(page.getByRole('link', { name: /Get the guides/ })).toHaveCount(
+  await expect(page.getByRole('link', { name: /Get both ebooks/ })).toHaveCount(
     0,
   )
 })
@@ -52,10 +52,9 @@ test('FAQ and policy dialogs work with a keyboard, including focus return', asyn
   page,
 }) => {
   await page.goto('/')
-  const question = page.getByText(
-    'Is the companion a person? Can it be wrong?',
-    { exact: true },
-  )
+  const question = page.getByText('Is the parenting helper a person?', {
+    exact: true,
+  })
   await question.focus()
   await page.keyboard.press('Enter')
   await expect(page.locator('details[open]')).toContainText('It is AI')
@@ -73,14 +72,31 @@ test('mobile sticky offer appears after the hero and hides at the pricing sectio
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/')
   await expect(
-    page.getByRole('complementary', { name: 'Planned membership' }),
+    page.getByRole('complementary', { name: 'Guide bundle' }),
   ).toHaveCount(0)
   await page.locator('#included').scrollIntoViewIfNeeded()
   await expect(
-    page.getByRole('complementary', { name: 'Planned membership' }),
+    page.getByRole('complementary', { name: 'Guide bundle' }),
   ).toBeVisible()
-  await page.locator('#membership').scrollIntoViewIfNeeded()
+  await page.locator('#offers').scrollIntoViewIfNeeded()
   await expect(
-    page.getByRole('complementary', { name: 'Planned membership' }),
+    page.getByRole('complementary', { name: 'Guide bundle' }),
   ).toHaveCount(0)
+})
+
+test('separates books-only payment from the combined first charge and renewals', async ({
+  page,
+}) => {
+  await page.goto('/')
+  const books = page.locator('#guide-offer')
+  await expect(books).toContainText('€47.00')
+  await expect(books).toContainText('No recurring book payments')
+  await expect(books).not.toContainText('/ month')
+  const combined = page.locator('#chatbot-offer')
+  await expect(combined).toContainText('€59.99')
+  await expect(combined).toContainText('EUR today')
+  await expect(combined).toContainText('Then €12.99 EUR/month from month two')
+  await expect(
+    page.getByRole('button', { name: 'Guides + helper coming soon' }),
+  ).toBeDisabled()
 })

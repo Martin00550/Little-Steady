@@ -8,7 +8,15 @@ import {
   Plus,
   X,
 } from 'lucide-react'
-import { canPurchase, offer, priceLabel, safeUrl, supportHref } from '../config'
+import {
+  canPurchase,
+  checkoutUrl,
+  offer,
+  priceLabel,
+  safeUrl,
+  supportHref,
+} from '../config'
+import type { Product } from '../config'
 import { track } from '../lib/analytics'
 
 export function Brand() {
@@ -48,7 +56,7 @@ export function CheckItem({ children }: { children: ReactNode }) {
   )
 }
 export function PrimaryCTA({
-  children = 'See the membership',
+  children = 'See the guide bundle',
   placement = 'hero',
   className = '',
 }: {
@@ -59,7 +67,7 @@ export function PrimaryCTA({
   return (
     <a
       className={`button button--primary ${className}`}
-      href="#membership"
+      href="#offers"
       onClick={() => track('primary_cta_click', { placement })}
     >
       {children}
@@ -67,23 +75,27 @@ export function PrimaryCTA({
     </a>
   )
 }
-export function CheckoutCTA() {
-  const ready = canPurchase()
+export function CheckoutCTA({ product }: { product: Product }) {
+  const ready = canPurchase(product)
   return ready ? (
     <a
       className="button button--cream"
-      href={safeUrl(offer.links.checkout)!}
+      href={safeUrl(checkoutUrl(product))!}
       onClick={() => {
-        track('primary_cta_click', { placement: 'offer' })
-        track('checkout_handoff')
+        track('primary_cta_click', { placement: product })
+        track('checkout_handoff', { target: product })
       }}
     >
-      Get the guides + Messenger support
+      {product === 'guides'
+        ? 'Get both ebooks — one-time purchase'
+        : 'Get the guides + parenting helper'}
       <ArrowUpRight size={18} />
     </a>
   ) : (
     <button className="button button--cream button--unavailable" disabled>
-      Membership opening soon
+      {product === 'guides'
+        ? 'Guide bundle coming soon'
+        : 'Guides + helper coming soon'}
     </button>
   )
 }
@@ -138,51 +150,55 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
     ),
   },
   terms: {
-    title: 'The planned membership',
+    title: 'Books and optional chatbot access',
     content: (
       <>
         <p>
-          Membership is not available to purchase yet. The proposed offer is{' '}
-          {priceLabel()}, renewing monthly until cancelled, with no joining fee
-          or separate upsell.
+          The two-ebook bundle is a one-time purchase: {priceLabel('guides')}.
+          It does not start a subscription.
         </p>
         <p>
-          The plan includes Calmer Tantrums and Calmer Mealtimes to keep, plus
-          access to an AI companion in a one-to-one Messenger conversation
-          during the paid membership period.
+          An optional combined offer adds the AI parenting helper in Messenger
+          at a suggested {priceLabel('chatbot')}. The initial payment includes
+          the books and the first chatbot month. Only chatbot access renews
+          monthly until cancelled. Cancelling it does not remove books included
+          in your purchase.
         </p>
         <p>
-          Final seller details, product coverage, activation instructions and
-          legal terms will be confirmed before checkout opens. No payment is
-          taken on this site.
+          Checkout is not open yet. Final terms, seller details and access
+          instructions will be available before sales open. No payment is taken
+          on this site.
         </p>
         <p>
-          Parenting education is not medical advice, therapy or emergency
-          support. Behavioural results are not guaranteed.
+          General parenting education is not medical advice or therapy. AI can
+          be wrong; no behavioural results are guaranteed.
         </p>
       </>
     ),
   },
   refund: {
-    title: 'Cancellation & proposed refunds',
+    title: 'Refunds and subscription cancellation',
     content: (
       <>
         <p>
-          The proposed policy is a voluntary {offer.refund.days}-day money-back
-          guarantee on the first membership payment only. It has not yet been
-          adopted as a live sales policy.
+          Book refund terms have not been finalised. Any final policy will be
+          available before checkout opens. Statutory rights are unaffected.
         </p>
         <p>
-          Under this proposal, a first-payment refund would not require
-          completing lessons or proving an approach failed. A successful refund
-          would also stop future renewals. Later renewal payments are not
-          covered by this introductory guarantee.
+          A voluntary {offer.refund.days}-day first-payment guarantee for the
+          chatbot is proposed. It is not an adopted sales policy and does not
+          cover the ebook portion of a combined payment.
         </p>
         <p>
-          Cancelling future renewal and requesting a refund are separate
-          actions. The planned cancellation route is Whop’s membership
-          management. The final refund contact and policy will be provided
-          before purchases open. Statutory rights are unaffected.
+          Under that proposal, there would be no lessons to finish or proof that
+          an approach failed. A successful chatbot refund would also stop future
+          renewals. Later chatbot payments would not be covered by the
+          introductory guarantee.
+        </p>
+        <p>
+          Cancelling future renewal and asking for a refund are separate
+          actions, handled through Whop. Cancelling chatbot renewal does not
+          remove the books.
         </p>
       </>
     ),
@@ -265,11 +281,13 @@ export function Footer() {
             <span>© {new Date().getFullYear()} Little Steady</span>
             <nav aria-label="Footer navigation">
               {policyLink('privacy', 'Privacy & AI')}
-              {policyLink('terms', 'Membership terms')}
+              {policyLink('terms', 'Purchase terms')}
               {policyLink('refund', 'Refunds')}
               {support && <a href={support}>Support</a>}
               {safeUrl(offer.links.manage) && (
-                <a href={safeUrl(offer.links.manage)!}>Manage membership</a>
+                <a href={safeUrl(offer.links.manage)!}>
+                  Manage chatbot subscription
+                </a>
               )}
             </nav>
           </div>
@@ -288,7 +306,7 @@ export function MobileCTA() {
   const [visible, setVisible] = useState(false)
   useEffect(() => {
     const hero = document.getElementById('hero')
-    const offerElement = document.getElementById('membership')
+    const offerElement = document.getElementById('offers')
     const footer = document.querySelector('footer')
     if (!hero || !offerElement || !footer) return
     let heroPassed = false,
@@ -310,13 +328,13 @@ export function MobileCTA() {
     return () => observer.disconnect()
   }, [])
   return visible ? (
-    <aside className="mobile-cta" aria-label="Planned membership">
+    <aside className="mobile-cta" aria-label="Guide bundle">
       <div>
-        <strong>{priceLabel()}</strong>
-        <span>Planned membership</span>
+        <strong>{priceLabel('guides')}</strong>
+        <span>One-time purchase</span>
       </div>
       <PrimaryCTA placement="mobile">
-        Explore
+        View bundle
         <ArrowDown className="sr-only" />
       </PrimaryCTA>
     </aside>

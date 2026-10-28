@@ -1,12 +1,19 @@
-/** Public information only. Never put payment, Meta or model secrets here. */
+/** Public information only. Whop handles checkout, billing and paid access. */
 export interface OfferConfig {
   brand: string
-  price: { amount: number; currency: string; interval: 'month' }
-  terms: {
-    confirmed: boolean
-    ebooksToKeep: boolean
-    monthlyRenewal: boolean
-    joiningFee: number
+  guides: {
+    amount: number | null
+    currency: string
+    checkoutUrl: string | null
+    termsConfirmed: boolean
+  }
+  chatbot: {
+    amount: number | null
+    currency: string
+    interval: 'month'
+    bundleCheckoutUrl: string | null
+    termsConfirmed: boolean
+    available: boolean
   }
   refund: {
     adopted: boolean
@@ -18,7 +25,6 @@ export interface OfferConfig {
   links: {
     library: string | null
     messenger: string | null
-    checkout: string | null
     manage: string | null
     refund: string | null
   }
@@ -29,19 +35,32 @@ export interface OfferConfig {
     creator: string | null
   }
   policies: { privacy: string | null; terms: string | null }
-  readiness: { ageRange: string | null; companionVerified: boolean }
+  readiness: { ageRange: string | null }
   analytics: { enabled: boolean; consentRequired: boolean }
 }
+export type Product = 'guides' | 'bundle'
+export type PriceKind = 'guides' | 'chatbot'
 
 export const offer: OfferConfig = {
   brand: 'Little Steady',
-  price: { amount: 12.99, currency: 'USD', interval: 'month' },
-  terms: {
-    confirmed: false,
-    ebooksToKeep: true,
-    monthlyRenewal: true,
-    joiningFee: 0,
+  guides: {
+    amount: 47,
+    currency: 'EUR',
+    checkoutUrl: null,
+    termsConfirmed: false,
   },
+  // €47 is supplied by the owner; €12.99/month remains a working proposal.
+  // The combined checkout charges for both guides and the first chatbot month.
+  chatbot: {
+    amount: 12.99,
+    currency: 'EUR',
+    interval: 'month',
+    bundleCheckoutUrl: null,
+    termsConfirmed: false,
+    available: false,
+  },
+  // The previous first-payment refund proposal applies only to the chatbot.
+  // No book refund promise is added without an approved policy.
   refund: {
     adopted: false,
     days: 14,
@@ -49,17 +68,11 @@ export const offer: OfferConfig = {
     noProofRequired: true,
     stopsRenewal: true,
   },
-  links: {
-    library: null,
-    messenger: null,
-    checkout: null,
-    manage: null,
-    refund: null,
-  },
+  links: { library: null, messenger: null, manage: null, refund: null },
   support: { email: null, url: null },
   seller: { legalName: null, address: null, creator: null },
   policies: { privacy: null, terms: null },
-  readiness: { ageRange: null, companionVerified: false },
+  readiness: { ageRange: null },
   analytics: { enabled: false, consentRequired: true },
 }
 
@@ -74,34 +87,73 @@ export function safeUrl(value: string | null): string | null {
     return null
   }
 }
-
 export function isWhopUrl(value: string | null): boolean {
   const safe = safeUrl(value)
   if (!safe) return false
   const host = new URL(safe).hostname
   return host === 'whop.com' || host.endsWith('.whop.com')
 }
-
-/** The site only hands off to Whop; it never processes or verifies payments. */
-export function canPurchase(config: OfferConfig = offer): boolean {
+export function checkoutUrl(
+  product: Product,
+  config: OfferConfig = offer,
+): string | null {
+  return product === 'guides'
+    ? config.guides.checkoutUrl
+    : config.chatbot.bundleCheckoutUrl
+}
+export function canPurchase(
+  product: Product = 'guides',
+  config: OfferConfig = offer,
+): boolean {
+  const validAmount = (n: number | null) =>
+    n !== null && Number.isFinite(n) && n > 0
+  const guidesReady =
+    validAmount(config.guides.amount) && config.guides.termsConfirmed
+  if (product === 'guides')
+    return guidesReady && isWhopUrl(config.guides.checkoutUrl)
   return (
-    config.terms.confirmed &&
-    config.readiness.companionVerified &&
-    isWhopUrl(config.links.checkout)
+    guidesReady &&
+    validAmount(config.chatbot.amount) &&
+    config.chatbot.termsConfirmed &&
+    config.chatbot.available &&
+    config.chatbot.currency === config.guides.currency &&
+    isWhopUrl(config.chatbot.bundleCheckoutUrl)
   )
 }
-
-export const formatPrice = (config: OfferConfig = offer) =>
-  new Intl.NumberFormat('en-US', {
+export function formatPrice(
+  product: PriceKind,
+  config: OfferConfig = offer,
+): string | null {
+  const item = config[product]
+  return item.amount === null
+    ? null
+    : new Intl.NumberFormat('en-IE', {
+        style: 'currency',
+        currency: item.currency,
+      }).format(item.amount)
+}
+export function priceLabel(
+  product: PriceKind,
+  config: OfferConfig = offer,
+): string | null {
+  const price = formatPrice(product, config)
+  return price
+    ? `${price} ${config[product].currency}${product === 'chatbot' ? '/month' : ' once'}`
+    : null
+}
+export function bundleFirstPayment(config: OfferConfig = offer): string | null {
+  if (
+    config.guides.amount === null ||
+    config.chatbot.amount === null ||
+    config.guides.currency !== config.chatbot.currency
+  )
+    return null
+  return new Intl.NumberFormat('en-IE', {
     style: 'currency',
-    currency: config.price.currency,
-  }).format(config.price.amount)
-export const priceLabel = (config: OfferConfig = offer) =>
-  `${formatPrice(config)} ${config.price.currency}/${config.price.interval}`
-export const renewalLabel = (config: OfferConfig = offer) =>
-  `Renews ${config.price.interval === 'month' ? 'monthly' : config.price.interval} until cancelled.`
-export const guaranteeLabel = (config: OfferConfig = offer) =>
-  `${config.refund.days}-day money-back guarantee on your first payment.`
+    currency: config.guides.currency,
+  }).format(config.guides.amount + config.chatbot.amount)
+}
+export const renewalLabel = () => 'Renews monthly until cancelled.'
 export const supportHref = () =>
   safeUrl(offer.support.url) ||
   (offer.support.email ? `mailto:${offer.support.email}` : null)
