@@ -19,27 +19,6 @@ export function Sprig({ className = '' }: { className?: string }) {
   )
 }
 
-export function Sun({ className = '' }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 100 100"
-      fill="none"
-      aria-hidden="true"
-    >
-      <g stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-        <circle cx="50" cy="50" r="19" />
-        {Array.from({ length: 12 }, (_, i) => (
-          <path key={i} d="M50 15V5" transform={`rotate(${i * 30} 50 50)`} />
-        ))}
-        <path d="M43 52c4 6 10 6 14 0" />
-      </g>
-      <circle cx="43" cy="46" r="1.3" fill="currentColor" />
-      <circle cx="57" cy="46" r="1.3" fill="currentColor" />
-    </svg>
-  )
-}
-
 export function Book({
   kind,
   small = false,
@@ -108,50 +87,5 @@ export function Book({
         <span className="book-footer">A LITTLE STEADY GUIDE</span>
       </div>
     </div>
-  )
-}
-
-export function BookArrangement() {
-  return (
-    <figure className="product-figure">
-      <div className="product-stage">
-        <Sun className="stage-sun" />
-        <span className="stage-note">
-          a little help
-          <br />
-          for real life.
-        </span>
-        <div className="hero-book hero-book--back">
-          <Book kind="mealtimes" />
-        </div>
-        <div className="hero-book hero-book--front">
-          <Book kind="tantrums" />
-        </div>
-        <div className="stage-paper">
-          <Sprig />
-          <span>
-            You don’t have to have
-            <br />
-            <em>all the answers.</em>
-          </span>
-        </div>
-        <svg
-          className="stage-scribble"
-          viewBox="0 0 80 80"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M8 10c2 28 25 48 53 39m-9-9 12 9-9 12"
-            stroke="currentColor"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-          />
-        </svg>
-      </div>
-      <figcaption>
-        Meet the planned collection <span>·</span> Cover concepts shown
-      </figcaption>
-    </figure>
   )
 }

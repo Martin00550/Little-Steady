@@ -18,7 +18,7 @@ Requires Node 22.12+; tested with Node 24.19. Use the existing checkout; do not 
 
 Edit `offer.links.checkout` in `src/config.ts`. Price, billing terms, refund wording, policy links and contact details also live there. Confirm the terms and advertised companion availability in that configuration when the offer is ready to sell. No payment keys or backend are needed for a checkout handoff.
 
-The current page is a preview with checkout closed. The $12.99/month offer and first-payment guarantee are proposed terms from the brief. No real logo or ebook files were provided, so the wordmark and illustrated covers are clearly labelled concepts. No ebook excerpts or testimonials have been invented.
+The current page is a preview with checkout closed. The $12.99/month offer and first-payment guarantee are proposed terms from the brief. No real logo or ebook files were provided, so the page uses a plain-text brand name and clearly labelled cover concepts. No ebook excerpts or testimonials have been invented.
 
 ## Checks
 

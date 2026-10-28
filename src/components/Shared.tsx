@@ -10,15 +10,11 @@ import {
 } from 'lucide-react'
 import { canPurchase, offer, priceLabel, safeUrl, supportHref } from '../config'
 import { track } from '../lib/analytics'
-import { Sprig } from './Artwork'
 
 export function Brand() {
   return (
     <a className="brand" href="/" aria-label="Little Steady home">
-      <Sprig />
-      <span>
-        little steady<span className="brand-stop">.</span>
-      </span>
+      <span>Little Steady</span>
     </a>
   )
 }
@@ -26,16 +22,6 @@ export function Header() {
   return (
     <header className="header container">
       <Brand />
-      <nav aria-label="Main navigation">
-        <a href="#included">
-          What’s included
-          <ArrowUpRight size={15} />
-        </a>
-        <a className="header-cta" href="#membership">
-          Meet your little steady
-          <ArrowRight size={16} />
-        </a>
-      </nav>
     </header>
   )
 }
@@ -62,7 +48,7 @@ export function CheckItem({ children }: { children: ReactNode }) {
   )
 }
 export function PrimaryCTA({
-  children = 'Explore the membership',
+  children = 'See the membership',
   placement = 'hero',
   className = '',
 }: {
@@ -98,7 +84,6 @@ export function CheckoutCTA() {
   ) : (
     <button className="button button--cream button--unavailable" disabled>
       Membership opening soon
-      <Sprig />
     </button>
   )
 }
@@ -274,13 +259,6 @@ export function Footer() {
             <div>
               <Brand />
               <p>Small steps. Steadier days.</p>
-            </div>
-            <div className="footer-note">
-              <Sprig />
-              <p>
-                A little support for the everyday.
-                <br />A little space to find your way.
-              </p>
             </div>
           </div>
           <div className="footer-bottom">

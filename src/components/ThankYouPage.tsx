@@ -7,7 +7,6 @@ import {
 } from 'lucide-react'
 import { offer, safeUrl, supportHref } from '../config'
 import { Brand, Eyebrow } from './Shared'
-import { Sprig } from './Artwork'
 
 /** A simple post-checkout destination. Whop handles payment and paid access. */
 export function ThankYouPage() {
@@ -25,9 +24,6 @@ export function ThankYouPage() {
       </header>
       <main id="main-content" className="thankyou-main container">
         <section className="thankyou-welcome" aria-labelledby="welcome-heading">
-          <div className="thankyou-sprig">
-            <Sprig />
-          </div>
           <Eyebrow>Your next small step</Eyebrow>
           <h1 id="welcome-heading">
             Thank you for choosing
@@ -136,7 +132,6 @@ export function ThankYouPage() {
           </a>
         </aside>
         <div className="thankyou-signoff">
-          <Sprig />
           <p>
             Small steps.
             <br />

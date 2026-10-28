@@ -37,7 +37,7 @@ test('CTA scrolls to the real offer and never sends a customer to a fake checkou
 }) => {
   await page.goto('/')
   await page
-    .getByRole('link', { name: 'Explore the membership', exact: true })
+    .getByRole('link', { name: 'See the membership', exact: true })
     .first()
     .click()
   await expect(page).toHaveURL(/#membership$/)
