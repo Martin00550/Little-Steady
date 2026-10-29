@@ -138,19 +138,18 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
         </p>
         <p>
           The ebooks are included with your first purchase and remain yours
-          after cancellation. AI helper access lasts for the paid membership
-          period. Cancelling future renewal through Whop does not automatically
-          request a refund.
+          after cancellation. You can use the AI helper until the end of the
+          time you’ve paid for. Cancelling your subscription does not
+          automatically request a refund.
         </p>
         <p>
-          Whop handles checkout and membership management. Your Whop receipt and
-          account contain your payment details, next renewal and purchase
-          instructions.
+          Your receipt and account show your payments, your next payment date
+          and the steps for finding your books and chat.
         </p>
         <p>
           The service provides general parenting education. AI can make
           mistakes. No behavioural or health outcome is guaranteed, and the
-          helper is not a clinician or emergency service.
+          helper is not a healthcare professional or emergency service.
         </p>
       </>
     ),
@@ -160,14 +159,14 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
     content: (
       <>
         <p>
-          To stop future payments, manage your membership through Whop. Chatbot
-          access continues for the paid period, and you keep both ebooks after
-          cancellation.
+          To stop future payments, cancel from your account. You can use the
+          chat until the end of the time you’ve paid for, and you keep both
+          ebooks after cancellation.
         </p>
         <p>
-          Cancelling renewal and asking for a refund are separate actions. For
-          payment enquiries, use the help options in your Whop purchase or the
-          seller contact shown on your receipt.
+          Cancelling stops future payments. To ask for a refund or help with a
+          payment, use the help link in your purchase or the seller contact
+          shown on your receipt.
         </p>
         {offer.refund.enabled ? (
           <p>
@@ -180,8 +179,8 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
         ) : (
           <p>
             Refund eligibility is governed by the policy provided at checkout
-            and your applicable statutory rights. No additional voluntary
-            money-back guarantee is promised on this page.
+            and your rights under consumer law. Check the refund policy at
+            checkout for details.
           </p>
         )}
       </>

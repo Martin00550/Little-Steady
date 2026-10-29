@@ -81,8 +81,8 @@ export function ThankYouPage() {
             <div>
               <h2 id="guides-title">Open your two guides</h2>
               <p>
-                Sign in to Whop with the account you used at checkout, then open
-                your Little Steady purchase.
+                Sign in with the email you used at checkout, then open your
+                Little Steady purchase.
               </p>
               <div className="thankyou-titles">
                 <span>Calmer Tantrums</span>
@@ -98,7 +98,7 @@ export function ThankYouPage() {
                 className="button button--primary"
                 href={library || 'https://whop.com/'}
               >
-                {library ? 'Open your guides in Whop' : 'Open Whop'}
+                {library ? 'Open your guides' : 'Find your guides'}
                 <ArrowUpRight size={17} />
               </a>
             </div>
@@ -108,8 +108,8 @@ export function ThankYouPage() {
             <div>
               <h2 id="messenger-title">Get started in Messenger</h2>
               <p>
-                Open the Messenger access instructions inside your Whop purchase
-                and follow any activation steps shown there.
+                Open your purchase and follow the steps for starting your
+                Messenger chat.
               </p>
               <p>
                 You’ll be messaging Little Steady’s AI parenting helper in a
@@ -122,13 +122,12 @@ export function ThankYouPage() {
               >
                 {messenger
                   ? 'Open the helper in Messenger'
-                  : 'Find Messenger access in Whop'}
+                  : 'Find your chat instructions'}
                 <ArrowUpRight size={17} />
               </a>
               <p className="thankyou-small">
-                If an approval or activation step is still pending, follow the
-                status and help instructions in Whop. Opening this page does not
-                activate Messenger access.
+                If your chat is not ready, check the instructions in your
+                purchase or use the help link below.
               </p>
             </div>
           </section>
@@ -173,11 +172,11 @@ export function ThankYouPage() {
             </li>
           </ul>
           <p>
-            Your Whop receipt and account show your actual payment details and
-            next renewal date.
+            Your receipt and account show what you paid and when your next
+            payment is due.
           </p>
           <a className="text-link" href={manage || 'https://whop.com/'}>
-            {manage ? 'Manage your membership' : 'Open your Whop account'}
+            {manage ? 'Manage your membership' : 'Open your account'}
             <ArrowUpRight size={16} />
           </a>
         </aside>
@@ -188,19 +187,19 @@ export function ThankYouPage() {
             with the same account used at checkout.
           </p>
           <p>
-            <strong>Messenger won’t open or access is pending?</strong> Return
-            to the instructions and help options in your Whop purchase.
+            <strong>Can’t start your Messenger chat?</strong> Return to the
+            instructions and help options in your purchase.
           </p>
           <p>
             <strong>Billing, cancellation or refund question?</strong> Use your
-            Whop purchase or receipt. Cancelling future renewal and requesting a
+            purchase or receipt. Cancelling future payments and requesting a
             refund are separate actions.
           </p>
           <a
             className="text-link"
             href={support || library || 'https://whop.com/'}
           >
-            {support ? 'Get help' : 'Get purchase help in Whop'}
+            {support ? 'Get help' : 'Get help with your purchase'}
             <ArrowUpRight size={16} />
           </a>
         </aside>

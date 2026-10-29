@@ -32,7 +32,7 @@ const examples = [
 const faqs = [
   {
     q: `What do I get for ${priceLabel()}?`,
-    a: 'Both Little Steady ebooks—Calmer Tantrums and Calmer Mealtimes—plus access to the AI parenting helper in a one-to-one Messenger conversation. One membership, one monthly payment. No separate joining fee or paid add-on is required for these items.',
+    a: 'Both Little Steady ebooks—Calmer Tantrums and Calmer Mealtimes—plus access to the AI parenting helper in a one-to-one Messenger conversation. One membership, one monthly payment. No separate joining fee or extra fee is required for these items.',
   },
   {
     q: 'Are the books included, or do I pay extra?',
@@ -48,7 +48,7 @@ const faqs = [
   },
   {
     q: 'Is it a real person?',
-    a: 'It is an AI chatbot, not a human coach, clinician or emergency service. It can misunderstand a question or give incorrect information. Use your judgement and seek qualified help for medical, feeding, developmental or safety concerns. Check recipe ingredients for your family’s dietary needs and allergies.',
+    a: 'It is an AI chatbot, not a human coach, healthcare professional or emergency service. It can misunderstand a question or give incorrect information. Use your judgement and seek qualified help for medical, feeding, developmental or safety concerns. Check recipe ingredients for your family’s dietary needs and allergies.',
   },
   {
     q: 'Do I have to read the books before I can ask a question?',
@@ -56,15 +56,15 @@ const faqs = [
   },
   {
     q: 'Do I need Messenger? Is this a group?',
-    a: 'You need Messenger to use the AI helper. It is a one-to-one conversation with the business’s chatbot, not a group. Your ebooks are accessed through Whop. Follow the access instructions inside your Whop purchase to get started.',
+    a: 'You need Messenger to use the AI helper. It is a one-to-one conversation with the business’s chatbot, not a group. Open your ebooks from your purchase page. The same page explains how to start your Messenger chat.',
   },
   {
     q: 'Why does it renew each month?',
-    a: 'The ongoing part is access to the parenting helper for the new questions that come up. It is not a monthly charge to keep your ebooks, and it is not a promise of new guides every month. If you no longer want the chatbot, cancel future renewal through Whop.',
+    a: 'The ongoing part is access to the parenting helper for the new questions that come up. It is not a monthly charge to keep your ebooks, and it is not a promise of new guides every month. If you no longer want the chatbot, cancel your subscription from your account.',
   },
   {
     q: 'What happens if I cancel?',
-    a: 'Cancel future renewal through your Whop membership. You keep both ebooks. Chatbot access continues for the remaining paid membership period, then ends. Cancelling renewal does not automatically request a refund.',
+    a: 'Cancel your subscription from your account. You keep both ebooks. You can use the chat until the end of the time you’ve paid for. Cancelling stops future payments; asking for a refund is a separate step.',
   },
   {
     q: 'Will this stop tantrums or change what my child eats?',
@@ -206,7 +206,7 @@ export function SalesPage() {
                   the books, too.
                 </p>
                 <p className="inclusion-ownership">
-                  Available during your paid membership.
+                  Use it while your subscription is active.
                 </p>
                 <p className="sales-disclosure">
                   The helper is AI, not a person. It can make mistakes. It is
@@ -263,14 +263,15 @@ export function SalesPage() {
           <h2 id="how-heading">One question is enough to get started.</h2>
           <ol className="sales-how">
             <li>
-              <strong>Join through Whop.</strong> One membership includes both
+              <strong>Join Little Steady.</strong> One membership includes both
               ebooks and the Messenger helper.
             </li>
             <li>
               <strong>
                 Open your guides and follow the Messenger instructions.
               </strong>{' '}
-              You’ll find your purchased resources and access details in Whop.
+              Your purchase page has your ebooks and the steps for opening your
+              chat.
             </li>
             <li>
               <strong>
@@ -314,19 +315,18 @@ export function SalesPage() {
                 Meal ideas, recipes and words for difficult moments
               </CheckItem>
               <CheckItem>Everyday questions and follow-up ideas</CheckItem>
-              <CheckItem>Cancel future renewal through Whop</CheckItem>
+              <CheckItem>Cancel from your account</CheckItem>
             </ul>
             <CheckoutCTA />
             <p className="sales-disclosure">
-              One recurring payment. No separate book purchase or chatbot
-              upgrade.
+              One monthly payment. No separate book purchase or chatbot upgrade.
             </p>
             <div className="sales-cancellation">
               <strong>Keep the books, even if you cancel.</strong>
               <p>
-                Both ebooks are included with your first purchase. Chatbot
-                access lasts for your paid membership period. If you cancel
-                future renewal, the ebooks remain yours.
+                Both ebooks are included with your first purchase. Chatbot stays
+                available until the end of the time you’ve paid for. If you
+                cancel future payments, the ebooks remain yours.
               </p>
             </div>
             {offer.refund.enabled && (
@@ -337,7 +337,7 @@ export function SalesPage() {
                 </h3>
                 <p>
                   No lessons to complete or approach to prove failed. A
-                  successful refund also stops future renewals. Later renewal
+                  successful refund also stops future paymentss. Later renewal
                   payments are not covered by this introductory guarantee.
                 </p>
               </div>
