@@ -8,7 +8,13 @@ export function Brand() {
   return (
     <a className="brand" href="/" aria-label="Little Steady home">
       {offer.logo ? (
-        <img src={offer.logo} alt="Little Steady" />
+        <img
+          src={offer.logo}
+          alt="Little Steady"
+          width={1000}
+          height={705}
+          decoding="async"
+        />
       ) : (
         <span>Little Steady</span>
       )}

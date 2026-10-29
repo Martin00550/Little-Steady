@@ -20,8 +20,8 @@ export interface OfferConfig {
 
 export const offer: OfferConfig = {
   brand: 'Little Steady',
-  // Attach the existing logo to use it here and in the cover files.
-  logo: null,
+  // The owner's original artwork, presented without redrawing the logo.
+  logo: '/brand/little-steady-logo.webp',
   price: { amount: 37, currency: 'EUR', interval: 'month' },
   links: {
     // Set this to the final €37/month Whop checkout when fulfilment is ready.

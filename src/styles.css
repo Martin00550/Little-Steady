@@ -1,13 +1,18 @@
 :root {
   font-family: Arial, Helvetica, sans-serif;
   color: #202020;
-  background: #fff;
+  background: var(--paper);
   font-synthesis: none;
   font-size: 18px;
   line-height: 1.7;
   --ink: #202020;
   --muted: #454545;
-  --line: #d6d6d6;
+  --line: #d8dfd4;
+  --brand: #2c5449;
+  --brand-hover: #214438;
+  --paper: #faf7f0;
+  --surface: #f2f1e9;
+  --sage: #dfe7de;
   scroll-behavior: smooth;
   scroll-padding-top: 24px;
 }
@@ -45,10 +50,10 @@ summary {
 a:focus-visible,
 button:focus-visible,
 summary:focus-visible {
-  outline: 3px solid #145a9b;
+  outline: 3px solid var(--brand);
 }
 ::selection {
-  background: #ffe59c;
+  background: var(--sage);
   color: #111;
 }
 h1,
@@ -61,7 +66,7 @@ figure {
 h1,
 h2,
 h3 {
-  color: #151515;
+  color: var(--brand);
   font-weight: 700;
   line-height: 1.25;
 }
@@ -122,7 +127,7 @@ ol {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--line);
 }
 .brand {
   display: inline-flex;
@@ -141,11 +146,11 @@ ol {
   justify-content: center;
   gap: 16px;
   padding: 15px 27px;
-  border: 1px solid #ab7d0b;
+  border: 1px solid var(--brand-hover);
   border-radius: 5px;
-  background: #ffcf51;
-  color: #171717;
-  box-shadow: 0 3px 0 #aa7b0b;
+  background: var(--brand);
+  color: var(--paper);
+  box-shadow: 0 3px 0 var(--brand-hover);
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.4;
@@ -154,10 +159,10 @@ ol {
   transition: background-color 0.15s;
 }
 a.button:hover {
-  background: #ffc431;
+  background: var(--brand-hover);
 }
 .button--unavailable {
-  background: #eeeeee;
+  background: var(--sage);
   border-color: #bcbcbc;
   box-shadow: none;
   color: #454545;
@@ -168,7 +173,7 @@ a.button:hover {
   gap: 9px;
   min-height: 44px;
   padding: 7px 0;
-  color: #174c7d;
+  color: var(--brand);
   text-decoration: underline;
   text-underline-offset: 4px;
   border: 0;
@@ -236,7 +241,7 @@ a.button:hover {
 }
 .sales-section {
   padding-block: 45px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--line);
 }
 .sales-section h2 {
   margin-bottom: 23px;
@@ -257,15 +262,15 @@ a.button:hover {
   padding-block: 26px;
 }
 .sales-inclusions > li + li {
-  border-top: 1px solid #e2e2e2;
+  border-top: 1px solid var(--line);
 }
 .inclusion-number {
   width: 33px;
   height: 33px;
   display: grid;
   place-items: center;
-  background: #f0f0f0;
-  border: 1px solid #d7d7d7;
+  background: var(--sage);
+  border: 1px solid var(--line);
   border-radius: 50%;
   font-weight: 700;
   font-size: 0.85rem;
@@ -290,10 +295,10 @@ a.button:hover {
   line-height: 1.85;
 }
 .sales-offer {
-  border: 2px solid #252525;
+  border: 2px solid var(--brand);
   border-radius: 5px;
   padding: 34px 38px;
-  background: #fafafa;
+  background: var(--surface);
 }
 .sales-offer .sales-kicker {
   margin-bottom: 11px;
@@ -331,14 +336,14 @@ a.button:hover {
 }
 .check-list svg {
   margin-top: 6px;
-  color: #166534;
+  color: var(--brand);
 }
 .check-list li + li {
   margin-top: 13px;
 }
 .sales-offer .check-list {
   padding-block: 26px;
-  border-block: 1px solid #d4d4d4;
+  border-block: 1px solid var(--line);
   margin-top: 25px;
   margin-bottom: 27px;
 }
@@ -350,7 +355,7 @@ a.button:hover {
   margin-top: 16px;
 }
 .sales-guarantee {
-  border-top: 1px solid #d4d4d4;
+  border-top: 1px solid var(--line);
   padding-top: 23px;
   margin-top: 24px;
 }
@@ -365,10 +370,10 @@ a.button:hover {
   line-height: 1.8;
 }
 .accordion {
-  border-bottom: 1px solid #d3d3d3;
+  border-bottom: 1px solid var(--line);
 }
 .accordion:first-of-type {
-  border-top: 1px solid #d3d3d3;
+  border-top: 1px solid var(--line);
 }
 .accordion summary {
   cursor: pointer;
@@ -414,8 +419,8 @@ a.button:hover {
   font-size: 0.85rem;
 }
 .footer {
-  background: #f5f5f5;
-  border-top: 1px solid #d9d9d9;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
 }
 .footer-top {
   display: flex;
@@ -470,7 +475,7 @@ a.button:hover {
   padding: 35px;
   border: 1px solid #666;
   border-radius: 5px;
-  background: #fff;
+  background: var(--paper);
   color: #202020;
 }
 .policy-dialog::backdrop {
@@ -533,12 +538,12 @@ a.button:hover {
   font-size: 1rem;
 }
 .thankyou-steps {
-  border-top: 1px solid #d3d3d3;
+  border-top: 1px solid var(--line);
 }
 .thankyou-step {
   position: relative;
   padding: 30px 0 30px 52px;
-  border-bottom: 1px solid #d3d3d3;
+  border-bottom: 1px solid var(--line);
 }
 .thankyou-number {
   position: absolute;
@@ -577,9 +582,9 @@ a.button:hover {
   font-size: 1.1rem;
 }
 .thankyou-help {
-  background: #f5f5f5;
+  background: var(--paper);
   padding: 28px;
-  border: 1px solid #d3d3d3;
+  border: 1px solid var(--line);
   margin-top: 30px;
 }
 .thankyou-help h2 {
@@ -751,8 +756,8 @@ a.button:hover {
     justify-content: space-between;
     gap: 12px;
     padding: 12px 18px calc(12px + env(safe-area-inset-bottom));
-    background: #fff;
-    border-top: 1px solid #999;
+    background: var(--paper);
+    border-top: 1px solid #879c90;
     box-shadow: 0 -3px 10px #0001;
   }
   .mobile-cta > div {
@@ -821,7 +826,7 @@ a.button:hover {
 }
 .sales-examples {
   margin-block: 27px;
-  border-block: 1px solid #d6d6d6;
+  border-block: 1px solid var(--line);
 }
 .sales-examples .sales-example-label {
   font-size: 0.85rem;
@@ -832,7 +837,7 @@ a.button:hover {
   padding-block: 21px;
 }
 .sales-example + .sales-example {
-  border-top: 1px solid #e1e1e1;
+  border-top: 1px solid var(--line);
 }
 .sales-example h3 {
   font-size: 0.9rem;
@@ -870,13 +875,13 @@ a.button:hover {
 .inclusion-ownership {
   font-size: 0.85rem !important;
   font-weight: 700;
-  color: #174d35;
+  color: var(--brand);
   margin-top: 12px !important;
 }
 .sales-cancellation {
   margin-top: 24px;
   padding-top: 22px;
-  border-top: 1px solid #d4d4d4;
+  border-top: 1px solid var(--line);
 }
 .sales-cancellation > strong {
   display: block;
@@ -888,8 +893,8 @@ a.button:hover {
   color: #333;
 }
 .thankyou-membership {
-  border: 1px solid #c9c9c9;
-  background: #fafafa;
+  border: 1px solid var(--line);
+  background: var(--surface);
   padding: 28px;
   margin-top: 32px;
 }
@@ -911,8 +916,8 @@ a.button:hover {
   margin-top: 24px;
 }
 .starter-question {
-  background: #f7f7f7;
-  border: 1px solid #d6d6d6;
+  background: var(--surface);
+  border: 1px solid var(--line);
   padding: 18px;
   border-radius: 3px;
 }
@@ -924,7 +929,7 @@ a.button:hover {
   align-items: center;
   gap: 9px;
   border: 1px solid #888;
-  background: #fff;
+  background: var(--paper);
   padding: 10px 13px;
   border-radius: 3px;
   min-height: 44px;
@@ -933,7 +938,7 @@ a.button:hover {
   margin-top: 14px;
 }
 .copy-button:hover {
-  background: #eee;
+  background: var(--sage);
 }
 .copy-fallback {
   font-size: 0.8rem !important;
@@ -995,5 +1000,42 @@ a.button:hover {
     font-size: 0.95rem;
     line-height: 1.65;
     margin-bottom: 24px;
+  }
+}
+
+/* The original stacked logo has its own serif lettering; page copy stays Arial. */
+.brand img {
+  display: block;
+  width: 150px;
+  height: auto;
+  max-width: 150px;
+  max-height: none;
+}
+.header {
+  min-height: 128px;
+  padding-block: 10px;
+}
+.footer-top {
+  padding-top: 20px;
+}
+.copy-button {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+@media (max-width: 600px) {
+  .brand img {
+    width: 130px;
+    max-width: 130px;
+    max-height: none;
+  }
+  .header {
+    min-height: 112px;
+    padding-block: 8px;
+  }
+  .sales-hero {
+    padding-top: 24px;
+  }
+  .thankyou-header {
+    gap: 12px;
   }
 }

@@ -8,12 +8,12 @@ The public pages use finished customer-facing copy for the agreed €37/month me
 - The owner confirmed one €37 EUR/month subscription for both books and the AI helper, no joining fee, and books kept after cancellation.
 - The helper covers everyday parenting: recipes, meals, words for specific situations and follow-up questions beyond the book topics.
 - New illustrated ebook covers were generated and are included as high-resolution PNGs and responsive WebPs. These are artwork, not customer photos or paid-file previews.
-- The existing logo could not be accessed through the linked conversation, ChatGPT image Library or workspace files. The owner was asked to attach it. Current covers use plain brand text; they do not claim to contain the unavailable original logo.
+- The owner supplied the existing logo as an attachment. The website now presents that original artwork in its headers, footer and favicon, with forest green #2C5449 and warm ivory #FAF7F0 sampled from the file. Ebook covers retain their existing plain brand text.
 - No ebook files were available for inspection. No specific chapters, exercises, reading times, research references or expert reviews are invented.
 
 ## Remaining external setup
 
-- Supply the original logo to finish the exact requested branding on both covers and the header.
+- The website logo is integrated; any separate cover-logo artwork revision is distinct from this website palette update.
 - Supply the real ebooks in Whop. Verify actual product coverage and any future excerpts before making more specific content claims.
 - Create the exact €37/month Whop checkout and configure both books and membership access. Enable the URL only when fulfilment is ready.
 - Build and test the Messenger helper, membership restrictions, activation instructions, cancellation/refund entitlement effects and any approval process. None of this backend work is implemented here.

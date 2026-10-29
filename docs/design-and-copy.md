@@ -49,4 +49,10 @@ Three later headline-test alternatives:
 
 The first implementation is a hypothesis, not proof of an uplift. Use actual Whop purchases, refunds and renewals to evaluate conversion and retention. CTA clicks and static thank-you views are not verified purchases. Existing analytics remains disabled unless deliberately configured with its consent requirements.
 
-The original-logo asset, real ebook excerpts, external checkout and chatbot implementation remain outside this copy revision. No missing assets or commercial facts are fabricated.
+The original logo has since been supplied and integrated into the website. Real ebook excerpts, external checkout and chatbot implementation remain outside this copy revision. No missing commercial facts are fabricated.
+
+## Supplied logo and website palette
+
+The site uses the owner’s original logo, with its surrounding whitespace removed through an SVG viewport and an optimised WebP export. The artwork is not redrawn. The favicon uses the original parent-and-child symbol. Source files are retained in `public/brand/`.
+
+The sampled palette is forest green `#2C5449` and warm ivory `#FAF7F0`, with a darker green hover, sage borders and dark charcoal body text. Buttons, headings, links, focus outlines, footer and both pages share these colours. Body and heading typography remains Arial; the serif lettering belongs only to the supplied logo.

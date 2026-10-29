@@ -26,7 +26,7 @@ All public settings are in `src/config.ts`:
 - `offer.links.messenger`: the actual Messenger member-access route. Until supplied, the thank-you page directs customers to the access instructions in their Whop purchase.
 - `offer.links.manage`, `refund`, `privacy`, `terms`: final service and policy destinations, when supplied.
 - `offer.support` and `offer.seller`: actual contact and legal seller details. No placeholders are published.
-- `offer.logo`: the existing logo asset path once the owner attaches it. The current header and covers use plain “Little Steady” text; this is not claimed to reproduce the existing logo.
+- `offer.logo`: the supplied original logo, used in both page headers and the footer. The original JPEG and an SVG presentation master are retained in `public/brand/`; the site loads an optimised WebP.
 
 The frontend does not validate fulfilment. Configure the Whop membership to include both ebooks on first purchase, keep them accessible under the promised cancellation terms, and manage Messenger entitlement for the paid period. Include actual activation instructions in Whop. Test those external flows before enabling the checkout link. Do not put secrets in browser code.
 
@@ -39,7 +39,7 @@ New original illustrated covers are in `public/covers/`:
 - `calmer-tantrums.png` and `calmer-mealtimes.png`: full-resolution 1024×1536 front covers.
 - `*-320.webp` and `*-640.webp`: optimised responsive versions for the sales page.
 
-The illustrations are generated artwork, not customer/founder photos or representations of existing ebook pages. Existing logo integration is pending the original image, which was unavailable through this session’s files or tools. The files contain only plain brand text for now. See [content notes](docs/claims-and-readiness.md).
+The illustrations are generated artwork, not customer/founder photos or representations of existing ebook pages. The website uses the supplied original logo. Ebook covers still use their existing plain brand text; the page-logo update does not alter those cover illustrations. See [content notes](docs/claims-and-readiness.md).
 
 ## Thank-you redirect
 
