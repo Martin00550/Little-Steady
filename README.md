@@ -20,7 +20,7 @@ Use Node 22.12+ (tested with Node 24.19). Use the existing checkout; cloud tasks
 
 All public settings are in `src/config.ts`:
 
-- `offer.price`: €37 EUR/month, used across both pages and buttons.
+- `offer.price`: €37 EUR/month. The sales page shows the amount once in the offer block; buttons and captions do not repeat it. The thank-you page shows it once in the membership summary.
 - `offer.links.checkout`: the single Whop checkout URL. Adding a valid URL enables the final checkout button; until then it says “Checkout opens soon” and cannot take payment. Set it only when the advertised service is ready to fulfil.
 - `offer.links.library`: your actual Whop purchase-library destination.
 - `offer.links.messenger`: the actual Messenger member-access route. Until supplied, the thank-you page directs customers to the access instructions in their Whop purchase.
@@ -30,7 +30,7 @@ All public settings are in `src/config.ts`:
 
 The frontend does not validate fulfilment. Configure the Whop membership to include both ebooks on first purchase, keep them accessible under the promised cancellation terms, and manage Messenger entitlement for the paid period. Include actual activation instructions in Whop. Test those external flows before enabling the checkout link. Do not put secrets in browser code.
 
-A 14-day first-payment refund guarantee from the earlier brief is available as an optional copy block, but is disabled because that policy has not been adopted. Enable `offer.refund.enabled` only if it will be honoured. No guarantee is invented or applied to future renewals.
+The owner requested the 14-day money-back guarantee, and `offer.refund.enabled` is now true. Customers can request a full refund of their first membership payment within 14 days of the first purchase, without completing lessons or proving an approach failed. A successful refund must also stop future billing. Later monthly payments are not covered by this introductory guarantee. Configure the matching policy and refund/help process in Whop before enabling checkout: publishing this frontend policy does not itself automate refunds or cancel billing.
 
 ## Ebook covers
 

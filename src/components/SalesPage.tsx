@@ -1,4 +1,5 @@
-import { formatPrice, offer, priceLabel, renewalLabel } from '../config'
+import { ShieldCheck } from 'lucide-react'
+import { formatPrice, offer, renewalLabel } from '../config'
 import { track } from '../lib/analytics'
 import { Book } from './Artwork'
 import { Accordion, CheckItem, CheckoutCTA, Header, PrimaryCTA } from './Shared'
@@ -31,7 +32,7 @@ const examples = [
 ]
 const faqs = [
   {
-    q: `What do I get for ${priceLabel()}?`,
+    q: 'What is included in my membership?',
     a: 'Both Little Steady ebooks—Calmer Tantrums and Calmer Mealtimes—plus access to the AI parenting helper in a one-to-one Messenger conversation. One membership, one monthly payment. No separate joining fee or extra fee is required for these items.',
   },
   {
@@ -62,6 +63,14 @@ const faqs = [
     q: 'Why does it renew each month?',
     a: 'The ongoing part is access to the parenting helper for the new questions that come up. It is not a monthly charge to keep your ebooks, and it is not a promise of new guides every month. If you no longer want the chatbot, cancel your subscription from your account.',
   },
+  ...(offer.refund.enabled
+    ? [
+        {
+          q: 'What if Little Steady isn’t right for me?',
+          a: `Ask for a full refund of your first membership payment within ${offer.refund.days} days of your first purchase. You don’t need to finish the guides or prove that an idea didn’t work. Open your purchase and use its help option to request a refund. A successful refund also stops future payments. The guarantee covers your first payment only; later monthly payments are not included. Your rights under consumer law still apply.`,
+        },
+      ]
+    : []),
   {
     q: 'What happens if I cancel?',
     a: 'Cancel your subscription from your account. You keep both ebooks. You can use the chat until the end of the time you’ve paid for. Cancelling stops future payments; asking for a refund is a separate step.',
@@ -97,15 +106,18 @@ export function SalesPage() {
           </p>
           <p className="sales-mechanism">
             Little Steady brings together two parenting ebooks to keep and an AI
-            parenting helper in Messenger—all for{' '}
-            <strong>{priceLabel()}.</strong>
+            parenting helper in Messenger, in one membership.
           </p>
           <PrimaryCTA />
           <p className="sales-price-note">
-            <strong>{priceLabel()} · No joining fee.</strong>
-            <br />
-            {renewalLabel()} Keep both ebooks if you cancel.
+            Both ebooks are yours to keep. No joining fee.
           </p>
+          {offer.refund.enabled && (
+            <a className="sales-guarantee-link" href="#money-back-guarantee">
+              <ShieldCheck size={18} aria-hidden="true" />
+              {offer.refund.days}-day money-back guarantee on your first payment
+            </a>
+          )}
           <figure className="sales-products">
             <div className="sales-books">
               <Book kind="tantrums" />
@@ -113,8 +125,6 @@ export function SalesPage() {
             </div>
             <figcaption>
               Two ebooks to keep. One AI helper to return to.
-              <br />
-              All included in your {priceLabel()} membership.
             </figcaption>
           </figure>
         </section>
@@ -330,15 +340,30 @@ export function SalesPage() {
               </p>
             </div>
             {offer.refund.enabled && (
-              <div className="sales-guarantee">
+              <div className="sales-guarantee" id="money-back-guarantee">
+                <ShieldCheck
+                  className="guarantee-icon"
+                  size={29}
+                  strokeWidth={1.6}
+                  aria-hidden="true"
+                />
                 <h3>
-                  {offer.refund.days}-day money-back guarantee on your first
-                  payment
+                  Try it for {offer.refund.days} days. Decide for yourself.
                 </h3>
                 <p>
-                  No lessons to complete or approach to prove failed. A
-                  successful refund also stops future paymentss. Later renewal
-                  payments are not covered by this introductory guarantee.
+                  If Little Steady isn’t right for you, ask for a{' '}
+                  <strong>full refund of your first payment</strong> within{' '}
+                  {offer.refund.days} days of your first purchase.
+                </p>
+                <p>
+                  No lessons to finish. No need to prove that an approach
+                  failed. Open your purchase and use the help option to ask for
+                  your refund.
+                </p>
+                <p className="guarantee-terms">
+                  A successful refund also stops future payments. This guarantee
+                  covers your first payment only, not later monthly payments.
+                  Your rights under consumer law still apply.
                 </p>
               </div>
             )}
@@ -374,7 +399,7 @@ export function SalesPage() {
           </p>
           <PrimaryCTA placement="closing" />
           <p className="sales-price-note">
-            {priceLabel()}. Both ebooks included. {renewalLabel()}
+            Both ebooks to keep. AI parenting help while you’re subscribed.
           </p>
         </section>
       </main>

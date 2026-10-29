@@ -175,6 +175,16 @@ export function ThankYouPage() {
             Your receipt and account show what you paid and when your next
             payment is due.
           </p>
+          {offer.refund.enabled && (
+            <p>
+              Your first payment has a {offer.refund.days}-day money-back
+              guarantee. To ask for a refund, use the help option in your
+              purchase within {offer.refund.days} days of your first purchase.
+              No lessons to finish or proof that an approach failed. A
+              successful refund also stops future payments; later monthly
+              payments are not covered.
+            </p>
+          )}
           <a className="text-link" href={manage || 'https://whop.com/'}>
             {manage ? 'Manage your membership' : 'Open your account'}
             <ArrowUpRight size={16} />

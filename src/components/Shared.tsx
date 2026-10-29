@@ -52,7 +52,7 @@ export function PrimaryCTA({
       href="#membership"
       onClick={() => track('primary_cta_click', { placement })}
     >
-      {children || `Get Little Steady — ${priceLabel()}`}
+      {children || 'See the offer'}
       <ArrowRight size={19} />
     </a>
   )
@@ -67,7 +67,7 @@ export function CheckoutCTA() {
         track('checkout_handoff')
       }}
     >
-      Join Little Steady — {priceLabel()}
+      Start my membership
       <ArrowUpRight size={19} />
     </a>
   ) : (
@@ -176,11 +176,13 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
         </p>
         {offer.refund.enabled ? (
           <p>
-            The voluntary {offer.refund.days}-day money-back guarantee covers
-            the first membership payment only. No completed lessons or proof of
-            failure are required. A successful refund also stops future
-            renewals. Later renewal payments are not covered by this
-            introductory guarantee.
+            Ask for a full refund of your first payment within{' '}
+            {offer.refund.days} days of your first purchase. No lessons to
+            finish or proof that an approach failed. Use the help option in your
+            purchase to request it. A successful refund also stops future
+            payments. This guarantee covers the first membership payment only,
+            not later monthly payments. Your rights under consumer law still
+            apply.
           </p>
         ) : (
           <p>
@@ -311,10 +313,18 @@ export function MobileCTA() {
   return visible ? (
     <aside className="mobile-cta" aria-label="Little Steady membership">
       <div>
-        <strong>{priceLabel()}</strong>
-        <span>Both books + AI helper</span>
+        <strong>
+          {offer.refund.enabled
+            ? `${offer.refund.days}-day guarantee`
+            : 'Little Steady'}
+        </strong>
+        <span>
+          {offer.refund.enabled
+            ? 'First payment only'
+            : 'Both books + AI helper'}
+        </span>
       </div>
-      <PrimaryCTA placement="mobile">See membership</PrimaryCTA>
+      <PrimaryCTA placement="mobile">View offer</PrimaryCTA>
     </aside>
   ) : null
 }

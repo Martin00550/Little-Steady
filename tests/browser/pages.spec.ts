@@ -37,7 +37,7 @@ test('CTA scrolls to the real offer and never sends a customer to a fake checkou
 }) => {
   await page.goto('/')
   await page
-    .getByRole('link', { name: 'Get Little Steady — €37/month', exact: true })
+    .getByRole('link', { name: 'See the offer', exact: true })
     .first()
     .click()
   await expect(page).toHaveURL(/#membership$/)
@@ -45,7 +45,7 @@ test('CTA scrolls to the real offer and never sends a customer to a fake checkou
     page.getByRole('button', { name: 'Checkout opens soon' }),
   ).toBeDisabled()
   await expect(
-    page.getByRole('link', { name: /Join Little Steady/ }),
+    page.getByRole('link', { name: 'Start my membership' }),
   ).toHaveCount(0)
 })
 test('FAQ and policy dialogs work with a keyboard, including focus return', async ({
@@ -93,6 +93,9 @@ test('presents one monthly price without the previous upfront or add-on fees', a
   await expect(membership).toContainText('EUR / month')
   await expect(membership).toContainText('Renews monthly until cancelled.')
   await expect(membership).toContainText('No joining fee')
+  const prices =
+    (await page.locator('body').innerText()).match(/€\s*37\b/g) || []
+  expect(prices).toHaveLength(1)
   await expect(page.locator('main')).not.toContainText('€47')
   await expect(page.locator('main')).not.toContainText('€12')
   await expect(page.locator('main')).not.toContainText('planned')
@@ -140,4 +143,30 @@ test('the thank-you page stays a simple redirect and copies a real starter quest
   await expect(page.getByText('Payment verified', { exact: true })).toHaveCount(
     0,
   )
+})
+
+test('the first-payment money-back guarantee is clear at the offer and in refund details', async ({
+  page,
+}) => {
+  await page.goto('/')
+  await page
+    .getByRole('link', {
+      name: '14-day money-back guarantee on your first payment',
+    })
+    .click()
+  await expect(page).toHaveURL(/#money-back-guarantee$/)
+  const guarantee = page.locator('#money-back-guarantee')
+  await expect(guarantee).toContainText('14 days')
+  await expect(guarantee).toContainText('full refund of your first payment')
+  await expect(guarantee).toContainText('within 14 days of your first purchase')
+  await expect(guarantee).toContainText('No lessons to finish')
+  await expect(guarantee).toContainText('stops future payments')
+  await expect(guarantee).toContainText('not later monthly payments')
+  await page.getByRole('button', { name: 'Refunds & cancellation' }).click()
+  const policy = page.getByRole('dialog')
+  await expect(policy).toContainText(
+    'full refund of your first payment within 14 days',
+  )
+  await expect(policy).toContainText('not later monthly payments')
+  await expect(policy).not.toContainText('No additional voluntary')
 })

@@ -35,9 +35,9 @@ export const offer: OfferConfig = {
   },
   support: { email: null, url: null },
   seller: { legalName: null, address: null },
-  // Enable only once the voluntary policy is adopted and can be honoured.
-  // This applies to the FIRST membership payment, not every renewal.
-  refund: { enabled: false, days: 14 },
+  // Owner-requested money-back guarantee for the FIRST payment only.
+  // Configure the matching refund process before enabling checkout.
+  refund: { enabled: true, days: 14 },
   analytics: { enabled: false, consentRequired: true },
 }
 

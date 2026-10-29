@@ -19,7 +19,7 @@ The public pages use finished customer-facing copy for the agreed €37/month me
 - Build and test the Messenger helper, membership restrictions, activation instructions, cancellation/refund entitlement effects and any approval process. None of this backend work is implemented here.
 - Supply actual library, Messenger and membership-management destinations. The static thank-you page uses honest Whop account/instruction routes until exact links exist.
 - Provide real seller/support information and final service/privacy/refund policies. No fake contacts are published. Storage, processing, administrator access and deletion procedures cannot be inferred from this frontend.
-- Adopt and operationalise any voluntary guarantee before enabling its copy block. No voluntary guarantee is currently promised.
+- Honour the owner-requested 14-day full-first-payment refund policy and ensure a successful refund stops future billing. No lessons or proof of failure may be required. The guarantee is enabled in public copy; actual handling must be configured in the checkout provider before accepting payment.
 
 ## Claims intentionally excluded
 

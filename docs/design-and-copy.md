@@ -10,7 +10,7 @@ The hero leads with a practical/emotional outcome:
 >
 > Have words to try when feelings run high, meal ideas when dinner is refused, and a clearer starting point when you’re too tired to keep searching.
 
-Only then does a separate paragraph explain the mechanism: two parenting ebooks to keep and an AI parenting helper in Messenger, all for the configured €37/month. The CTA and recurring-payment terms remain directly underneath, so the benefit-led message does not obscure what is being sold.
+Only then does a separate paragraph explain the mechanism: two parenting ebooks to keep and an AI parenting helper in Messenger, in one membership. The hero CTA goes to the offer block, which is the only visible price location on the sales page. That block keeps the amount, monthly billing terms and final checkout button together.
 
 ## Sales sequence and rationale
 
@@ -20,7 +20,7 @@ Only then does a separate paragraph explain the mechanism: two parenting ebooks 
 - **Demonstration:** concrete example questions, clearly labelled as examples. No synthetic answers passed off as tested product output. Actual ebook excerpts and tested replies can supply stronger proof only when provided and reviewed.
 - **Effort:** choose one current situation and ask one question, rather than completing both books or changing every routine.
 - **Offer:** one €37 EUR/month membership, no joining fee, both ebooks kept after cancellation and helper access during the paid period. All amounts still come from the central configuration.
-- **Objections:** cover free advice, suitability, AI limitations, Messenger access, the reason for recurring payment and cancellation. No unapproved guarantee, urgency, testimonials or inflated value stack.
+- **Objections:** cover free advice, suitability, AI limitations, Messenger access, the reason for recurring payment and cancellation. No fabricated urgency, testimonials or inflated value stack. The owner-requested first-payment guarantee is explicit and limited to its actual scope.
 - **Closing:** return to a moment the parent wants to feel more prepared for, with a specific next action.
 
 The thank-you page mirrors that intention. It asks the purchaser to choose a situation they want help thinking through, then directs them to the guides, actual Messenger instructions in Whop and copyable starter questions. It remains a static redirect with no payment verification, account backend or automatic access grant.
@@ -56,3 +56,9 @@ The original logo has since been supplied and integrated into the website. Real 
 The site uses the owner’s original logo, with its surrounding whitespace removed through an SVG viewport and an optimised WebP export. The artwork is not redrawn. The favicon uses the original parent-and-child symbol. Source files are retained in `public/brand/`.
 
 The sampled palette is forest green `#2C5449` and warm ivory `#FAF7F0`, with a darker green hover, sage borders and dark charcoal body text. Buttons, headings, links, focus outlines, footer and both pages share these colours. Body and heading typography remains Arial; the serif lettering belongs only to the supplied logo.
+
+## Price repetition and first-payment guarantee
+
+The amount appears once in the sales-page offer block. CTAs, hero text, book captions, FAQ headings, closing copy and the mobile control do not repeat it. The terms dialog can still show the amount when opened, so payment details remain clear.
+
+Risk reversal uses the owner-requested 14-day full-first-payment money-back guarantee. The hero links to the detailed guarantee; the offer explains the deadline, absence of lesson/proof requirements, cancellation of future payments after a successful refund and exclusion of later monthly payments. No free trial, guaranteed parenting outcome or instant refund is implied. The account purchase/help route is used until a direct support/refund destination is supplied.

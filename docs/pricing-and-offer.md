@@ -13,8 +13,10 @@ The chatbot is for everyday parenting questions beyond the two guide topics: mea
 
 €37 is an owner-approved launch price, not a researched optimum. No conversion or retention claim is made. The copy applies the useful principles behind the requested offer frameworks: specific outcomes, concrete use cases, clear deliverables, low effort to start, visible payment terms and honest cancellation rules.
 
-The original 14-day voluntary first-payment refund idea is not an adopted policy. The optional guarantee block remains disabled. Cancellation and statutory refund rights are still explained.
+The owner has now requested the 14-day first-payment money-back guarantee. It is enabled in the public copy: a full first-payment refund may be requested within 14 days of first purchase, with no completed lessons or proof of failure required. A successful refund stops future billing. Later monthly payments are excluded; statutory rights remain unaffected. The actual payment-provider policy and handling must match these promises before checkout is enabled.
 
 Official competitor and Whop pricing pages were not retrieved during the earlier research attempt because the outbound proxy denied them. No competitor prices, claims of market validation or undocumented Whop capability are used as evidence here.
 
 Measure actual purchase conversion and retained memberships after fulfilment is working. Use Whop-verified payments and renewal data, not static thank-you views or CTA clicks. Include refunds and operating costs when assessing the offer.
+
+The sales page presents the price once, in the offer block beside the final checkout button. Repeated CTAs, captions, the sticky mobile control and FAQ headings omit the amount. Financial disclosure remains in the membership-terms dialog when opened; the introductory guarantee has its own clearly linked details.
