@@ -25,6 +25,15 @@ export function Header() {
   return (
     <header className="header container">
       <Brand />
+      <nav className="header-nav" aria-label="Main navigation">
+        <a className="header-section-link" href="/#included">
+          What’s included
+        </a>
+        <a className="header-section-link" href="/#questions">
+          Questions
+        </a>
+        <PrimaryCTA placement="header">View offer</PrimaryCTA>
+      </nav>
     </header>
   )
 }
@@ -289,39 +298,4 @@ export function Footer() {
       </footer>
     </>
   )
-}
-export function MobileCTA() {
-  const [visible, setVisible] = useState(false)
-  useEffect(() => {
-    const hero = document.getElementById('hero'),
-      membership = document.getElementById('membership'),
-      footer = document.querySelector('footer')
-    if (!hero || !membership || !footer) return
-    let heroPassed = false,
-      offerVisible = false,
-      footerVisible = false
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.target === hero)
-          heroPassed =
-            !entry.isIntersecting && entry.boundingClientRect.bottom < 0
-        if (entry.target === membership) offerVisible = entry.isIntersecting
-        if (entry.target === footer) footerVisible = entry.isIntersecting
-      }
-      setVisible(heroPassed && !offerVisible && !footerVisible)
-    })
-    observer.observe(hero)
-    observer.observe(membership)
-    observer.observe(footer)
-    return () => observer.disconnect()
-  }, [])
-  return visible ? (
-    <aside className="mobile-cta" aria-label="Little Steady membership">
-      <div>
-        <strong>Little Steady</strong>
-        <span>Books + AI companion</span>
-      </div>
-      <PrimaryCTA placement="mobile">View offer</PrimaryCTA>
-    </aside>
-  ) : null
 }

@@ -1,4 +1,10 @@
-export function Book({ kind }: { kind: 'tantrums' | 'mealtimes' }) {
+export function Book({
+  kind,
+  compact = false,
+}: {
+  kind: 'tantrums' | 'mealtimes'
+  compact?: boolean
+}) {
   const title = kind === 'tantrums' ? 'Calmer Tantrums' : 'Calmer Mealtimes'
   const path = `/covers/calmer-${kind}`
   return (
@@ -6,7 +12,7 @@ export function Book({ kind }: { kind: 'tantrums' | 'mealtimes' }) {
       <source
         type="image/webp"
         srcSet={`${path}-320.webp 320w, ${path}-640.webp 640w`}
-        sizes="(max-width: 600px) 43vw, 230px"
+        sizes={compact ? '120px' : '(max-width: 600px) 150px, 170px'}
       />
       <img
         src={`${path}.png`}

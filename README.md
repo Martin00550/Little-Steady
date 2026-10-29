@@ -32,16 +32,19 @@ The frontend does not validate fulfilment. Configure the Whop membership to incl
 
 The latest owner-supplied copy replaces the voluntary cash-back guarantee. No trial or money-back promise is advertised. Refund requests remain separate from cancellation, and consumer rights still apply. Supply the published refund policy and configure the external checkout consistently before taking payment.
 
-## Actual product previews
+## Demonstrations and ebook previews
 
-The owner supplied the age range (18 months–5 years) and detailed guide contents in the latest copy. The actual ebook interiors and a tested companion conversation have not been supplied. The preview section and the FAQ sentence promising previews stay hidden until both guide excerpts and a companion reply are available; no editorial placeholders or invented product outputs are published.
+The page now has two readable, clearly labelled **Illustrative conversation** panels. These are editorial examples of the owner-supplied guide topics, not a live chatbot or tested product output. The text is in `src/content/conversations.ts`.
 
-Add approved preview data in `src/content/previews.ts`:
+No ebook PDFs or interior pages were supplied. Each guide therefore shows a disabled “Preview a page” action and an honest availability note. To finish this part, export one approved practical page from each real ebook to an optimised image under `public/previews/`. Never publish the complete paid files.
 
-- `offerPreviews.ebooks`: readable excerpt images from both actual guides, stored under `public/previews/`. Include title, root-relative `src`, an accurate `alt`, and pixel `width`/`height`. The page links to the full-size images.
-- `offerPreviews.conversation`: a clearly labelled example with a `label` explaining its provenance, and `messages` containing `speaker` (`Parent` or `Little Steady AI`) and `text`. Include a useful, reviewed companion reply, not only questions. Remove personal information.
+Configure `guidePreviews.tantrums` and `guidePreviews.mealtimes` in `src/content/previews.ts`, with `src`, accurate `alt`, pixel `width`/`height`, and a `transcript` of the page text. Each preview becomes available independently. The accessible lightbox supports zoom, a text transcript, Escape, a close control, focus containment and return to the trigger. Its configured state is browser-tested using a test-only fixture, never advertised as a real ebook excerpt.
 
-The component becomes visible when both guide titles and a companion reply are present. This is presentation only; the owner must check the supplied files and outputs. Verify all advertised guide features, around-the-clock messaging and entitlement rules against the actual service before enabling checkout.
+## Visual system
+
+The layout uses a 1160px desktop container, a two-column hero with the Messenger preview on the right, a separate demonstration, two balanced guide features, a connected three-step sequence, a compact split membership offer, a two-column FAQ and a pale-sage closing band. Small screens follow the reading order in the markup. There is no sticky CTA.
+
+Fraunces headings and DM Sans body/UI are served locally as two Latin variable WOFF2 files (about 74KB combined), with `font-display: swap`. The palette is ivory #FAF7F0, forest #234E43, sage #E9EFE8 and body text #283C34. The original logo artwork and existing responsive covers are unchanged. The static thank-you page uses the same header scale, type, spacing and container, with onboarding steps beside a membership/help sidebar on desktop.
 
 ## Ebook covers
 
@@ -71,6 +74,6 @@ npm run test:e2e
 npm run format:check
 ```
 
-Browser tests use `/usr/bin/chromium` or `CHROMIUM_PATH`. They cover mobile/tablet/desktop layouts, image loading, accessibility, keyboard controls, price consistency and copy buttons. Analytics is disabled. Optional hooks record CTA, preview and checkout handoff events only after their configured consent gate; no chat or children’s information is included.
+Browser tests use `/usr/bin/chromium` or `CHROMIUM_PATH`. They cover 360/390/768/1440px layouts, desktop composition, mobile reading order, image loading, accessibility, keyboard controls, preview zoom/focus, price consistency and copy buttons. Analytics is disabled. Optional hooks record CTA, preview and checkout handoff events only after their configured consent gate; no chat or children’s information is included.
 
 See [design and copy notes](docs/design-and-copy.md) and [the current offer](docs/pricing-and-offer.md).

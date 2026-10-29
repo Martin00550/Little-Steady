@@ -1,31 +1,34 @@
-# Owner-supplied sales copy
+# Visual redesign
 
-The latest supplied copy is the source for the page's headline, narrative, inclusions, subscription explanation, offer and FAQ. It replaces the earlier outcome-first draft and its first-payment guarantee.
+This revision changes composition and hierarchy while preserving the €37/month membership and existing checkout/access logic. It replaces the narrow, centred document layout.
 
-## Lead and sequence
+## Section order and composition
 
-Audience: parents of children aged 18 months to 5 years.
+1. An 80px horizontal header, original logo on the left and navigation on the right. Mobile retains one compact offer action.
+2. A 1160px desktop hero with approximately 52/48 copy/product columns. The main visual is a substantial, readable Messenger conversation; existing ebook covers sit below it. Mobile follows copy, CTA/terms, chat and covers.
+3. A sage companion section: two short recognition paragraphs, three benefit labels, AI disclosure and a different conversation with a useful answer and follow-up question.
+4. Two balanced ebook features, each with the actual cover, benefit, three owner-supplied contents, ownership label and page-preview action. Mobile puts each cover beside its title, then gives the benefit and contents full reading width.
+5. A connected three-step onboarding sequence, horizontal on desktop and vertical on mobile. Instructions refer to actual purchase-library access information and do not promise instant activation.
+6. A continuing-value explanation and compact checklist beside a focused pricing panel. The price is €37 per month with billing, cancellation and policy details together.
+7. An accessible FAQ beside a short introduction; stacked on mobile.
+8. A compact sage closing band and footer. No sticky CTA.
 
-> Dinner refused. Another meltdown.
->
-> **Know what to try next.**
->
-> Get practical help with everyday parenting questions inside Messenger—plus two clear, useful guides to tantrums and picky eating.
+The thank-you page uses the same typography, spacing and container. Steps sit beside membership/help information on desktop and stack on mobile. Clipboard actions, configured destinations, fallback instructions and static unverified behaviour remain unchanged.
 
-The page follows the supplied sequence: recognise the gap between reading advice and using it, explain the companion first, describe each guide's actual owner-supplied contents, show real previews when available, explain continuing membership value, present the price and cancellation terms, answer questions, and return to the parent's current situation.
+## Typography and colour
 
-Join buttons use the supplied “Join Little Steady — €37/month” wording. Hero/closing buttons lead to the offer; the checkout button remains disabled until a real destination is configured. Amounts come from central configuration. The mobile sticky control omits the price and leads to the same offer.
+Locally served Fraunces for major editorial headings; DM Sans for body/UI. Two Latin variable WOFF2 files, about 74KB combined, use `font-display: swap`. Body defaults to 18px/1.6. The desktop headline reaches 64px; mobile uses responsive 36–42px sizing and natural wrapping.
 
-## Boundaries and missing material
+Ivory #FAF7F0, forest #234E43, sage #E9EFE8, dark body #283C34 and restrained neutral borders. The original logo retains its own artwork colours and aspect ratio. Covers are existing responsive WebPs. Spacing tokens and composition provide rhythm without repeated full-width rules, decorative animation or a card around every paragraph.
 
-Bracketed editorial instructions are not rendered. Actual ebook excerpts and a reviewed companion reply have not been supplied. The prepared preview section and the FAQ sentence promising previews remain hidden until that material is configured in `src/content/previews.ts`. Generated covers are not interior previews.
+## Preview status
 
-Guide features and age coverage now come directly from the owner, rather than invented book contents. The actual files still need verification before taking payment. There are no untested claims about memory, knowledge integration or personalisation. The AI disclosure, need for professional help when appropriate, monthly renewal, retained ebooks and cancellation timing are visible.
+Messenger conversations are clearly labelled **Illustrative conversation · Static preview**. They are editorial examples using the owner-supplied guide topics, not tested output or customer outcomes. An AI disclosure is adjacent to the main demonstration.
 
-No voluntary money-back guarantee, trial or guaranteed parenting result is advertised. Refund/help details preserve consumer rights and refer to the policy at checkout. The thank-you page uses the same “companion” terminology and cancellation terms, with no purchase-verification logic.
+Actual ebook files/interior pages were not supplied. **Real interior previews remain unfinished.** Each guide's preview action is disabled with an availability note. The implemented lightbox accepts individual approved sample-page images and text transcripts, supports zoom and keyboard/focus handling, and does not need public paid-file URLs. Its working state is tested with a test-only sample, not presented in production screenshots as an actual ebook page.
 
-## Design
+## Verification
 
-The original supplied logo is retained in both headers, the footer and favicon. Forest green #2C5449, ivory #FAF7F0, sage borders and dark charcoal text match that artwork. Arial and a single-column layout keep the page readable. The headline gives the outcome visual emphasis; guide lists use ordinary bullets and generous line spacing.
+Browser checks cover 360, 390, 768 and 1440px on both pages, accessibility, no horizontal overflow, desktop columns, mobile ordering, cover loading, checkout availability, policy controls, static redirect behaviour, clipboard actions and preview zoom/focus. Rendered screenshots are inspected for composition; source inspection alone is insufficient.
 
-No new live research or conversion evidence is claimed. The copy is the owner's supplied text, and performance remains to be measured through actual purchases and retained memberships.
+There is no new pricing research or claim that this is a proven highest-converting design. Actual purchases, retention and refunds remain the measures of offer performance.

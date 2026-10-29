@@ -12,6 +12,6 @@ There is no separate joining fee, book payment or additional chatbot plan. Previ
 
 The voluntary 14-day cash-back guarantee has been removed at the owner's request. No free trial or blanket refusal of refunds is advertised. Refund requests are separate from cancellation and are handled under the published policy and consumer law. Supply that policy and configure the checkout accordingly.
 
-The intended audience is parents of children aged 18 months to 5 years, as specified by the owner. The companion provides general parenting education, not diagnosis, therapy or emergency support. Around-the-clock messaging is advertised, without promising immediate answers or uninterrupted uptime. Verify actual service capability before launch.
+The intended audience is parents of children aged 18 months to 5 years, as specified by the owner. The companion provides general parenting education, not diagnosis, therapy or emergency support. No response-time, activation-time or uptime guarantee is advertised. Verify actual service capability before launch.
 
 €37 is the owner's selected price, not a researched optimum. Prior competitor/primary-source requests were blocked by the outbound proxy; no market-validation or highest-conversion claim is made. Use verified purchases, refunds, renewal retention and operating costs to evaluate the offer after launch.

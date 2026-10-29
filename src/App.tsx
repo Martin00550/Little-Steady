@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Footer, Header, MobileCTA } from './components/Shared'
+import { Footer, Header } from './components/Shared'
 import { SalesPage } from './components/SalesPage'
 import { ThankYouPage } from './components/ThankYouPage'
 
@@ -40,7 +40,6 @@ export function App() {
         </>
       )}
       <Footer />
-      {path === '/' && <MobileCTA />}
     </>
   )
 }

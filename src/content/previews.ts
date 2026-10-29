@@ -1,39 +1,15 @@
-/** Add actual ebook excerpts and an approved companion conversation here.
- * Covers, invented ebook pages and untested replies are not product previews.
- * The complete preview section stays hidden until both guides and a reply exist.
- */
-interface EbookPreview {
-  title: 'Calmer Tantrums' | 'Calmer Mealtimes'
+/** Public samples only. Never point these at a complete paid ebook. */
+export type GuideKind = 'tantrums' | 'mealtimes'
+export interface EbookPreview {
   src: string
   alt: string
   width: number
   height: number
+  transcript: string
 }
 
-interface ConversationPreview {
-  label: string
-  messages: {
-    speaker: 'Parent' | 'Little Steady AI'
-    text: string
-  }[]
-}
-
-export const offerPreviews: {
-  ebooks: EbookPreview[]
-  conversation: ConversationPreview | null
-} = {
-  ebooks: [],
-  conversation: null,
-}
-
-export function hasOfferPreviews(): boolean {
-  return (
-    ['Calmer Tantrums', 'Calmer Mealtimes'].every((title) =>
-      offerPreviews.ebooks.some((preview) => preview.title === title),
-    ) &&
-    !!offerPreviews.conversation?.messages.some(
-      (message) =>
-        message.speaker === 'Little Steady AI' && message.text.trim(),
-    )
-  )
+// Actual interior pages have not been supplied. Keep the honest unavailable state.
+export const guidePreviews: Record<GuideKind, EbookPreview | null> = {
+  tantrums: null,
+  mealtimes: null,
 }

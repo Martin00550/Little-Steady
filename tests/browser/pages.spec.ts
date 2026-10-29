@@ -71,22 +71,46 @@ test('FAQ and policy dialogs work with a keyboard, including focus return', asyn
   await expect(page.getByRole('dialog')).toHaveCount(0)
   await expect(privacy).toBeFocused()
 })
-test('mobile sticky offer appears after the hero and hides at the pricing section', async ({
+test('desktop composition uses columns and mobile keeps a clear product reading order', async ({
   page,
 }) => {
-  await page.setViewportSize({ width: 390, height: 844 })
+  await page.setViewportSize({ width: 1440, height: 1000 })
   await page.goto('/')
+  await page.evaluate(() => document.fonts.ready)
+  const copy = await page.locator('.hero-copy').boundingBox()
+  const product = await page.locator('.hero-product').boundingBox()
+  expect(copy!.x + copy!.width).toBeLessThan(product!.x)
+  expect(Math.abs(copy!.y - product!.y)).toBeLessThan(180)
+  expect(
+    (await page.locator('header').boundingBox())!.height,
+  ).toBeLessThanOrEqual(80)
+  const guides = await page.locator('.guide-feature').all()
+  const leftGuide = await guides[0].boundingBox()
+  const rightGuide = await guides[1].boundingBox()
+  expect(leftGuide!.x + leftGuide!.width).toBeLessThan(rightGuide!.x)
+  await expect(page.locator('.onboarding-sequence > li')).toHaveCount(3)
   await expect(
-    page.getByRole('complementary', { name: 'Little Steady membership' }),
-  ).toHaveCount(0)
-  await page.locator('#included').scrollIntoViewIfNeeded()
+    page.getByText('Illustrative conversation', { exact: false }),
+  ).toHaveCount(2)
+  await expect(page.locator('.chat-message--ai')).toHaveCount(2)
   await expect(
-    page.getByRole('complementary', { name: 'Little Steady membership' }),
-  ).toBeVisible()
+    page.locator('#mealtime-chat-caption').locator('..'),
+  ).toContainText('What could I say if they ask for a different dinner?')
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  const mobileCopy = await page.locator('.hero-copy').boundingBox()
+  const mobileProduct = await page.locator('.hero-product').boundingBox()
+  const chat = await page.locator('.hero-product .chat-panel').boundingBox()
+  const covers = await page.locator('.hero-cover-pair').boundingBox()
+  expect(mobileCopy!.y + mobileCopy!.height).toBeLessThan(mobileProduct!.y)
+  expect(chat!.y + chat!.height).toBeLessThan(covers!.y)
+  const mobileFirstGuide = await guides[0].boundingBox()
+  const mobileSecondGuide = await guides[1].boundingBox()
+  expect(mobileFirstGuide!.y + mobileFirstGuide!.height).toBeLessThan(
+    mobileSecondGuide!.y,
+  )
   await page.locator('#membership').scrollIntoViewIfNeeded()
-  await expect(
-    page.getByRole('complementary', { name: 'Little Steady membership' }),
-  ).toHaveCount(0)
+  await expect(page.locator('.mobile-cta')).toHaveCount(0)
 })
 
 test('uses the same monthly price across the supplied offer copy', async ({
@@ -95,7 +119,7 @@ test('uses the same monthly price across the supplied offer copy', async ({
   await page.goto('/')
   const membership = page.locator('#membership')
   await expect(membership).toContainText('€37')
-  await expect(membership).toContainText('€37/month')
+  await expect(membership).toContainText('per month')
   await expect(membership).toContainText('Your first payment is €37 today.')
   await expect(membership).toContainText('renews monthly until cancelled.')
   const prices =
@@ -114,12 +138,16 @@ test('cover images load and are accessible', async ({ page }) => {
     const cover = page.getByRole('img', {
       name: `${name} — Little Steady ebook cover`,
     })
-    await expect(cover).toBeVisible()
-    expect(
-      await cover.evaluate(
-        (img: HTMLImageElement) => img.complete && img.naturalWidth > 0,
-      ),
-    ).toBe(true)
+    await expect(cover).toHaveCount(2)
+    for (const image of await cover.all()) {
+      await image.scrollIntoViewIfNeeded()
+      await expect(image).toBeVisible()
+      expect(
+        await image.evaluate(
+          (img: HTMLImageElement) => img.complete && img.naturalWidth > 0,
+        ),
+      ).toBe(true)
+    }
   }
 })
 
@@ -183,4 +211,74 @@ test('refund details preserve consumer rights without advertising a cash-back gu
   await expect(page.locator('.thankyou-membership')).toContainText(
     'Companion access continues through the period you’ve paid for.',
   )
+})
+
+test('missing real guide pages have an honest preview-availability state', async ({
+  page,
+}) => {
+  await page.goto('/')
+  await expect(
+    page.getByRole('button', { name: 'Preview a page' }),
+  ).toHaveCount(2)
+  for (const trigger of await page
+    .getByRole('button', { name: 'Preview a page' })
+    .all()) {
+    await expect(trigger).toBeDisabled()
+  }
+  await expect(
+    page.getByText('Interior preview not available yet.'),
+  ).toHaveCount(2)
+})
+
+test('configured page previews support zoom, keyboard close and focus return', async ({
+  page,
+}) => {
+  // A test-only sample exercises the lightbox; it is never published as an ebook page.
+  await page.route('**/src/content/previews.ts', async (route) => {
+    await route.fulfill({
+      contentType: 'application/javascript',
+      body: 'export const guidePreviews = { tantrums: { src: "/test-only-excerpt.svg", alt: "Test-only excerpt fixture", width: 600, height: 800, transcript: "Test-only preview text." }, mealtimes: null }',
+    })
+  })
+  await page.route('**/test-only-excerpt.svg', async (route) => {
+    await route.fulfill({
+      contentType: 'image/svg+xml',
+      body: '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800"><rect width="600" height="800" fill="#fffdf8"/><text x="40" y="80" font-size="24">Test-only page fixture</text></svg>',
+    })
+  })
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+  const trigger = page
+    .locator('.guide-feature')
+    .first()
+    .getByRole('button', { name: 'Preview a page' })
+  await trigger.click()
+  const dialog = page.getByRole('dialog')
+  await expect(dialog).toBeVisible()
+  await dialog.getByRole('button', { name: 'Zoom in', exact: true }).click()
+  await expect(dialog.getByRole('status')).toHaveText('125%')
+  await dialog.getByRole('button', { name: 'Zoom out', exact: true }).click()
+  await expect(dialog.getByRole('status')).toHaveText('100%')
+  await dialog.getByText('Read preview as text', { exact: true }).click()
+  await expect(
+    dialog.getByText('Test-only preview text.', { exact: true }),
+  ).toBeVisible()
+  expect(
+    (
+      await new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+        .analyze()
+    ).violations,
+  ).toEqual([])
+  await dialog.getByRole('button', { name: 'Close preview' }).focus()
+  await page.keyboard.press('Tab')
+  expect(
+    await page.evaluate(() => !!document.activeElement?.closest('dialog')),
+  ).toBe(true)
+  await page.keyboard.press('Escape')
+  await expect(dialog).toHaveCount(0)
+  await expect(trigger).toBeFocused()
+  await trigger.click()
+  await page.getByRole('button', { name: 'Close preview' }).click()
+  await expect(trigger).toBeFocused()
 })
