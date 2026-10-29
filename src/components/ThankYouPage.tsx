@@ -112,7 +112,7 @@ export function ThankYouPage() {
                 Messenger chat.
               </p>
               <p>
-                You’ll be messaging Little Steady’s AI parenting helper in a
+                You’ll be messaging Little Steady’s AI parenting companion in a
                 one-to-one conversation—not joining a group or talking with a
                 human coach.
               </p>
@@ -121,7 +121,7 @@ export function ThankYouPage() {
                 href={messenger || library || 'https://whop.com/'}
               >
                 {messenger
-                  ? 'Open the helper in Messenger'
+                  ? 'Open the companion in Messenger'
                   : 'Find your chat instructions'}
                 <ArrowUpRight size={17} />
               </a>
@@ -160,7 +160,7 @@ export function ThankYouPage() {
           <ul className="check-list">
             <li>
               <Check size={18} />
-              <span>{priceLabel()} for both ebooks and the AI helper</span>
+              <span>{priceLabel()} for both ebooks and the AI companion</span>
             </li>
             <li>
               <Check size={18} />
@@ -175,16 +175,12 @@ export function ThankYouPage() {
             Your receipt and account show what you paid and when your next
             payment is due.
           </p>
-          {offer.refund.enabled && (
-            <p>
-              Your first payment has a {offer.refund.days}-day money-back
-              guarantee. To ask for a refund, use the help option in your
-              purchase within {offer.refund.days} days of your first purchase.
-              No lessons to finish or proof that an approach failed. A
-              successful refund also stops future payments; later monthly
-              payments are not covered.
-            </p>
-          )}
+          <p>
+            Cancel future renewals through your account before your next billing
+            date. Companion access continues through the period you’ve paid for.
+            Refund requests are handled separately under the published refund
+            policy.
+          </p>
           <a className="text-link" href={manage || 'https://whop.com/'}>
             {manage ? 'Manage your membership' : 'Open your account'}
             <ArrowUpRight size={16} />

@@ -52,7 +52,7 @@ export function PrimaryCTA({
       href="#membership"
       onClick={() => track('primary_cta_click', { placement })}
     >
-      {children || 'See the offer'}
+      {children || `Join Little Steady — ${priceLabel()}`}
       <ArrowRight size={19} />
     </a>
   )
@@ -67,7 +67,7 @@ export function CheckoutCTA() {
         track('checkout_handoff')
       }}
     >
-      Start my membership
+      Join Little Steady — {priceLabel()}
       <ArrowUpRight size={19} />
     </a>
   ) : (
@@ -111,8 +111,8 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
     content: (
       <>
         <p>
-          The helper is an AI chatbot in Messenger. Meta provides Messenger, and
-          AI services are involved in processing questions and generating
+          The companion is an AI chatbot in Messenger. Meta provides Messenger,
+          and AI services are involved in processing questions and generating
           replies. It is not a private clinical consultation.
         </p>
         <p>
@@ -122,8 +122,8 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
         </p>
         <p>
           Review the applicable data-processing and privacy terms supplied with
-          the service before using the helper. Storage, administrator access and
-          deletion rights depend on those terms.
+          the service before using the companion. Storage, administrator access
+          and deletion rights depend on those terms.
         </p>
         <p>
           This website does not collect chat messages or children’s details.
@@ -140,11 +140,11 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
           {priceLabel()} in {offer.price.currency}, renewing monthly until
           cancelled. No joining fee or separate book payment. The membership
           includes Calmer Tantrums, Calmer Mealtimes and access to the AI
-          parenting helper in Messenger.
+          parenting companion in Messenger.
         </p>
         <p>
           The ebooks are included with your first purchase and remain yours
-          after cancellation. You can use the AI helper until the end of the
+          after cancellation. You can use the AI companion until the end of the
           time you’ve paid for. Cancelling your subscription does not
           automatically request a refund.
         </p>
@@ -155,7 +155,7 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
         <p>
           The service provides general parenting education. AI can make
           mistakes. No behavioural or health outcome is guaranteed, and the
-          helper is not a healthcare professional or emergency service.
+          companion is not a healthcare professional or emergency service.
         </p>
       </>
     ),
@@ -174,23 +174,12 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
           payment, use the help link in your purchase or the seller contact
           shown on your receipt.
         </p>
-        {offer.refund.enabled ? (
-          <p>
-            Ask for a full refund of your first payment within{' '}
-            {offer.refund.days} days of your first purchase. No lessons to
-            finish or proof that an approach failed. Use the help option in your
-            purchase to request it. A successful refund also stops future
-            payments. This guarantee covers the first membership payment only,
-            not later monthly payments. Your rights under consumer law still
-            apply.
-          </p>
-        ) : (
-          <p>
-            Refund eligibility is governed by the policy provided at checkout
-            and your rights under consumer law. Check the refund policy at
-            checkout for details.
-          </p>
-        )}
+        <p>
+          Refund requests are handled separately under the published refund
+          policy. Eligibility is governed by the policy provided at checkout and
+          your rights under consumer law. Check the refund policy at checkout
+          for details.
+        </p>
       </>
     ),
   },
@@ -244,18 +233,35 @@ export function PolicyDialog({
     </dialog>
   )
 }
+export function PolicyLink({
+  policy,
+  children,
+}: {
+  policy: Policy
+  children: ReactNode
+}) {
+  const [open, setOpen] = useState(false)
+  const url = safeUrl(offer.links[policy])
+  return url ? (
+    <a className="text-link" href={url}>
+      {children}
+    </a>
+  ) : (
+    <>
+      <button className="text-link" onClick={() => setOpen(true)}>
+        {children}
+      </button>
+      <PolicyDialog
+        policy={open ? policy : null}
+        onClose={() => setOpen(false)}
+      />
+    </>
+  )
+}
+
 export function Footer() {
-  const [policy, setPolicy] = useState<Policy | null>(null)
   const support = supportHref()
   const manage = safeUrl(offer.links.manage)
-  function policyLink(key: Policy, label: string) {
-    const url = safeUrl(offer.links[key])
-    return url ? (
-      <a href={url}>{label}</a>
-    ) : (
-      <button onClick={() => setPolicy(key)}>{label}</button>
-    )
-  }
   return (
     <>
       <footer className="footer">
@@ -266,9 +272,9 @@ export function Footer() {
           <div className="footer-bottom">
             <span>© {new Date().getFullYear()} Little Steady</span>
             <nav aria-label="Footer navigation">
-              {policyLink('privacy', 'AI & privacy')}
-              {policyLink('terms', 'Membership terms')}
-              {policyLink('refund', 'Refunds & cancellation')}
+              <PolicyLink policy="privacy">AI & privacy</PolicyLink>
+              <PolicyLink policy="terms">Membership terms</PolicyLink>
+              <PolicyLink policy="refund">Refunds & cancellation</PolicyLink>
               {support && <a href={support}>Support</a>}
               {manage && <a href={manage}>Manage membership</a>}
             </nav>
@@ -281,7 +287,6 @@ export function Footer() {
           )}
         </div>
       </footer>
-      <PolicyDialog policy={policy} onClose={() => setPolicy(null)} />
     </>
   )
 }
@@ -313,16 +318,8 @@ export function MobileCTA() {
   return visible ? (
     <aside className="mobile-cta" aria-label="Little Steady membership">
       <div>
-        <strong>
-          {offer.refund.enabled
-            ? `${offer.refund.days}-day guarantee`
-            : 'Little Steady'}
-        </strong>
-        <span>
-          {offer.refund.enabled
-            ? 'First payment only'
-            : 'Both books + AI helper'}
-        </span>
+        <strong>Little Steady</strong>
+        <span>Books + AI companion</span>
       </div>
       <PrimaryCTA placement="mobile">View offer</PrimaryCTA>
     </aside>

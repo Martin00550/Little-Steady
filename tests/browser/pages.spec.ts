@@ -37,7 +37,7 @@ test('CTA scrolls to the real offer and never sends a customer to a fake checkou
 }) => {
   await page.goto('/')
   await page
-    .getByRole('link', { name: 'See the offer', exact: true })
+    .getByRole('link', { name: 'Join Little Steady — €37/month', exact: true })
     .first()
     .click()
   await expect(page).toHaveURL(/#membership$/)
@@ -52,12 +52,17 @@ test('FAQ and policy dialogs work with a keyboard, including focus return', asyn
   page,
 }) => {
   await page.goto('/')
-  const question = page.getByText('Is it a real person?', {
-    exact: true,
-  })
+  const question = page.getByText(
+    'Is someone personally answering my messages?',
+    {
+      exact: true,
+    },
+  )
   await question.focus()
   await page.keyboard.press('Enter')
-  await expect(page.locator('details[open]')).toContainText('AI chatbot')
+  await expect(page.locator('details[open]')).toContainText(
+    'The parenting companion is AI',
+  )
   const privacy = page.getByRole('button', { name: 'AI & privacy' })
   await privacy.focus()
   await page.keyboard.press('Enter')
@@ -84,18 +89,19 @@ test('mobile sticky offer appears after the hero and hides at the pricing sectio
   ).toHaveCount(0)
 })
 
-test('presents one monthly price without the previous upfront or add-on fees', async ({
+test('uses the same monthly price across the supplied offer copy', async ({
   page,
 }) => {
   await page.goto('/')
   const membership = page.locator('#membership')
   await expect(membership).toContainText('€37')
-  await expect(membership).toContainText('EUR / month')
-  await expect(membership).toContainText('Renews monthly until cancelled.')
-  await expect(membership).toContainText('No joining fee')
+  await expect(membership).toContainText('€37/month')
+  await expect(membership).toContainText('Your first payment is €37 today.')
+  await expect(membership).toContainText('renews monthly until cancelled.')
   const prices =
-    (await page.locator('body').innerText()).match(/€\s*37\b/g) || []
-  expect(prices).toHaveLength(1)
+    (await page.locator('body').innerText()).match(/€\s*\d+(?:[.,]\d+)?/g) || []
+  expect(prices.length).toBeGreaterThan(0)
+  expect([...new Set(prices)]).toEqual(['€37'])
   await expect(page.locator('main')).not.toContainText('€47')
   await expect(page.locator('main')).not.toContainText('€12')
   await expect(page.locator('main')).not.toContainText('planned')
@@ -131,7 +137,7 @@ test('the thank-you page stays a simple redirect and copies a real starter quest
     'Let’s make your first step simple.',
   )
   await expect(
-    page.getByText('€37/month for both ebooks and the AI helper'),
+    page.getByText('€37/month for both ebooks and the AI companion'),
   ).toBeVisible()
   const first = page.locator('.starter-question').first()
   await first.getByRole('button').click()
@@ -145,28 +151,36 @@ test('the thank-you page stays a simple redirect and copies a real starter quest
   )
 })
 
-test('the first-payment money-back guarantee is clear at the offer and in refund details', async ({
+test('refund details preserve consumer rights without advertising a cash-back guarantee', async ({
   page,
 }) => {
   await page.goto('/')
-  await page
-    .getByRole('link', {
-      name: '14-day money-back guarantee on your first payment',
-    })
-    .click()
-  await expect(page).toHaveURL(/#money-back-guarantee$/)
-  const guarantee = page.locator('#money-back-guarantee')
-  await expect(guarantee).toContainText('14 days')
-  await expect(guarantee).toContainText('full refund of your first payment')
-  await expect(guarantee).toContainText('within 14 days of your first purchase')
-  await expect(guarantee).toContainText('No lessons to finish')
-  await expect(guarantee).toContainText('stops future payments')
-  await expect(guarantee).toContainText('not later monthly payments')
-  await page.getByRole('button', { name: 'Refunds & cancellation' }).click()
+  await expect(page.locator('#money-back-guarantee')).toHaveCount(0)
+  await expect(page.locator('main')).not.toContainText('money-back')
+  await expect(page.locator('#previews')).toHaveCount(0)
+  await expect(page.locator('main')).not.toContainText('[Show')
+  await expect(page.locator('main')).not.toContainText('[Only add')
+  const offerPolicies = page.getByRole('navigation', { name: 'Offer policies' })
+  const refundLink = offerPolicies.getByRole('button', {
+    name: 'Refund policy',
+    exact: true,
+  })
+  await refundLink.click()
   const policy = page.getByRole('dialog')
-  await expect(policy).toContainText(
-    'full refund of your first payment within 14 days',
+  await expect(policy).toContainText('your rights under consumer law')
+  await expect(policy).toContainText('policy provided at checkout')
+  await expect(policy).not.toContainText('full refund')
+  await expect(policy).not.toContainText('14 days')
+  await page.keyboard.press('Escape')
+  await expect(refundLink).toBeFocused()
+  await offerPolicies
+    .getByRole('button', { name: 'Membership terms', exact: true })
+    .click()
+  await expect(page.getByRole('dialog')).toContainText('€37/month')
+  await expect(page.getByRole('dialog')).toContainText('remain yours')
+  await page.goto('/thank-you')
+  await expect(page.locator('main')).not.toContainText('money-back')
+  await expect(page.locator('.thankyou-membership')).toContainText(
+    'Companion access continues through the period you’ve paid for.',
   )
-  await expect(policy).toContainText('not later monthly payments')
-  await expect(policy).not.toContainText('No additional voluntary')
 })

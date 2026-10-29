@@ -14,7 +14,6 @@ export interface OfferConfig {
   }
   support: { email: string | null; url: string | null }
   seller: { legalName: string | null; address: string | null }
-  refund: { enabled: boolean; days: number }
   analytics: { enabled: boolean; consentRequired: boolean }
 }
 
@@ -35,9 +34,6 @@ export const offer: OfferConfig = {
   },
   support: { email: null, url: null },
   seller: { legalName: null, address: null },
-  // Owner-requested money-back guarantee for the FIRST payment only.
-  // Configure the matching refund process before enabling checkout.
-  refund: { enabled: true, days: 14 },
   analytics: { enabled: false, consentRequired: true },
 }
 

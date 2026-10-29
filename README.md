@@ -1,6 +1,6 @@
 # Little Steady
 
-A finished sales-page frontend at `/` and a simple static thank-you redirect at `/thank-you`. React, TypeScript and Vite. The offer is one €37 EUR/month membership: Calmer Tantrums and Calmer Mealtimes to keep, plus the AI parenting helper in Messenger during the paid period. No upfront joining fee, separate book purchase or chatbot upgrade.
+A sales-page frontend at `/` and a simple static thank-you redirect at `/thank-you`. React, TypeScript and Vite. The offer is one €37 EUR/month membership: Calmer Tantrums and Calmer Mealtimes to keep, plus the AI parenting companion in Messenger during the paid period. No upfront joining fee, separate book purchase or chatbot upgrade.
 
 Whop handles checkout and paid access. This repository does not build billing, accounts, purchase verification or the chatbot itself.
 
@@ -20,7 +20,7 @@ Use Node 22.12+ (tested with Node 24.19). Use the existing checkout; cloud tasks
 
 All public settings are in `src/config.ts`:
 
-- `offer.price`: €37 EUR/month. The sales page shows the amount once in the offer block; buttons and captions do not repeat it. The thank-you page shows it once in the membership summary.
+- `offer.price`: €37 EUR/month. The latest owner-supplied copy repeats this same amount in the hero, membership block and join buttons, with clear billing terms. The thank-you page shows it once in the membership summary.
 - `offer.links.checkout`: the single Whop checkout URL. Adding a valid URL enables the final checkout button; until then it says “Checkout opens soon” and cannot take payment. Set it only when the advertised service is ready to fulfil.
 - `offer.links.library`: your actual Whop purchase-library destination.
 - `offer.links.messenger`: the actual Messenger member-access route. Until supplied, the thank-you page directs customers to the access instructions in their Whop purchase.
@@ -30,7 +30,18 @@ All public settings are in `src/config.ts`:
 
 The frontend does not validate fulfilment. Configure the Whop membership to include both ebooks on first purchase, keep them accessible under the promised cancellation terms, and manage Messenger entitlement for the paid period. Include actual activation instructions in Whop. Test those external flows before enabling the checkout link. Do not put secrets in browser code.
 
-The owner requested the 14-day money-back guarantee, and `offer.refund.enabled` is now true. Customers can request a full refund of their first membership payment within 14 days of the first purchase, without completing lessons or proving an approach failed. A successful refund must also stop future billing. Later monthly payments are not covered by this introductory guarantee. Configure the matching policy and refund/help process in Whop before enabling checkout: publishing this frontend policy does not itself automate refunds or cancel billing.
+The latest owner-supplied copy replaces the voluntary cash-back guarantee. No trial or money-back promise is advertised. Refund requests remain separate from cancellation, and consumer rights still apply. Supply the published refund policy and configure the external checkout consistently before taking payment.
+
+## Actual product previews
+
+The owner supplied the age range (18 months–5 years) and detailed guide contents in the latest copy. The actual ebook interiors and a tested companion conversation have not been supplied. The preview section and the FAQ sentence promising previews stay hidden until both guide excerpts and a companion reply are available; no editorial placeholders or invented product outputs are published.
+
+Add approved preview data in `src/content/previews.ts`:
+
+- `offerPreviews.ebooks`: readable excerpt images from both actual guides, stored under `public/previews/`. Include title, root-relative `src`, an accurate `alt`, and pixel `width`/`height`. The page links to the full-size images.
+- `offerPreviews.conversation`: a clearly labelled example with a `label` explaining its provenance, and `messages` containing `speaker` (`Parent` or `Little Steady AI`) and `text`. Include a useful, reviewed companion reply, not only questions. Remove personal information.
+
+The component becomes visible when both guide titles and a companion reply are present. This is presentation only; the owner must check the supplied files and outputs. Verify all advertised guide features, around-the-clock messaging and entitlement rules against the actual service before enabling checkout.
 
 ## Ebook covers
 

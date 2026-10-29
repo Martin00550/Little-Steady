@@ -354,21 +354,7 @@ a.button:hover {
   text-align: center;
   margin-top: 16px;
 }
-.sales-guarantee {
-  border-top: 1px solid var(--line);
-  padding-top: 23px;
-  margin-top: 24px;
-}
-.sales-guarantee h3 {
-  font-size: 1rem;
-  line-height: 1.5;
-}
-.sales-guarantee p {
-  font-size: 0.85rem;
-  margin-top: 12px;
-  color: #454545;
-  line-height: 1.8;
-}
+
 .accordion {
   border-bottom: 1px solid var(--line);
 }
@@ -704,12 +690,7 @@ a.button:hover {
   .check-list li {
     font-size: 0.95rem;
   }
-  .sales-guarantee h3 {
-    font-size: 1rem;
-  }
-  .sales-guarantee p {
-    font-size: 0.85rem;
-  }
+
   .accordion summary {
     font-size: 1rem;
     gap: 16px;
@@ -819,11 +800,7 @@ a.button:hover {
   font-size: 1.5rem;
   margin-block: 6px 22px;
 }
-.sales-guarantee h4 {
-  font-size: 1rem;
-  line-height: 1.5;
-  margin: 0;
-}
+
 .sales-examples {
   margin-block: 27px;
   border-block: 1px solid var(--line);
@@ -1040,55 +1017,122 @@ a.button:hover {
   }
 }
 
-.sales-guarantee-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  margin-top: 9px;
-  color: var(--brand);
-  font-size: 0.85rem;
-  line-height: 1.6;
-  text-underline-offset: 4px;
-}
-.sales-guarantee {
-  position: relative;
-  padding: 24px;
-  border: 1px solid #a9b9ad;
-  border-radius: 4px;
-  background: #edf1e8;
-  scroll-margin-top: 24px;
-}
-.sales-guarantee .guarantee-icon {
-  color: var(--brand);
-  display: block;
-  margin-bottom: 12px;
-}
-.sales-guarantee h3 {
-  font-size: 1.2rem;
-  line-height: 1.4;
-}
-.sales-guarantee p {
-  font-size: 0.95rem;
-  line-height: 1.8;
-}
-.sales-guarantee .guarantee-terms {
-  font-size: 0.82rem;
-}
 .mobile-cta > div {
   min-width: 0;
 }
 .mobile-cta .button {
   flex-shrink: 0;
 }
+
+/* Owner-supplied sales copy: clear reading rhythm, with the outcome prominent. */
+.sales-hero-situation {
+  display: block;
+  margin-bottom: 13px;
+  font-size: 1.35rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-weight: 400;
+  color: var(--ink);
+}
+.sales-mechanism p + p {
+  margin-top: 16px;
+}
+.sales-key-question {
+  font-weight: 700;
+  color: var(--brand);
+}
+.sales-inclusions > li > div {
+  min-width: 0;
+}
+.sales-content-list {
+  padding-left: 23px;
+  margin-block: 17px 21px;
+}
+.sales-content-list li {
+  padding-left: 3px;
+  line-height: 1.8;
+}
+.sales-content-list li + li {
+  margin-top: 10px;
+}
+.sales-question-list {
+  font-style: italic;
+}
+.sales-offer .sales-offer-included {
+  margin-top: 27px;
+  font-weight: 700;
+}
+.sales-offer .check-list {
+  margin-top: 12px;
+}
+.sales-cancellation > p {
+  margin-top: 0;
+}
+.sales-policy-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3px 12px;
+  margin-top: 18px;
+}
+.sales-policy-links .text-link {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+.ebook-previews {
+  display: grid;
+  gap: 30px;
+  margin-block: 28px;
+}
+.ebook-previews figcaption {
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.ebook-previews img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+}
+.conversation-preview {
+  padding: 24px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  margin-bottom: 24px;
+}
+.conversation-preview > p {
+  margin-top: 10px;
+}
+.conversation-messages {
+  list-style: none;
+  display: grid;
+  gap: 18px;
+  margin-top: 23px;
+}
+.conversation-messages li {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--paper);
+}
+.conversation-messages .from-parent {
+  background: var(--sage);
+}
+.conversation-messages strong {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+.conversation-messages p {
+  white-space: pre-line;
+}
 @media (max-width: 600px) {
-  .sales-guarantee {
-    padding: 20px;
-  }
-  .sales-guarantee-link {
-    font-size: 0.8rem;
-  }
-  .sales-guarantee h3 {
+  .sales-hero-situation {
     font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  .conversation-preview {
+    padding: 18px;
   }
 }
