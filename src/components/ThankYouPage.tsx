@@ -70,8 +70,9 @@ export function ThankYouPage() {
           <Eyebrow>Welcome to Little Steady</Eyebrow>
           <h1 id="welcome-heading">Let’s make your first step simple.</h1>
           <p>
-            You don’t have to read everything or change every routine today.
-            Start with one guide or one question.
+            Think of one moment you’d like to feel more prepared for: dinner,
+            leaving the playground, or finding the words when feelings run high.
+            You can start there, with one guide or one question.
           </p>
         </section>
         <div className="thankyou-steps">
@@ -88,8 +89,9 @@ export function ThankYouPage() {
                 <span>Calmer Mealtimes</span>
               </div>
               <p>
-                Choose whichever topic feels most useful right now. Both ebooks
-                are included with your membership and yours to keep after
+                If mealtimes are on your mind, start with Calmer Mealtimes. If
+                big feelings are the part you want to focus on, start with
+                Calmer Tantrums. Both ebooks are yours to keep after
                 cancellation.
               </p>
               <a
@@ -133,11 +135,11 @@ export function ThankYouPage() {
           <section className="thankyou-step" aria-labelledby="start-title">
             <span className="thankyou-number">03</span>
             <div>
-              <h2 id="start-title">Ask one question</h2>
+              <h2 id="start-title">Start with today’s question</h2>
               <p>
-                Think of something that would help today: a meal idea, words for
-                a difficult moment, or a different suggestion to consider. You
-                can copy one of these to get started.
+                What’s happening, and what are you unsure about? Ask for words
+                to try, an idea for dinner, or another suggestion if something
+                doesn’t fit. You can copy a question below to begin.
               </p>
               <div className="starter-questions">
                 <StarterQuestion question="What can I say when my child refuses to leave the playground?" />
@@ -204,9 +206,9 @@ export function ThankYouPage() {
         </aside>
         <div className="thankyou-signoff">
           <p>
-            One question. One small step.
+            Start with today’s question.
             <br />
-            You can start there.
+            Come back for the next one.
           </p>
         </div>
       </main>

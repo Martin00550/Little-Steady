@@ -7,24 +7,26 @@ const examples = [
   {
     topic: 'Something to make for dinner',
     question: '“I have eggs, rice and frozen peas. What could I make?”',
-    detail: 'Ask for meal ideas and recipes using what you have.',
+    detail:
+      'Find a starting point for dinner using the ingredients already in your kitchen.',
   },
   {
     topic: 'Words for a difficult moment',
     question:
       '“We need to leave the playground. My child is saying no. What can I say?”',
-    detail: 'Ask for a few words to try when you can’t find your own.',
+    detail:
+      'Consider a few words to try before you’re searching for them in the middle of it.',
   },
   {
     topic: 'A different idea when you need one',
     question: '“That won’t work for our family. What else could I try?”',
-    detail:
-      'Ask a follow-up, explain what doesn’t fit, or ask for a simpler suggestion.',
+    detail: 'Explain what doesn’t fit and ask for another idea you could try.',
   },
   {
     topic: 'Help with the next everyday question',
     question: '“Bedtime keeps turning into an argument. Where could I start?”',
-    detail: 'Bring questions beyond tantrums and mealtimes, too.',
+    detail:
+      'Choose one part of the routine to think through instead of tackling everything at once.',
   },
 ]
 const faqs = [
@@ -41,12 +43,16 @@ const faqs = [
     a: 'Everyday parenting questions: meal ideas, recipes, words for a difficult conversation, transitions, bedtime, and what else to consider when a suggestion doesn’t fit your family. It is not limited to explaining the two ebooks.',
   },
   {
+    q: 'Why pay when I can find parenting advice for free?',
+    a: 'Free advice can be useful. Little Steady combines two guides to keep with a place to ask an everyday question and follow up in Messenger. You can describe what is happening, ask for an idea and follow up if it doesn’t fit. The monthly payment is for ongoing helper access; you keep the ebooks even if you cancel.',
+  },
+  {
     q: 'Is it a real person?',
     a: 'It is an AI chatbot, not a human coach, clinician or emergency service. It can misunderstand a question or give incorrect information. Use your judgement and seek qualified help for medical, feeding, developmental or safety concerns. Check recipe ingredients for your family’s dietary needs and allergies.',
   },
   {
     q: 'Do I have to read the books before I can ask a question?',
-    a: 'No. Start with whichever guide or question feels most useful today. You do not need to finish either ebook before messaging the helper.',
+    a: 'No. Start with something that is already on your mind—a refused dinner, leaving the playground or words you want to try. You can use a guide as reference or ask the helper a question. There is no requirement to finish a book or complete a new routine first.',
   },
   {
     q: 'Do I need Messenger? Is this a group?',
@@ -81,20 +87,18 @@ export function SalesPage() {
           aria-labelledby="hero-heading"
         >
           <p className="sales-kicker">
-            For the everyday “what do I do now?” moments
+            For parents of toddlers and preschoolers
           </p>
-          <h1 id="hero-heading">
-            What can I say?
-            <br />
-            What can I cook?
-            <br />
-            What do I try next?
-          </h1>
+          <h1 id="hero-heading">Feel less stuck when parenting gets hard.</h1>
           <p className="sales-subhead">
-            Get <strong>Calmer Tantrums</strong> and{' '}
-            <strong>Calmer Mealtimes</strong> to keep, plus an{' '}
-            <strong>AI parenting helper in Messenger</strong> for meal ideas,
-            words for tricky moments, and the questions that come next.
+            Have words to try when feelings run high, meal ideas when dinner is
+            refused, and a clearer starting point when you’re too tired to keep
+            searching.
+          </p>
+          <p className="sales-mechanism">
+            Little Steady brings together two parenting ebooks to keep and an AI
+            parenting helper in Messenger—all for{' '}
+            <strong>{priceLabel()}.</strong>
           </p>
           <PrimaryCTA />
           <p className="sales-price-note">
@@ -120,25 +124,27 @@ export function SalesPage() {
           aria-labelledby="recognition-heading"
         >
           <h2 id="recognition-heading">
-            Some days, you just need an idea you can use.
+            It’s hard to find the words when you’re already in the middle of it.
           </h2>
           <p>
-            Dinner is ready. Your child won’t touch it. You need to leave, and
-            they’re still on the playground. You’re tired, and the words you
-            wanted to use have disappeared.
+            The food is on the table. Your child says no. Or you’re trying to
+            leave the playground, and everyone else seems ready to go except
+            your child.
           </p>
           <p>
-            You don’t want ten more tabs telling you ten different things. You
-            want a starting point for the situation in front of you.
+            Maybe you’ve read advice that made sense at the time. But now you’re
+            tired, the situation feels different, and you’re not sure what to
+            try.
           </p>
           <p>
-            A meal idea. A way to explain the boundary. A few words to try.
-            Another suggestion when the first one doesn’t fit.
+            You want a few words you can actually say. An idea for what to
+            serve. A starting point you can think through before the next
+            difficult moment.
           </p>
           <p>
-            <strong>That’s what Little Steady is for:</strong> two guides you
-            can return to, and an AI helper you can ask about everyday
-            parenting.
+            <strong>You don’t need to work everything out at once.</strong>{' '}
+            Start with the question in front of you, then consider one small
+            thing to try.
           </p>
         </section>
 
@@ -151,19 +157,23 @@ export function SalesPage() {
             One membership. Everything below is included.
           </p>
           <h2 id="included-heading">
-            Read when you want to.
-            <br />
-            Ask when you need an idea.
+            A guide to come back to.
+            <br />A place to ask the next question.
           </h2>
+          <p className="sales-included-intro">
+            Use the guides when you want to focus on a topic. Use the helper
+            when you want to talk through an everyday situation.
+          </p>
           <ol className="sales-inclusions">
             <li>
               <span className="inclusion-number">1</span>
               <div>
                 <h3>Calmer Tantrums</h3>
                 <p>
-                  For the days when big feelings take over. Start with this
-                  parenting ebook when tantrums are the part of your day you
-                  want to focus on.
+                  Make tantrums your starting topic when big feelings are the
+                  part of your day you most want to think through. An ebook to
+                  read at your own pace and return to when you want to revisit
+                  the subject.
                 </p>
                 <p className="inclusion-ownership">
                   Included with your first purchase. Yours to keep.
@@ -175,8 +185,9 @@ export function SalesPage() {
               <div>
                 <h3>Calmer Mealtimes</h3>
                 <p>
-                  For the “I’m not eating that” days. Start with this parenting
-                  ebook when your questions keep coming back to mealtimes.
+                  Make mealtimes your starting topic when “I’m not eating that”
+                  keeps coming up. Keep the ebook as your reference when you
+                  want to focus on this part of family life.
                 </p>
                 <p className="inclusion-ownership">
                   Included with your first purchase. Yours to keep.
@@ -188,9 +199,11 @@ export function SalesPage() {
               <div>
                 <h3>Your AI parenting helper in Messenger</h3>
                 <p>
-                  Bring an everyday parenting question. Ask for meal ideas,
-                  recipes, wording for a specific situation, or another approach
-                  to consider. Ask a follow-up or ask for a different idea.
+                  When a situation leaves you wondering what to say or try,
+                  describe it in your own words. Ask for meal ideas, a recipe,
+                  wording for a difficult moment or a different suggestion if
+                  the first one doesn’t fit. It’s for everyday questions beyond
+                  the books, too.
                 </p>
                 <p className="inclusion-ownership">
                   Available during your paid membership.
@@ -210,11 +223,11 @@ export function SalesPage() {
           id="chatbot-preview"
           aria-labelledby="chatbot-heading"
         >
-          <h2 id="chatbot-heading">Ask the question you actually have.</h2>
+          <h2 id="chatbot-heading">Start with “here’s what’s happening…”</h2>
           <p>
-            You don’t need to know the right parenting term, finish a book
-            first, or turn your question into a perfect prompt. Start with the
-            situation you’re dealing with.
+            You don’t have to know the parenting term for it. Describe the
+            moment, say what you’re unsure about, and ask for an idea to
+            consider. Here’s what that starting point could look like.
           </p>
           <div className="sales-examples">
             <p className="sales-example-label">
@@ -229,9 +242,10 @@ export function SalesPage() {
             ))}
           </div>
           <p>
-            <strong>It’s for more than the two book topics.</strong> Everyday
-            questions keep changing. Your membership gives you a place to bring
-            the next one.
+            <strong>The next question might be different.</strong> Tonight it
+            could be dinner. Tomorrow it could be bedtime or leaving the house.
+            Ongoing helper access is what your monthly membership is for;
+            keeping the books doesn’t depend on staying subscribed.
           </p>
           <p className="sales-disclosure">
             These are example questions, not a live chat or promises of a
@@ -246,7 +260,7 @@ export function SalesPage() {
           className="sales-section sales-prose"
           aria-labelledby="how-heading"
         >
-          <h2 id="how-heading">You don’t have to do it all today.</h2>
+          <h2 id="how-heading">One question is enough to get started.</h2>
           <ol className="sales-how">
             <li>
               <strong>Join through Whop.</strong> One membership includes both
@@ -259,13 +273,17 @@ export function SalesPage() {
               You’ll find your purchased resources and access details in Whop.
             </li>
             <li>
-              <strong>Choose one starting point.</strong> Pick a guide topic or
-              ask about one situation that keeps coming up.
+              <strong>
+                Choose the moment you want to feel more prepared for.
+              </strong>{' '}
+              Pick a guide topic or describe one situation to the helper. Start
+              with that, rather than trying to change every routine.
             </li>
           </ol>
           <p>
-            No requirement to finish both books before getting started. No need
-            to change every routine at once.
+            You can start with a question before finishing either book. Take
+            time to consider a suggestion, and ask a follow-up if it doesn’t
+            fit.
           </p>
         </section>
 
@@ -277,8 +295,11 @@ export function SalesPage() {
           <div className="sales-offer">
             <p className="sales-kicker">The Little Steady membership</p>
             <h2 id="membership-heading">
-              Both ebooks + everyday parenting help in Messenger.
+              A place to turn when you’re not sure what to try next.
             </h2>
+            <p className="sales-offer-summary">
+              Both ebooks to keep + AI parenting help in Messenger.
+            </p>
             <p className="sales-offer-price">
               <strong>{formatPrice()}</strong> {offer.price.currency} / month
             </p>
@@ -345,11 +366,11 @@ export function SalesPage() {
           aria-labelledby="closing-heading"
         >
           <h2 id="closing-heading">
-            Start with the question that’s on your mind today.
+            Choose one moment you want to feel more prepared for.
           </h2>
           <p>
-            Something to make for dinner. Something to say. An idea for what to
-            try next.
+            Words for the next difficult transition. An idea for dinner. A place
+            to ask, “What else could I try?” Start there.
           </p>
           <PrimaryCTA placement="closing" />
           <p className="sales-price-note">

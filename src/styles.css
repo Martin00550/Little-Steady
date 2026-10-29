@@ -967,3 +967,33 @@ a.button:hover {
     width: min(43%, 190px);
   }
 }
+
+/* Lead with the outcome, then explain the mechanism before the first CTA. */
+.sales-hero .sales-subhead {
+  margin-bottom: 14px;
+}
+.sales-mechanism {
+  max-width: 650px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0 auto 25px;
+  color: #333;
+}
+.sales-included-intro {
+  margin-bottom: 8px;
+}
+.sales-offer .sales-offer-summary {
+  text-align: center;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+@media (max-width: 600px) {
+  .sales-hero .sales-subhead {
+    margin-bottom: 14px;
+  }
+  .sales-mechanism {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+}
