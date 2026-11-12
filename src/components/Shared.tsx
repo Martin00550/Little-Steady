@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { ArrowRight, ArrowUpRight, Check, Plus, X } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Check, Menu, Plus, X } from 'lucide-react'
 import { canPurchase, offer, priceLabel, safeUrl, supportHref } from '../config'
 import { track } from '../lib/analytics'
-
 export function Brand() {
   return (
     <a className="brand" href="/" aria-label="Little Steady home">
@@ -22,18 +21,134 @@ export function Brand() {
   )
 }
 export function Header() {
+  const [open, setOpen] = useState(false)
+  const [view, setView] = useState<'menu' | Policy | 'support'>('menu')
+  const ref = useRef<HTMLDialogElement>(null)
+  const trigger = useRef<HTMLButtonElement>(null)
+  const heading = useRef<HTMLHeadingElement>(null)
+  useEffect(() => {
+    if (!open) return
+    ref.current?.showModal()
+    const previous = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      ref.current?.close()
+      document.body.style.overflow = previous
+      trigger.current?.focus()
+    }
+  }, [open])
+  useEffect(() => {
+    if (open) heading.current?.focus()
+  }, [view, open])
+  const support = supportHref()
   return (
     <header className="header container">
       <Brand />
-      <nav className="header-nav" aria-label="Main navigation">
-        <a className="header-section-link" href="/#included">
-          What’s included
-        </a>
-        <a className="header-section-link" href="/#questions">
-          Questions
-        </a>
-        <PrimaryCTA placement="header">View offer</PrimaryCTA>
-      </nav>
+      <button
+        ref={trigger}
+        className="icon-button navigation-trigger"
+        aria-label="Open menu"
+        aria-expanded={open}
+        aria-controls="site-menu"
+        onClick={() => {
+          setView('menu')
+          setOpen(true)
+        }}
+      >
+        <Menu size={24} aria-hidden="true" />
+      </button>
+      {open && (
+        <dialog
+          ref={ref}
+          id="site-menu"
+          className="navigation-dialog"
+          aria-labelledby="menu-heading"
+          onCancel={() => setOpen(false)}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setOpen(false)
+          }}
+        >
+          <button
+            className="icon-button dialog-close"
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
+          >
+            <X size={22} aria-hidden="true" />
+          </button>
+          <p className="eyebrow">Little Steady</p>
+          <h2 id="menu-heading" ref={heading} tabIndex={-1}>
+            {view === 'menu'
+              ? 'Information & support'
+              : view === 'support'
+                ? 'Contact & support'
+                : policyContent[view].title}
+          </h2>
+          {view === 'menu' ? (
+            <nav className="menu-items" aria-label="Information and support">
+              {(
+                [
+                  ['privacy', 'Privacy information'],
+                  ['terms', 'Membership terms'],
+                  ['refund', 'Refunds & cancellation'],
+                ] as const
+              ).map(([key, label]) =>
+                safeUrl(offer.links[key]) ? (
+                  <a key={key} href={safeUrl(offer.links[key])!}>
+                    {label}
+                    <ArrowUpRight size={16} aria-hidden="true" />
+                  </a>
+                ) : (
+                  <button key={key} onClick={() => setView(key)}>
+                    {label}
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </button>
+                ),
+              )}
+              <button onClick={() => setView('support')}>
+                Contact & support
+                <ArrowRight size={16} aria-hidden="true" />
+              </button>
+              {safeUrl(offer.links.manage) && (
+                <a href={safeUrl(offer.links.manage)!}>
+                  Manage membership
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+              )}
+            </nav>
+          ) : (
+            <div className="menu-content">
+              {view === 'support' ? (
+                <>
+                  <p>
+                    For help with your guides, Messenger access, billing, or
+                    cancellation, use the support details in your purchase
+                    confirmation or receipt.
+                  </p>
+                  {support ? (
+                    <a className="button button--primary" href={support}>
+                      Contact support
+                      <ArrowUpRight size={17} aria-hidden="true" />
+                    </a>
+                  ) : (
+                    <p>
+                      Membership checkout is not open yet. A direct support
+                      contact will be available here before it opens.
+                    </p>
+                  )}
+                </>
+              ) : (
+                policyContent[view].content
+              )}
+              <button
+                className="text-link menu-back"
+                onClick={() => setView('menu')}
+              >
+                Back to menu
+              </button>
+            </div>
+          )}
+        </dialog>
+      )}
     </header>
   )
 }
@@ -51,14 +166,16 @@ export function CheckItem({ children }: { children: ReactNode }) {
 export function PrimaryCTA({
   children,
   placement = 'hero',
+  href = '#membership',
 }: {
   children?: ReactNode
   placement?: string
+  href?: string
 }) {
   return (
     <a
       className="button button--primary"
-      href="#membership"
+      href={href}
       onClick={() => track('primary_cta_click', { placement })}
     >
       {children || `Join Little Steady — ${priceLabel()}`}
@@ -112,17 +229,19 @@ export function Accordion({
     </details>
   )
 }
-
 type Policy = 'privacy' | 'terms' | 'refund'
-const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
+export const policyContent: Record<
+  Policy,
+  { title: string; content: ReactNode }
+> = {
   privacy: {
-    title: 'AI and your privacy',
+    title: 'Privacy and Mila',
     content: (
       <>
         <p>
-          The companion is an AI chatbot in Messenger. Meta provides Messenger,
-          and AI services are involved in processing questions and generating
-          replies. It is not a private clinical consultation.
+          Meta provides Messenger. SendPulse runs the chatbot flow and passes
+          relevant conversation text to the configured AI provider to generate
+          Mila’s replies. Whop handles checkout and billing.
         </p>
         <p>
           Describe situations without children’s names, dates of birth, medical
@@ -130,9 +249,9 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
           encryption or zero storage is made here.
         </p>
         <p>
-          Review the applicable data-processing and privacy terms supplied with
-          the service before using the companion. Storage, administrator access
-          and deletion rights depend on those terms.
+          We use order information to fulfill memberships and support requests
+          to help customers. You can contact us to ask about access, correction,
+          deletion or other applicable privacy rights.
         </p>
         <p>
           This website does not collect chat messages or children’s details.
@@ -147,14 +266,14 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
       <>
         <p>
           {priceLabel()} in {offer.price.currency}, renewing monthly until
-          cancelled. No joining fee or separate book payment. The membership
-          includes Calmer Tantrums, Calmer Mealtimes and access to the AI
-          parenting companion in Messenger.
+          canceled. No joining fee or separate book payment. The membership
+          includes The Calmer Parenting Playbook, Calmer Tantrums, Calmer
+          Mealtimes and access to the AI parenting companion in Messenger.
         </p>
         <p>
           The ebooks are included with your first purchase and remain yours
           after cancellation. You can use the AI companion until the end of the
-          time you’ve paid for. Cancelling your subscription does not
+          time you’ve paid for. Canceling your subscription does not
           automatically request a refund.
         </p>
         <p>
@@ -163,7 +282,7 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
         </p>
         <p>
           The service provides general parenting education. AI can make
-          mistakes. No behavioural or health outcome is guaranteed, and the
+          mistakes. No behavioral or health outcome is guaranteed, and the
           companion is not a healthcare professional or emergency service.
         </p>
       </>
@@ -175,19 +294,19 @@ const policyContent: Record<Policy, { title: string; content: ReactNode }> = {
       <>
         <p>
           To stop future payments, cancel from your account. You can use the
-          chat until the end of the time you’ve paid for, and you keep both
-          ebooks after cancellation.
+          chat until the end of the time you’ve paid for, and you keep all three
+          guides after cancellation.
         </p>
         <p>
-          Cancelling stops future payments. To ask for a refund or help with a
+          Canceling stops future payments. To ask for a refund or help with a
           payment, use the help link in your purchase or the seller contact
           shown on your receipt.
         </p>
         <p>
-          Refund requests are handled separately under the published refund
-          policy. Eligibility is governed by the policy provided at checkout and
-          your rights under consumer law. Check the refund policy at checkout
-          for details.
+          Refund requests are handled separately from cancellation. If you have
+          a statutory right to withdraw or a remedy for digital content or
+          services that were unavailable or defective, contact support to
+          exercise that right. Mandatory consumer rights apply.
         </p>
       </>
     ),
@@ -267,7 +386,6 @@ export function PolicyLink({
     </>
   )
 }
-
 export function Footer() {
   const support = supportHref()
   const manage = safeUrl(offer.links.manage)
@@ -281,13 +399,18 @@ export function Footer() {
           <div className="footer-bottom">
             <span>© {new Date().getFullYear()} Little Steady</span>
             <nav aria-label="Footer navigation">
-              <PolicyLink policy="privacy">AI & privacy</PolicyLink>
-              <PolicyLink policy="terms">Membership terms</PolicyLink>
-              <PolicyLink policy="refund">Refunds & cancellation</PolicyLink>
+              <a href="/privacy">AI & privacy</a>
+              <a href="/terms">Membership terms</a>
+              <a href="/refund">Refunds & cancellation</a>
               {support && <a href={support}>Support</a>}
               {manage && <a href={manage}>Manage membership</a>}
             </nav>
           </div>
+          <p className="footer-ai-disclosure">
+            Mila is AI, not a human coach. It can make mistakes and offers
+            general parenting education—not diagnosis, therapy, or emergency
+            support.
+          </p>
           {offer.seller.legalName && (
             <p className="seller-details">
               {offer.seller.legalName}

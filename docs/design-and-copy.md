@@ -1,34 +1,47 @@
-# Visual redesign
+# Conversion-focused refinement
 
-This revision changes composition and hierarchy while preserving the €37/month membership and existing checkout/access logic. It replaces the narrow, centred document layout.
+The approved brand is retained: forest/ivory/sage, original logo, Fraunces and DM Sans, existing illustrated bonus covers. Lead with a practical outcome and complete offer, show a clearly labeled Mila illustration, then make the main Playbook substantial and the specialist bonuses subordinate. Provide one real preview from each finished guide. Finish with simple onboarding, recurring value, transparent monthly terms, FAQ and closing CTA.
 
-## Section order and composition
+This applies Hormozi-style outcome/confidence/effort considerations and Suby-style offer clarity as hypotheses. It does not claim a proven highest conversion rate. No fake social proof, dollar-value stacking, scarcity or transformation promises.
 
-1. An 80px horizontal header, original logo on the left and navigation on the right. Mobile retains one compact offer action.
-2. A 1160px desktop hero with approximately 52/48 copy/product columns. The main visual is a substantial, readable Messenger conversation; existing ebook covers sit below it. Mobile follows copy, CTA/terms, chat and covers.
-3. A sage companion section: two short recognition paragraphs, three benefit labels, AI disclosure and a different conversation with a useful answer and follow-up question.
-4. Two balanced ebook features, each with the actual cover, benefit, three owner-supplied contents, ownership label and page-preview action. Mobile puts each cover beside its title, then gives the benefit and contents full reading width.
-5. A connected three-step onboarding sequence, horizontal on desktop and vertical on mobile. Instructions refer to actual purchase-library access information and do not promise instant activation.
-6. A continuing-value explanation and compact checklist beside a focused pricing panel. The price is €37 per month with billing, cancellation and policy details together.
-7. An accessible FAQ beside a short introduction; stacked on mobile.
-8. A compact sage closing band and footer. No sticky CTA.
+Sources retrieved during research:
 
-The thank-you page uses the same typography, spacing and container. Steps sit beside membership/help information on desktop and stack on mobile. Clipboard actions, configured destinations, fallback instructions and static unverified behaviour remain unchanged.
+- https://www.acquisition.com/files/pricing-value-checklist.pdf
+- https://kingkong.co/blog/the-real-reason-businesses-fail/
+- https://marketingexperiments.com/copywriting/web-usability-long-landing-page (multifactor long-form treatment; cannot isolate length)
+- https://marketingexperiments.com/copywriting/landing-page-optimization-conversion-increased-37-by-reducing-copy (shorter copy, explicitly low statistical confidence)
+- https://exp-platform.com/Documents/2014%20experimentersRulesOfThumb.pdf
 
-## Typography and colour
+Current offer $29 USD/month. Main guide ages 2-6, bonus guides ages 18 months-5 years; do not imply identical age coverage. All guides are kept after cancellation, Mila lasts through the paid period. The checkout provider is not named in customer-facing copy.
 
-Locally served Fraunces for major editorial headings; DM Sans for body/UI. Two Latin variable WOFF2 files, about 74KB combined, use `font-display: swap`. Body defaults to 18px/1.6. The desktop headline reaches 64px; mobile uses responsive 36–42px sizing and natural wrapping.
+Run build, unit tests, browser/accessibility checks and formatting check. Inspect mobile/desktop screenshots. No deployment or analytics-provider installation is included.
 
-Ivory #FAF7F0, forest #234E43, sage #E9EFE8, dark body #283C34 and restrained neutral borders. The original logo retains its own artwork colours and aspect ratio. Covers are existing responsive WebPs. Spacing tokens and composition provide rhythm without repeated full-width rules, decorative animation or a card around every paragraph.
+## Value-first hero revision
 
-## Preview status
+The owner rejected the early subscription ask. The hero now provides a useful, product-grounded direction example and a low-commitment route to genuine sample pages. No price or charge-today copy appears in the hero. The transparent $29 recurring offer remains after the guide details and Mila demonstration. No invented standalone bonus values or savings are used.
 
-Messenger conversations are clearly labelled **Illustrative conversation · Static preview**. They are editorial examples using the owner-supplied guide topics, not tested output or customer outcomes. An AI disclosure is adjacent to the main demonstration.
+King Kong guidance supports reducing premature demands and being clear about price; these are compatible. Its articles are agency guidance, not statements personally authored by Suby or controlled proof of the exact sequence. Hormozi's value checklist does not prescribe hero price placement; his bonus checklist even describes presenting bonuses after price. The Sierra Tucson experiment changed several factors; it cannot isolate CTA placement. This revision follows the owner's preferred value-first experience and remains a testable hypothesis.
 
-Actual ebook files/interior pages were not supplied. **Real interior previews remain unfinished.** Each guide's preview action is disabled with an availability note. The implemented lightbox accepts individual approved sample-page images and text transcripts, supports zoom and keyboard/focus handling, and does not need public paid-file URLs. Its working state is tested with a test-only sample, not presented in production screenshots as an actual ebook page.
+Additional sources:
 
-## Verification
+- https://kingkong.co/blog/40-quick-and-easy-conversion-rate-optimisation-tips/
+- https://kingkong.co/blog/10-things-to-split-test-on-your-site/
+- https://www.acquisition.com/files/bonus-creation-checklist.pdf
 
-Browser checks cover 360, 390, 768 and 1440px on both pages, accessibility, no horizontal overflow, desktop columns, mobile ordering, cover loading, checkout availability, policy controls, static redirect behaviour, clipboard actions and preview zoom/focus. Rendered screenshots are inspected for composition; source inspection alone is insufficient.
+## Recognition-first landing page
 
-There is no new pricing research or claim that this is a proven highest-converting design. Actual purchases, retention and refunds remain the measures of offer performance.
+The owner requested emotional recognition before samples or product exploration. Supersedes the earlier hero directions: relatable daily struggle, concrete recurring situations, emotional toll and decision fatigue, a manageable alternative, Little Steady's practical approach, Mila, guide evidence, then the $29 membership. The hero has no product, signup or price CTA; its reading link continues into the problem narrative. No fabricated outcomes, shame or catastrophic claims.
+
+Sources inspected via Firecrawl: https://kingkong.co/facebook-advertising-agency/oregon/portland/ (understand pain, desired situation and buyer awareness); https://selllikecrazybook.com/free (Suby's public promotion page, not full book text). Observed copy patterns are practitioner examples, not proof of a winning page. The book's full text was not retrieved. Copy is original and grounded in the supplied parenting guides, rather than a reproduction of book wording.
+
+## Audience-informed refinement and navigation
+
+See audience-research.md for evidence, population limits and wording decisions. The hero has no links or buttons. Header navigation is replaced by an accessible legal/support drawer with no section shortcuts. Keep the global accessibility skip link. A real support address is still pending; no fake inbox or contact form is added.
+
+## Phone composition
+
+Phone-specific typography removes the narrow desktop headline measure, tightens vertical spacing and keeps body text at a readable 16-17px. Main guide cover/title share a compact grid, followed by full-width benefits and real preview. Narrative remains in reading order without hidden sections or a sticky sales CTA. Touch controls are at least 44px, and legal/support drawer supports short landscape viewports and safe-area bottom padding. Browser checks cover 320, 360, 390, 430, 768 and 1440px, plus phone reading geometry and landscape menu access.
+
+## Practical value before purchase
+
+The better-way section teaches a three-part boundary, provides a complete playground script, a preparation step and what to do if crying continues. Grounded in Playbook pages 12 and 17. The Messenger illustration now covers dinner refusal, worry about hunger, familiar food, bedtime snacks, sauce touching pasta and the one-bite question, grounded in Calmer Mealtimes pages 10, 11, 20 and 22. It demonstrates the proposed experience, not tested Mila output. AI identity stays in the chat header and FAQ; the longer human-coach/limitations disclosure moves to the footer.

@@ -1,6 +1,5 @@
 import { MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '../content/conversations'
-
 export function Conversation({
   messages,
   id,
@@ -20,7 +19,7 @@ export function Conversation({
           <MessageCircle size={22} />
         </span>
         <div>
-          <strong>Little Steady</strong>
+          <strong>Mila · Little Steady</strong>
           <span>AI parenting companion · Messenger</span>
         </div>
       </div>
@@ -38,7 +37,7 @@ export function Conversation({
             }
           >
             <span className="chat-speaker">
-              {message.speaker === 'Parent' ? 'Parent' : 'Little Steady · AI'}
+              {message.speaker === 'Parent' ? 'Parent' : 'Mila · AI'}
             </span>
             <p>{message.text}</p>
           </li>

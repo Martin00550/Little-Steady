@@ -1,8 +1,6 @@
 # Little Steady
 
-A sales-page frontend at `/` and a simple static thank-you redirect at `/thank-you`. React, TypeScript and Vite. The offer is one €37 EUR/month membership: Calmer Tantrums and Calmer Mealtimes to keep, plus the AI parenting companion in Messenger during the paid period. No upfront joining fee, separate book purchase or chatbot upgrade.
-
-Whop handles checkout and paid access. This repository does not build billing, accounts, purchase verification or the chatbot itself.
+A React/TypeScript/Vite sales page and static /thank-you page. Current offer: $29 USD/month for The Calmer Parenting Playbook, two bonus guides to keep, and Mila AI in Messenger while subscribed. Local review only; checkout and chatbot links will be supplied later. See docs/pricing-and-offer.md and docs/claims-and-readiness.md for the current source of truth.
 
 ## Run
 
@@ -20,7 +18,7 @@ Use Node 22.12+ (tested with Node 24.19). Use the existing checkout; cloud tasks
 
 All public settings are in `src/config.ts`:
 
-- `offer.price`: €37 EUR/month. The latest owner-supplied copy repeats this same amount in the hero, membership block and join buttons, with clear billing terms. The thank-you page shows it once in the membership summary.
+- `offer.price`: $29 USD/month. The latest owner-supplied copy repeats this same amount in the hero, membership block and join buttons, with clear billing terms. The thank-you page shows it once in the membership summary.
 - `offer.links.checkout`: the single Whop checkout URL. Adding a valid URL enables the final checkout button; until then it says “Checkout opens soon” and cannot take payment. Set it only when the advertised service is ready to fulfil.
 - `offer.links.library`: your actual Whop purchase-library destination.
 - `offer.links.messenger`: the actual Messenger member-access route. Until supplied, the thank-you page directs customers to the access instructions in their Whop purchase.
@@ -28,17 +26,13 @@ All public settings are in `src/config.ts`:
 - `offer.support` and `offer.seller`: actual contact and legal seller details. No placeholders are published.
 - `offer.logo`: the supplied original logo, used in both page headers and the footer. The original JPEG and an SVG presentation master are retained in `public/brand/`; the site loads an optimised WebP.
 
-The frontend does not validate fulfilment. Configure the Whop membership to include both ebooks on first purchase, keep them accessible under the promised cancellation terms, and manage Messenger entitlement for the paid period. Include actual activation instructions in Whop. Test those external flows before enabling the checkout link. Do not put secrets in browser code.
+The frontend does not validate fulfilment. Configure the Whop membership to include all three guides on first purchase, keep them accessible under the promised cancellation terms, and manage Messenger entitlement for the paid period. Include actual activation instructions in Whop. Test those external flows before enabling the checkout link. Do not put secrets in browser code.
 
 The latest owner-supplied copy replaces the voluntary cash-back guarantee. No trial or money-back promise is advertised. Refund requests remain separate from cancellation, and consumer rights still apply. Supply the published refund policy and configure the external checkout consistently before taking payment.
 
-## Demonstrations and ebook previews
+## Demonstrations and real samples
 
-The page now has two readable, clearly labelled **Illustrative conversation** panels. These are editorial examples of the owner-supplied guide topics, not a live chatbot or tested product output. The text is in `src/content/conversations.ts`.
-
-No ebook PDFs or interior pages were supplied. Each guide therefore shows a disabled “Preview a page” action and an honest availability note. To finish this part, export one approved practical page from each real ebook to an optimised image under `public/previews/`. Never publish the complete paid files.
-
-Configure `guidePreviews.tantrums` and `guidePreviews.mealtimes` in `src/content/previews.ts`, with `src`, accurate `alt`, pixel `width`/`height`, and a `transcript` of the page text. Each preview becomes available independently. The accessible lightbox supports zoom, a text transcript, Escape, a close control, focus containment and return to the trigger. Its configured state is browser-tested using a test-only fixture, never advertised as a real ebook excerpt.
+Three real public page samples are configured in src/content/previews.ts, with transcripts and accessible zoom dialogs. Source: owner-supplied PDFs. Never publish complete paid books. Mila conversations remain clearly labeled illustrative static examples. No live chat is implemented.
 
 ## Visual system
 
@@ -56,6 +50,12 @@ New original illustrated covers are in `public/covers/`:
 The illustrations are generated artwork, not customer/founder photos or representations of existing ebook pages. The website uses the supplied original logo. Ebook covers still use their existing plain brand text; the page-logo update does not alter those cover illustrations. See [content notes](docs/claims-and-readiness.md).
 
 ## Thank-you redirect
+
+Production domain: `https://littlesteady.online`. Set the Whop redirect to
+`https://littlesteady.online/thank-you` and use
+`https://littlesteady.online/thank-you#guides-title` in Mila’s guide-access
+reply. Support: `support@littlesteady.online`. The public policy routes are
+`/privacy`, `/terms`, and `/refund`.
 
 After deployment, set the Whop after-purchase redirect to your domain’s `/thank-you` route. It is a static welcome page with three starting steps, copyable question suggestions, membership terms and help directions. It does not verify a purchase, show an invented renewal date, unlock paid files or fire a purchase analytics event.
 

@@ -909,9 +909,19 @@ dialog::backdrop {
   font-weight: 600;
   font-size: 0.9rem;
 }
-.thankyou-titles > span {
+.thankyou-titles > div {
   background: var(--sage);
   padding: 8px 12px;
+}
+.thankyou-pdf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--space-4);
+}
+.thankyou-pdf-actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 .thankyou-step .thankyou-small {
   font-size: 0.8rem;
@@ -1456,5 +1466,667 @@ dialog::backdrop {
   *::after {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* Lead with the main playbook; specialist guides are included bonuses. */
+.playbook-feature {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: clamp(24px, 5vw, 72px);
+  align-items: center;
+  padding: clamp(24px, 4vw, 56px);
+  background: var(--sage, #e9efe8);
+  border-radius: 12px;
+  margin-bottom: 48px;
+}
+.playbook-art {
+  display: flex;
+  justify-content: center;
+}
+.playbook-art .book {
+  width: 240px;
+  aspect-ratio: auto;
+}
+.playbook-copy h3 {
+  font-family: var(--font-heading, 'Fraunces', serif);
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.15;
+  margin: 16px 0;
+}
+.playbook-copy p {
+  max-width: 55ch;
+}
+.bonus-heading {
+  margin-bottom: 28px;
+}
+.bonus-heading h3 {
+  font-size: 28px;
+}
+.sample-note {
+  font-size: 14px;
+  margin-top: 10px;
+}
+.hero-cover-pair {
+  gap: 10px;
+}
+.hero-cover-pair .book {
+  width: 76px;
+}
+.hero-cover-pair .book:first-child {
+  width: 90px;
+}
+.preview-transcript p {
+  white-space: pre-line;
+}
+@media (max-width: 700px) {
+  .playbook-feature {
+    grid-template-columns: 1fr;
+  }
+  .playbook-art .book {
+    width: 190px;
+  }
+  .hero-guides {
+    flex-wrap: wrap;
+  }
+  .hero-cover-pair .book {
+    width: 72px;
+  }
+  .hero-cover-pair .book:first-child {
+    width: 84px;
+  }
+}
+
+/* A continuous recognition-to-solution story before the product and offer. */
+.hero h1 {
+  font-size: clamp(36px, 4.3vw, 60px);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+.hero h1 em {
+  font-style: normal;
+  color: #42685a;
+}
+.hero-reassurance {
+  font-weight: 600;
+  margin: 24px 0;
+  line-height: 1.6;
+}
+.pain-scenes {
+  padding: 14px 0 14px 32px;
+  border-left: 1px solid #cbd6cc;
+}
+.pain-scene {
+  padding: 20px 0;
+  border-bottom: 1px solid #d9ded4;
+}
+.pain-scene:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.pain-scene > span {
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #52675e;
+}
+.pain-scene h2 {
+  font-size: clamp(24px, 2.2vw, 30px);
+  line-height: 1.25;
+  margin: 10px 0;
+}
+.pain-scene p {
+  font-size: 16px;
+  line-height: 1.65;
+  max-width: 48ch;
+}
+.recognition-section {
+  background: #e9efe8;
+}
+.story-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 6vw, 96px);
+}
+.story-layout h2 {
+  font-size: clamp(30px, 3.2vw, 44px);
+  line-height: 1.15;
+}
+.story-copy p + p {
+  margin-top: 20px;
+}
+.story-emphasis {
+  color: #234e43;
+  font-weight: 600;
+}
+.approach-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;
+  margin-top: 40px;
+}
+.approach-grid article {
+  border-top: 1px solid #becfc1;
+  padding-top: 22px;
+}
+.approach-grid h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  line-height: 1.2;
+  margin: 12px 0;
+}
+.approach-grid p {
+  font-size: 16px;
+  line-height: 1.65;
+}
+.solution-intro {
+  margin: 64px auto 0;
+  max-width: 720px;
+  text-align: center;
+}
+.solution-intro h3 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.2;
+  margin: 16px 0 20px;
+}
+@media (max-width: 700px) {
+  .pain-scenes {
+    padding: 0 0 0 20px;
+  }
+  .story-layout,
+  .approach-grid {
+    grid-template-columns: 1fr;
+  }
+  .approach-grid {
+    gap: 24px;
+  }
+  .solution-intro {
+    text-align: left;
+    margin-top: 40px;
+  }
+  .hero-reassurance {
+    margin: 20px 0;
+  }
+}
+
+.navigation-trigger {
+  width: 48px;
+  height: 48px;
+  border: 1px solid #d3dbd2;
+  border-radius: 50%;
+  color: #234e43;
+}
+.navigation-dialog {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  width: min(460px, 100%);
+  max-width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  border: 0;
+  background: #faf7f0;
+  padding: 80px 32px 40px;
+  color: #283c34;
+  overflow-y: auto;
+}
+.navigation-dialog::backdrop {
+  background: #152d2659;
+}
+.navigation-dialog h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 14px 0 28px;
+}
+.navigation-dialog h2:focus {
+  outline: none;
+}
+.navigation-dialog .dialog-close {
+  top: 24px;
+  right: 24px;
+}
+.menu-items {
+  display: flex;
+  flex-direction: column;
+}
+.menu-items > a,
+.menu-items > button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+  padding: 20px 0;
+  border: 0;
+  border-bottom: 1px solid #d3dbd2;
+  border-radius: 0;
+  background: transparent;
+  color: #234e43;
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+.menu-items > a:hover,
+.menu-items > button:hover {
+  color: #102e24;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.menu-content > p + p {
+  margin-top: 18px;
+}
+.menu-content .button {
+  margin-top: 24px;
+}
+.menu-back {
+  margin-top: 28px;
+}
+@media (max-width: 600px) {
+  .navigation-dialog {
+    padding: 76px 24px 32px;
+  }
+}
+
+/* Phone composition: readable narrative, compact product evidence, generous touch targets. */
+@media (max-width: 700px) {
+  body {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .header {
+    height: 68px;
+  }
+  .brand img {
+    width: 76px;
+  }
+  .section {
+    padding-block: 40px;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 24px;
+    padding-bottom: 36px;
+    gap: 30px;
+  }
+  .hero-copy h1 {
+    max-width: none;
+    font-size: clamp(32px, 8.5vw, 38px);
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    text-wrap: pretty;
+  }
+  .hero-copy .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.055em;
+    margin-bottom: 14px;
+  }
+  .hero-intro {
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 20px 0 16px;
+  }
+  .hero-reassurance {
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .pain-scenes {
+    padding: 24px 0 0;
+    border-left: 0;
+    border-top: 1px solid #cbd6cc;
+  }
+  .pain-scenes > .eyebrow {
+    margin-bottom: 4px;
+    font-size: 11px;
+  }
+  .pain-scene {
+    padding: 20px 0;
+  }
+  .pain-scene h2 {
+    font-size: 25px;
+    line-height: 1.22;
+    margin: 8px 0;
+  }
+  .pain-scene p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .story-layout {
+    gap: 22px;
+  }
+  .story-layout h2,
+  .better-way h2,
+  .section-heading h2,
+  .companion-copy h2,
+  .membership-copy h2,
+  .faq-intro h2 {
+    font-size: 30px;
+    line-height: 1.16;
+    max-width: none;
+  }
+  .story-copy p + p {
+    margin-top: 16px;
+  }
+  .section-heading {
+    display: block;
+    margin-bottom: 24px;
+  }
+  .section-heading > p {
+    margin-top: 18px;
+  }
+  .approach-grid {
+    margin-top: 24px;
+    gap: 24px;
+  }
+  .approach-grid h3 {
+    font-size: 24px;
+  }
+  .approach-grid p {
+    font-size: 16px;
+  }
+  .solution-intro {
+    margin-top: 32px;
+  }
+  .solution-intro h3 {
+    font-size: 28px;
+  }
+  .solution-intro h3 br {
+    display: none;
+  }
+  .companion-layout {
+    gap: 24px;
+  }
+  .companion-benefits {
+    margin-block: 20px;
+    gap: 12px;
+  }
+  .chat-header {
+    padding: 16px;
+  }
+  .chat-caption {
+    padding: 12px 16px 0;
+    font-size: 12px;
+  }
+  .chat-messages {
+    padding: 16px;
+    gap: 12px;
+  }
+  .chat-message {
+    max-width: 100%;
+    font-size: 16px;
+    line-height: 1.55;
+    padding: 12px 14px;
+  }
+  .chat-speaker {
+    font-size: 11px;
+  }
+  .playbook-feature {
+    grid-template-columns: 96px minmax(0, 1fr);
+    align-items: start;
+    gap: 14px 16px;
+    padding: 20px;
+    margin-bottom: 32px;
+  }
+  .playbook-art {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+  .playbook-art .book {
+    width: 96px;
+  }
+  .playbook-copy {
+    display: contents;
+  }
+  .playbook-copy .ownership-tag {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    align-self: end;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .playbook-copy h3 {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 24px;
+    line-height: 1.15;
+    margin: 0;
+    overflow-wrap: normal;
+  }
+  .playbook-copy > p,
+  .playbook-copy > ul,
+  .playbook-copy > button {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+  .playbook-copy .sample-note {
+    font-size: 13px;
+  }
+  .playbook-copy .preview-action {
+    justify-self: start;
+    margin: 0;
+  }
+  .guide-grid {
+    gap: 32px;
+  }
+  .guide-feature {
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 14px 16px;
+  }
+  .guide-art .book {
+    width: 92px;
+  }
+  .guide-copy .ownership-tag {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .guide-copy h3 {
+    font-size: 26px;
+  }
+  .guide-copy > p,
+  .guide-contents {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .preview-action,
+  .text-link {
+    min-height: 44px;
+    font-size: 15px;
+  }
+  .bonus-heading {
+    margin-bottom: 22px;
+  }
+  .bonus-heading h3 {
+    font-size: 26px;
+  }
+  .onboarding-sequence {
+    margin-top: 24px;
+    gap: 24px;
+  }
+  .onboarding-sequence h3 {
+    font-size: 19px;
+  }
+  .membership-section {
+    gap: 24px;
+  }
+  .pricing-panel {
+    padding: 24px 20px;
+  }
+  .membership-price strong {
+    font-size: 58px;
+  }
+  .button {
+    min-height: 52px;
+    width: 100%;
+    white-space: normal;
+    line-height: 1.4;
+  }
+  .accordion summary {
+    min-height: 60px;
+    padding-block: 18px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .accordion-answer {
+    font-size: 16px;
+  }
+  .closing-layout h2 {
+    font-size: 30px;
+  }
+  .footer {
+    padding-block: 32px;
+  }
+  .footer-bottom nav {
+    gap: 4px 16px;
+  }
+  .navigation-dialog {
+    padding: 76px 24px max(32px, env(safe-area-inset-bottom));
+    overscroll-behavior: contain;
+  }
+  .menu-items > a,
+  .menu-items > button {
+    min-height: 60px;
+    font-size: 17px;
+  }
+  .preview-dialog {
+    max-height: 94dvh;
+  }
+  .thankyou-main {
+    padding-top: 28px;
+  }
+  .thankyou-welcome h1 {
+    font-size: 36px;
+    max-width: none;
+  }
+  .thankyou-step {
+    padding-block: 28px;
+  }
+  .thankyou-step h2 {
+    font-size: 26px;
+  }
+}
+@media (max-width: 350px) {
+  .container {
+    width: calc(100% - 32px);
+  }
+  .hero-copy h1 {
+    font-size: 31px;
+  }
+  .playbook-feature {
+    padding: 16px;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 14px 12px;
+  }
+  .playbook-art .book {
+    width: 80px;
+  }
+  .playbook-copy h3 {
+    font-size: 22px;
+  }
+  .guide-feature {
+    grid-template-columns: 80px minmax(0, 1fr);
+  }
+  .guide-art .book {
+    width: 80px;
+  }
+}
+
+.try-intro {
+  margin-top: 32px;
+  max-width: 720px;
+}
+.try-intro h3,
+.practice-example h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.practice-example {
+  margin-top: 36px;
+  padding: 32px;
+  border-radius: 12px;
+  background: #e9efe8;
+}
+.practice-example blockquote {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1.35;
+  color: #234e43;
+  padding: 0 0 0 20px;
+  margin: 20px 0 24px;
+  border-left: 3px solid #789482;
+  max-width: 48ch;
+}
+.practice-example > p + p {
+  margin-top: 16px;
+}
+.practice-example .sample-note {
+  font-size: 13px;
+  margin-top: 22px;
+  color: #516258;
+}
+.chat-message > p {
+  white-space: pre-line;
+}
+.footer-ai-disclosure {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 24px;
+  color: #516258;
+  max-width: 88ch;
+}
+@media (max-width: 700px) {
+  .try-intro {
+    margin-top: 24px;
+  }
+  .try-intro h3,
+  .practice-example h3 {
+    font-size: 25px;
+  }
+  .practice-example {
+    margin-top: 28px;
+    padding: 22px 20px;
+  }
+  .practice-example blockquote {
+    font-size: 24px;
+    padding-left: 16px;
+  }
+  .practice-example > p {
+    font-size: 16px;
+  }
+  .practice-example .sample-note {
+    font-size: 13px;
+  }
+}
+
+.tantrums-hero {
+  padding-bottom: 0;
+}
+
+.tantrums-hero h1 {
+  max-width: 25ch;
+  text-wrap: balance;
+}
+
+.tantrums-hero .hero-intro {
+  max-width: 56ch;
+  margin-bottom: 0;
+}
+
+@media (max-width: 700px) {
+  .tantrums-hero h1 {
+    font-size: clamp(1.75rem, 7vw, 2.4rem);
+  }
+}
+
+@media (min-width: 701px) {
+  .onboarding-sequence--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

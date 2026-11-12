@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowUpRight, Check, Copy } from 'lucide-react'
 import {
+  guidePdfs,
   offer,
   priceLabel,
   renewalLabel,
@@ -8,6 +10,21 @@ import {
   supportHref,
 } from '../config'
 import { Brand, Eyebrow } from './Shared'
+function OptionalLink({
+  href,
+  className,
+  children,
+}: {
+  href?: string
+  className?: string
+  children: ReactNode
+}) {
+  return href ? (
+    <a href={href} className={className}>
+      {children}
+    </a>
+  ) : null
+}
 
 function StarterQuestion({ question }: { question: string }) {
   const [status, setStatus] = useState<'idle' | 'copied' | 'failed'>('idle')
@@ -50,8 +67,7 @@ function StarterQuestion({ question }: { question: string }) {
     </div>
   )
 }
-
-/** Static post-purchase redirect. No payment verification, paid files or purchase events. */
+/** Static post-purchase redirect. No payment verification or purchase events. */
 export function ThankYouPage() {
   const library = safeUrl(offer.links.library),
     messenger = safeUrl(offer.links.messenger)
@@ -61,9 +77,9 @@ export function ThankYouPage() {
     <>
       <header className="header container thankyou-header">
         <Brand />
-        <a href="/" className="text-link">
+        <OptionalLink href="/" className="text-link">
           <ArrowLeft size={15} /> Back to Little Steady
-        </a>
+        </OptionalLink>
       </header>
       <main id="main-content" className="thankyou-main container">
         <section className="thankyou-welcome" aria-labelledby="welcome-heading">
@@ -80,28 +96,70 @@ export function ThankYouPage() {
             <section className="thankyou-step" aria-labelledby="guides-title">
               <span className="thankyou-number">01</span>
               <div>
-                <h2 id="guides-title">Open your two guides</h2>
+                <h2 id="guides-title">Open your three guides</h2>
+                <p>Open any guide in a new tab or download a copy to keep.</p>
                 <p>
-                  Sign in with the email you used at checkout, then open your
-                  Little Steady purchase.
+                  Download EPUB to read in Apple Books on iPhone or Google Play
+                  Books on Android.
                 </p>
                 <div className="thankyou-titles">
-                  <span>Calmer Tantrums</span>
-                  <span>Calmer Mealtimes</span>
+                  {guidePdfs.map(({ title, href }) => {
+                    const openUrl = href
+                    const downloadUrl = href
+                    return (
+                      <div key={title}>
+                        <strong>{title}</strong>
+                        {(openUrl || downloadUrl) && (
+                          <div className="thankyou-pdf-actions">
+                            {openUrl && (
+                              <a
+                                className="text-link"
+                                href={openUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`Open ${title} PDF in a new tab`}
+                              >
+                                Open PDF ↗
+                              </a>
+                            )}
+                            {downloadUrl && (
+                              <a
+                                className="text-link"
+                                href={downloadUrl}
+                                download
+                                aria-label={`Download ${title} PDF`}
+                              >
+                                Download PDF
+                              </a>
+                            )}
+                            <a
+                              className="text-link"
+                              href={href.replace(/\.pdf$/, '.epub')}
+                              download
+                              aria-label={`Download EPUB for ebook apps — ${title}`}
+                            >
+                              Download EPUB for ebook apps
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
                 </div>
                 <p>
-                  If mealtimes are on your mind, start with Calmer Mealtimes. If
-                  big feelings are the part you want to focus on, start with
-                  Calmer Tantrums. Both ebooks are yours to keep after
-                  cancellation.
+                  Start with the Playbook’s “Your first day” page for an
+                  everyday plan. If mealtimes are on your mind, try Calmer
+                  Mealtimes. If big feelings are the part you want to focus on,
+                  start with Calmer Tantrums. All three guides are yours to keep
+                  after cancellation.
                 </p>
-                <a
+                <OptionalLink
                   className="button button--primary"
-                  href={library || 'https://whop.com/'}
+                  href={library || undefined}
                 >
                   {library ? 'Open your guides' : 'Find your guides'}
                   <ArrowUpRight size={17} />
-                </a>
+                </OptionalLink>
               </div>
             </section>
             <section
@@ -112,26 +170,26 @@ export function ThankYouPage() {
               <div>
                 <h2 id="messenger-title">Get started in Messenger</h2>
                 <p>
-                  Open your purchase and follow the steps for starting your
-                  Messenger chat.
+                  Check your purchase confirmation and follow the steps for
+                  starting your Messenger chat.
                 </p>
                 <p>
-                  You’ll be messaging Little Steady’s AI parenting companion in
-                  a one-to-one conversation—not joining a group or talking with
-                  a human coach.
+                  You’ll be messaging Mila, Little Steady’s AI parenting
+                  companion in a one-to-one conversation—not joining a group or
+                  talking with a human coach.
                 </p>
-                <a
+                <OptionalLink
                   className="button button--primary"
-                  href={messenger || library || 'https://whop.com/'}
+                  href={messenger || library || undefined}
                 >
                   {messenger
                     ? 'Open the companion in Messenger'
                     : 'Find your chat instructions'}
                   <ArrowUpRight size={17} />
-                </a>
+                </OptionalLink>
                 <p className="thankyou-small">
                   If your chat is not ready, check the instructions in your
-                  purchase or use the help link below.
+                  purchase or use the help details in your receipt.
                 </p>
               </div>
             </section>
@@ -150,8 +208,8 @@ export function ThankYouPage() {
                 </div>
                 <p className="thankyou-small">
                   No names, birth dates or medical history needed. AI can make
-                  mistakes; use your judgement and seek qualified help for
-                  health or safety concerns.
+                  mistakes; use your judgment and seek qualified help for health
+                  or safety concerns.
                 </p>
               </div>
             </section>
@@ -166,7 +224,7 @@ export function ThankYouPage() {
                 <li>
                   <Check size={18} />
                   <span>
-                    {priceLabel()} for both ebooks and the AI companion
+                    {priceLabel()} for all three guides and the AI companion
                   </span>
                 </li>
                 <li>
@@ -175,7 +233,7 @@ export function ThankYouPage() {
                 </li>
                 <li>
                   <Check size={18} />
-                  <span>Keep both ebooks after cancellation</span>
+                  <span>Keep all three guides after cancellation</span>
                 </li>
               </ul>
               <p>
@@ -188,33 +246,37 @@ export function ThankYouPage() {
                 you’ve paid for. Refund requests are handled separately under
                 the published refund policy.
               </p>
-              <a className="text-link" href={manage || 'https://whop.com/'}>
+              <OptionalLink className="text-link" href={manage || undefined}>
                 {manage ? 'Manage your membership' : 'Open your account'}
                 <ArrowUpRight size={16} />
-              </a>
+              </OptionalLink>
             </aside>
             <aside className="thankyou-help" aria-labelledby="help-title">
-              <h2 id="help-title">Need help getting in?</h2>
+              <h2 id="help-title">Need help finding your PDFs?</h2>
               <p>
-                <strong>Missing your guides?</strong> Check that you’re signed
-                in with the same account used at checkout.
+                Start in <a href="#guides-title">Your three guides</a>. If a PDF
+                fails to open, try downloading it and opening the saved copy.
               </p>
+              <StarterQuestion question="Where can I open or download my Little Steady PDFs?" />
+              <OptionalLink className="text-link" href={messenger || undefined}>
+                Ask Mila in Messenger <ArrowUpRight size={16} />
+              </OptionalLink>
               <p>
                 <strong>Can’t start your Messenger chat?</strong> Return to the
                 instructions and help options in your purchase.
               </p>
               <p>
                 <strong>Billing, cancellation or refund question?</strong> Use
-                your purchase or receipt. Cancelling future payments and
+                your purchase or receipt. Canceling future payments and
                 requesting a refund are separate actions.
               </p>
-              <a
+              <OptionalLink
                 className="text-link"
-                href={support || library || 'https://whop.com/'}
+                href={support || library || undefined}
               >
                 {support ? 'Get help' : 'Get help with your purchase'}
                 <ArrowUpRight size={16} />
-              </a>
+              </OptionalLink>
             </aside>
           </div>
         </div>

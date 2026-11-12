@@ -3,7 +3,6 @@ import { Maximize2, Minus, Plus, X } from 'lucide-react'
 import { guidePreviews } from '../content/previews'
 import type { GuideKind } from '../content/previews'
 import { track } from '../lib/analytics'
-
 export function GuidePreview({
   kind,
   title,
@@ -16,7 +15,6 @@ export function GuidePreview({
   const [zoom, setZoom] = useState(1)
   const dialogRef = useRef<HTMLDialogElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
-
   useEffect(() => {
     if (!open || !preview) return
     const dialog = dialogRef.current
@@ -29,7 +27,7 @@ export function GuidePreview({
       triggerRef.current?.focus()
     }
   }, [open, preview])
-
+  if (!preview) return null
   return (
     <>
       <button

@@ -16,26 +16,33 @@ export interface OfferConfig {
   seller: { legalName: string | null; address: string | null }
   analytics: { enabled: boolean; consentRequired: boolean }
 }
-
+export const siteUrl = 'https://littlesteady.online'
 export const offer: OfferConfig = {
   brand: 'Little Steady',
   // The owner's original artwork, presented without redrawing the logo.
   logo: '/brand/little-steady-logo.webp',
-  price: { amount: 37, currency: 'EUR', interval: 'month' },
+  price: { amount: 29, currency: 'USD', interval: 'month' },
   links: {
-    // Set this to the final €37/month Whop checkout when fulfilment is ready.
-    checkout: null,
+    checkout: 'https://whop.com/checkout/plan_ZcLVp2Qt04d0s',
     library: null,
-    messenger: null,
+    messenger: 'https://m.me/61596180792119',
     manage: null,
     refund: null,
     privacy: null,
     terms: null,
   },
-  support: { email: null, url: null },
-  seller: { legalName: null, address: null },
+  support: { email: 'support@littlesteady.online', url: null },
+  seller: { legalName: 'Martin Vasko (IČO 56440553)', address: null },
   analytics: { enabled: false, consentRequired: true },
 }
+export const guidePdfs = [
+  {
+    title: 'The Calmer Parenting Playbook',
+    href: '/guides/Little-Steady-Calmer-Parenting-Playbook.pdf',
+  },
+  { title: 'Calmer Tantrums', href: '/guides/calmer-tantrums-ebook.pdf' },
+  { title: 'Calmer Mealtimes', href: '/guides/calmer-mealtimes-ebook.pdf' },
+]
 
 export function safeUrl(value: string | null): string | null {
   if (!value) return null
@@ -62,7 +69,7 @@ export function canPurchase(config: OfferConfig = offer): boolean {
   )
 }
 export function formatPrice(config: OfferConfig = offer): string {
-  return new Intl.NumberFormat('en-IE', {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: config.price.currency,
     minimumFractionDigits: 0,
@@ -71,7 +78,7 @@ export function formatPrice(config: OfferConfig = offer): string {
 }
 export const priceLabel = (config: OfferConfig = offer) =>
   `${formatPrice(config)}/month`
-export const renewalLabel = () => 'Renews monthly until cancelled.'
+export const renewalLabel = () => 'Renews monthly until canceled.'
 export const supportHref = () =>
   safeUrl(offer.support.url) ||
   (offer.support.email ? `mailto:${offer.support.email}` : null)

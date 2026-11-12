@@ -1,17 +1,11 @@
 # Current offer
 
-One owner-approved €37 EUR/month subscription includes:
+Owner-selected launch price: $29 USD/month. One membership includes The Calmer Parenting Playbook (41 pages, ages 2-6), Calmer Tantrums (36 pages, ages 18 months-5 years), Calmer Mealtimes (35 pages, ages 18 months-5 years), and Mila AI in Messenger during the paid period. All three guides are included with the first purchase and kept after cancellation.
 
-- The AI parenting companion in Messenger during the paid period, with one-to-one conversations and follow-up questions.
-- Calmer Tantrums and Calmer Mealtimes, included with the first purchase and kept after cancellation.
-- The scripts, practice sequences and printable tools described inside those guides in the owner's latest copy.
+The Playbook is the main product. The two specialist guides are included bonuses. There is no joining fee, separate guide payment, introductory discount, trial or voluntary money-back guarantee. Refund requests are separate from cancellation and consumer rights apply.
 
-The first payment is charged on purchase. Renewal continues monthly until cancelled. Customers cancel future renewals in their account before the next billing date; companion access continues through the period paid for. Both ebooks remain theirs. External billing and access rules must implement these promises.
+All three PDFs were supplied by the owner and inspected. Only individual sample-page images and their text transcripts are public; complete paid PDFs must remain in the paid delivery service.
 
-There is no separate joining fee, book payment or additional chatbot plan. Previous split-price proposals are superseded. The latest supplied copy repeats the same €37/month amount in the hero, offer and join buttons, replacing the earlier single-display copy.
+Mila is not set up yet. Checkout remains disabled. The owner will supply checkout, library, Messenger, account and support destinations. The thank-you page provides purchase-confirmation instructions when a link is absent; it never verifies payment or grants access.
 
-The voluntary 14-day cash-back guarantee has been removed at the owner's request. No free trial or blanket refusal of refunds is advertised. Refund requests are separate from cancellation and are handled under the published policy and consumer law. Supply that policy and configure the checkout accordingly.
-
-The intended audience is parents of children aged 18 months to 5 years, as specified by the owner. The companion provides general parenting education, not diagnosis, therapy or emergency support. No response-time, activation-time or uptime guarantee is advertised. Verify actual service capability before launch.
-
-€37 is the owner's selected price, not a researched optimum. Prior competitor/primary-source requests were blocked by the outbound proxy; no market-validation or highest-conversion claim is made. Use verified purchases, refunds, renewal retention and operating costs to evaluate the offer after launch.
+$29 is a launch hypothesis, not an established optimum. Measure verified paid subscriptions, acquisition cost, refunds and renewal retention once external tracking is configured.

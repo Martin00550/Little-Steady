@@ -2,11 +2,21 @@ export function Book({
   kind,
   compact = false,
 }: {
-  kind: 'tantrums' | 'mealtimes'
+  kind: 'parenting' | 'tantrums' | 'mealtimes'
   compact?: boolean
 }) {
-  const title = kind === 'tantrums' ? 'Calmer Tantrums' : 'Calmer Mealtimes'
-  const path = `/covers/calmer-${kind}`
+  const title =
+    kind === 'parenting'
+      ? 'The Calmer Parenting Playbook'
+      : kind === 'tantrums'
+        ? 'Calmer Tantrums'
+        : 'Calmer Mealtimes'
+  const path =
+    kind === 'parenting'
+      ? '/covers/calmer-parenting-illustrated'
+      : kind === 'mealtimes'
+        ? '/covers/calmer-mealtimes-mom'
+        : `/covers/calmer-${kind}`
   return (
     <picture className="book">
       <source
