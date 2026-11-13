@@ -316,17 +316,21 @@ export const policyContent: Record<
     content: (
       <>
         <p>
-          To stop future payments, cancel from your account. You can use the
-          chat until the end of the time you’ve paid for, and you keep all three
-          guides after cancellation.
+          To stop future renewals, cancel in your Whop account before your next
+          billing date. You can use the chat until the end of the time you’ve
+          paid for, and you keep all three guides after cancellation.
         </p>
         <p>
-          Canceling stops future payments. To ask for a refund or help with a
-          payment, use the help link in your Whop purchase or email{' '}
+          For a refund request about your Little Steady membership, email{' '}
           <a href="mailto:support@littlesteady.online">
             support@littlesteady.online
           </a>{' '}
           with your order reference.
+        </p>
+        <p>
+          For an unrecognized charge, duplicate charge, or payment processing
+          error, contact <a href="mailto:support@whop.com">Whop support</a>.
+          Whop processes approved refunds to the original payment method.
         </p>
         <p>
           Refund requests are handled separately from cancellation. If you have
