@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Footer, Header, policyContent } from './components/Shared'
-import { offer, supportHref } from './config'
+import { offer, safeUrl, supportHref } from './config'
 import { SalesPage } from './components/SalesPage'
 import { ThankYouPage } from './components/ThankYouPage'
 export function App() {
@@ -17,9 +17,11 @@ export function App() {
           ? 'Calmer Tantrums — What to say when it’s time to go | Little Steady'
           : path === '/thank-you'
             ? 'Thank you — Little Steady'
-            : policy
-              ? `${policy.title} — Little Steady`
-              : 'Page not found — Little Steady'
+            : path === '/mila'
+              ? 'Before you chat with Mila — Little Steady'
+              : policy
+                ? `${policy.title} — Little Steady`
+                : 'Page not found — Little Steady'
     if (path === '/tantrums') {
       document
         .querySelector('meta[name="description"]')
@@ -38,6 +40,32 @@ export function App() {
         <SalesPage tantrums={path === '/tantrums'} />
       ) : path === '/thank-you' ? (
         <ThankYouPage />
+      ) : path === '/mila' ? (
+        <>
+          <Header />
+          <main id="main-content" className="container thankyou-main">
+            <article className="thankyou-welcome">
+              <h1>Before you chat with Mila</h1>
+              <p>
+                Mila is Little Steady’s AI parenting companion for adults.
+                Please leave out children’s names, dates of birth, medical
+                details, and other identifying information.
+              </p>
+              <p>
+                Read our <a href="/privacy">privacy notice</a> for how
+                Messenger, SendPulse, and OpenAI handle your chat.
+              </p>
+              {safeUrl(offer.links.messenger) && (
+                <a
+                  className="button button--primary"
+                  href={safeUrl(offer.links.messenger)!}
+                >
+                  Agree and continue to Messenger
+                </a>
+              )}
+            </article>
+          </main>
+        </>
       ) : policy ? (
         <>
           <Header />

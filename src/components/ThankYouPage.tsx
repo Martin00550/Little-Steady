@@ -178,32 +178,15 @@ export function ThankYouPage() {
                   companion in a one-to-one conversation—not joining a group or
                   talking with a human coach.
                 </p>
-                {messenger ? (
-                  <details>
-                    <summary className="button button--primary">
-                      Open Mila in Messenger
-                    </summary>
-                    <p>
-                      Mila is an AI parenting companion for adults. Please leave
-                      out children’s names, dates of birth, medical details, and
-                      other identifying information. Read our{' '}
-                      <a href="/privacy">privacy notice</a>.
-                    </p>
-                    <OptionalLink
-                      className="button button--primary"
-                      href={messenger}
-                    >
-                      Continue to Messenger <ArrowUpRight size={17} />
-                    </OptionalLink>
-                  </details>
-                ) : (
-                  <OptionalLink
-                    className="button button--primary"
-                    href={library || undefined}
-                  >
-                    Find your chat instructions <ArrowUpRight size={17} />
-                  </OptionalLink>
-                )}
+                <OptionalLink
+                  className="button button--primary"
+                  href={messenger ? '/mila' : library || undefined}
+                >
+                  {messenger
+                    ? 'Open Mila in Messenger'
+                    : 'Find your chat instructions'}
+                  <ArrowUpRight size={17} />
+                </OptionalLink>
                 <p className="thankyou-small">
                   If your chat is not ready, check the instructions in your
                   purchase or use the help details in your receipt.
