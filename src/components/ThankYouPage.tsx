@@ -252,15 +252,11 @@ export function ThankYouPage() {
               </OptionalLink>
             </aside>
             <aside className="thankyou-help" aria-labelledby="help-title">
-              <h2 id="help-title">Need help finding your PDFs?</h2>
+              <h2 id="help-title">Need help?</h2>
               <p>
-                Start in <a href="#guides-title">Your three guides</a>. If a PDF
-                fails to open, try downloading it and opening the saved copy.
+                If you’re having trouble opening or downloading a guide, contact
+                support and tell us which guide you’re trying to open.
               </p>
-              <StarterQuestion question="Where can I open or download my Little Steady PDFs?" />
-              <OptionalLink className="text-link" href={messenger || undefined}>
-                Ask Mila in Messenger <ArrowUpRight size={16} />
-              </OptionalLink>
               <p>
                 <strong>Can’t start your Messenger chat?</strong> Return to the
                 instructions and help options in your purchase.
@@ -274,7 +270,7 @@ export function ThankYouPage() {
                 className="text-link"
                 href={support || library || undefined}
               >
-                {support ? 'Get help' : 'Get help with your purchase'}
+                {support ? 'Email support' : 'Get help with your purchase'}
                 <ArrowUpRight size={16} />
               </OptionalLink>
             </aside>
