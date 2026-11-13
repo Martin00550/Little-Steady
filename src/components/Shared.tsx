@@ -260,10 +260,10 @@ export const policyContent: Record<
           applicable. You can also complain to your data protection authority.
         </p>
         <p>
-          Retention depends on why we need the information. We use chat history
-          to keep conversations in context and handle support requests. Order
-          and billing records may be kept longer where required by law. To ask
-          how long we keep a particular record or request its deletion, email{' '}
+          SendPulse stores Mila chat history separately. Deleting a conversation
+          in Messenger may leave that history in SendPulse. If you cancel your
+          membership, we delete your Mila conversation from SendPulse when your
+          current paid period ends. To request earlier deletion, email{' '}
           <a href="mailto:support@littlesteady.online">
             support@littlesteady.online
           </a>
