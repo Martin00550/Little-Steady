@@ -260,6 +260,23 @@ export const policyContent: Record<
           applicable. You can also complain to your data protection authority.
         </p>
         <p>
+          Retention depends on why we need the information. We use chat history
+          to keep conversations in context and handle support requests. Order
+          and billing records may be kept longer where required by law. To ask
+          how long we keep a particular record or request its deletion, email{' '}
+          <a href="mailto:support@littlesteady.online">
+            support@littlesteady.online
+          </a>
+          .
+        </p>
+        <p>
+          Our providers may process data outside the European Economic Area.
+          SendPulse and OpenAI publish data processing terms that include the
+          European Commission’s Standard Contractual Clauses for transfers
+          covered by those terms. Contact support for information about the
+          safeguards that apply to your data and how to obtain a copy.
+        </p>
+        <p>
           This website does not collect chat messages or children’s details.
           Optional analytics is disabled.
         </p>
@@ -305,8 +322,11 @@ export const policyContent: Record<
         </p>
         <p>
           Canceling stops future payments. To ask for a refund or help with a
-          payment, use the help link in your purchase or the seller contact
-          shown on your receipt.
+          payment, use the help link in your Whop purchase or email{' '}
+          <a href="mailto:support@littlesteady.online">
+            support@littlesteady.online
+          </a>{' '}
+          with your order reference.
         </p>
         <p>
           Refund requests are handled separately from cancellation. If you have
