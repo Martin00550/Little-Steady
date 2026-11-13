@@ -46,7 +46,10 @@ export function App() {
               <h1>{policy.title}</h1>
               {policy.content}
               <p>
-                {offer.seller.legalName} ·{' '}
+                {offer.seller.legalName}
+                <br />
+                {offer.seller.address}
+                <br />
                 <a href={supportHref() ?? undefined}>{offer.support.email}</a>
               </p>
             </article>

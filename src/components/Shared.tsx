@@ -239,9 +239,12 @@ export const policyContent: Record<
     content: (
       <>
         <p>
-          Meta provides Messenger. SendPulse runs the chatbot flow and passes
-          relevant conversation text to the configured AI provider to generate
-          Mila’s replies. Whop handles checkout and billing.
+          Martin Vasko operates Little Steady and is responsible for the
+          personal information Little Steady uses to provide the service. Whop
+          handles checkout and billing. When you use Mila, Meta provides
+          Messenger. SendPulse runs the chatbot and sends relevant messages and
+          conversation history to OpenAI to generate replies. Mila can consult
+          the Little Steady guides and use web search to answer questions.
         </p>
         <p>
           Describe situations without children’s names, dates of birth, medical
@@ -249,9 +252,12 @@ export const policyContent: Record<
           encryption or zero storage is made here.
         </p>
         <p>
-          We use order information to fulfill memberships and support requests
-          to help customers. You can contact us to ask about access, correction,
-          deletion or other applicable privacy rights.
+          We use order information, support correspondence, and messages you
+          send to Mila to provide and support your membership. We process this
+          information to perform our contract with you and keep records where
+          required by law. You can contact support to request access,
+          correction, deletion, restriction, or portability, or to object where
+          applicable. You can also complain to your data protection authority.
         </p>
         <p>
           This website does not collect chat messages or children’s details.
