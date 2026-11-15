@@ -2130,3 +2130,22 @@ dialog::backdrop {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+.analytics-preferences {
+  padding: 16px 24px;
+  background: var(--sage);
+  color: var(--forest);
+}
+.analytics-preferences:has(.analytics-actions) {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  border-top: 1px solid currentColor;
+}
+.analytics-preferences p {
+  margin: 0 0 10px;
+}
+.analytics-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

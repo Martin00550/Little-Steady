@@ -277,8 +277,15 @@ export const policyContent: Record<
           safeguards that apply to your data and how to obtain a copy.
         </p>
         <p>
-          This website does not collect chat messages or children’s details.
-          Optional analytics is disabled.
+          This website does not collect chat messages or children’s details. If
+          you allow optional analytics, Microsoft Clarity uses cookies, session
+          recordings, and heatmaps to help us understand how visitors use our
+          marketing pages. You can change your choice in Analytics settings. See
+          the{' '}
+          <a href="https://privacy.microsoft.com/en-us/privacystatement">
+            Microsoft Privacy Statement
+          </a>
+          .
         </p>
       </>
     ),

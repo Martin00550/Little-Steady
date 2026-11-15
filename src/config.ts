@@ -36,7 +36,7 @@ export const offer: OfferConfig = {
     legalName: 'Martin Vasko (IČO 56440553)',
     address: 'Ulica Jozefa Adamca 9983/24, 917 01 Trnava, Slovakia',
   },
-  analytics: { enabled: false, consentRequired: true },
+  analytics: { enabled: true, consentRequired: true },
 }
 export const guidePdfs = [
   {

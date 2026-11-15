@@ -3,6 +3,7 @@ import { Footer, Header, policyContent } from './components/Shared'
 import { offer, safeUrl, supportHref } from './config'
 import { SalesPage } from './components/SalesPage'
 import { ThankYouPage } from './components/ThankYouPage'
+import { AnalyticsPreferences } from './components/AnalyticsPreferences'
 export function App() {
   const path = window.location.pathname.replace(/\/$/, '') || '/'
   const policy =
@@ -101,6 +102,11 @@ export function App() {
         </>
       )}
       <Footer />
+      {offer.analytics.enabled && (
+        <AnalyticsPreferences
+          marketingPage={path === '/' || path === '/tantrums'}
+        />
+      )}
     </>
   )
 }

@@ -5,7 +5,7 @@ let consentGranted = false
 export function setAnalyticsConsent(allowed: boolean) {
   consentGranted = allowed
 }
-/** An optional adapter may listen for these events. No analytics provider is installed. */
+/** Emit local interaction events after analytics consent. */
 export function track(
   event: EventName,
   detail: { placement?: string; target?: string } = {},
